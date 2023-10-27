@@ -1,0 +1,78 @@
+.SignupContainer {
+    width: 450px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+    padding: 10px 5px;
+    box-shadow: 6px 10px 38px 0px rgba(0,0,0,0.75);
+}
+
+.Title {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.SignupInput {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+
+}
+
+.SignupInput input {
+    width: 100%;
+    border: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+
+}
+
+.TermsCheckbox {
+    display: flex;
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.SignupSubmit input {
+    color: white;
+    background-color: #081A2C;
+    position: relative;
+
+}
+
+.SignupSubmit input:hover {
+    background-color: #56789a;
+}
+
+.HomeScreenBackgroundOverlay {
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    position: relative;
+    z-index: 20;
+}
+
+.HomeScreenBackground {
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../assets/signup/signupCover.jpeg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.5;
+}
+
+.SignupWrapNameLast {
+    display: flex;
+    gap: 10px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
