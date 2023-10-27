@@ -2,8 +2,8 @@ package com.p3.gruppe4.Users;
 
 abstract class User {
 
-    int id;
-    String userName, password;
+    private int id;
+    private String userName, password;
 
     public User(String username, String password){
         this.userName = username;
