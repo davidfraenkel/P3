@@ -24,7 +24,7 @@ function Background({resultRef}) {
         </div>
 
     )
-};
+}
 
 const LearnHowTo = forwardRef(function LearnHowTo(props,ref) {
     return (
