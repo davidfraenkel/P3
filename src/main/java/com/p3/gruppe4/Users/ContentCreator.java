@@ -3,14 +3,10 @@ package com.p3.gruppe4.Users;
 public class ContentCreator extends User {
 
     int id;
-    String userName, password, company;
+    String userName, password;
 
-    public ContentCreator(String username, String password, String company) {
-        super(username, password, company);
+    public ContentCreator(String username, String password) {
+        super(username, password);
     }
 
-    @Override
-    void login(String userName, String password) {
-           
-    }
 }
