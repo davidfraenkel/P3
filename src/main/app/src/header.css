@@ -1,0 +1,25 @@
+.Nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: white;
+    box-shadow: 0 4px 2px -2px black;
+}
+
+.NavContainer {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 20px;
+
+}
+
+.NavProfile {
+    align-self: center;
+}
+
+.ProfileIcon {
+    width: 34px;
+    height: 34px;
+}
