@@ -1,4 +1,4 @@
-import './home.css'
+import './styling/home.css'
 import startBusiness from "../assets/homepage/startBusiness.jpg";
 import businessRelations from "../assets/homepage/businessRelations.jpg";
 import trainStaff from "../assets/homepage/trainStaff.jpg";
@@ -31,7 +31,7 @@ const LearnHowTo = forwardRef(function LearnHowTo(props,ref) {
         <div ref={ref} className='LearnHowToContainer'>
             <h1>Learn how to...</h1>
             <div className='HomepageCardContainer'>
-                { homepageCars.map(item => <HomepageCard key={item.id} name={item.name} image={item.image} />)}
+                { homepageCards.map(item => <HomepageCard key={item.id} name={item.name} image={item.image} />)}
             </div>
         </div>
     )})
@@ -100,7 +100,7 @@ export default function Home() {
 
 }
 
-const homepageCars = [
+const homepageCards = [
     {'id': 1,'name': 'Start a business', 'image': startBusiness},
     {'id': 2,'name': 'Train new Staff', 'image': trainStaff},
     {'id': 3,'name': 'Make business relations', 'image': businessRelations},

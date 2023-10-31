@@ -1,25 +1,94 @@
-.Nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background-color: white;
-    box-shadow: 0 4px 2px -2px black;
+/* header.css */
+
+/* Navbar base styles */
+.navbar {
+    background-color: #333; /* Set your desired background color */
+    color: #fff; /* Set text color */
+    padding: 20px 0;
 }
 
-.NavContainer {
+.container {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    margin: 5px 20px;
-
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
-.NavProfile {
-    align-self: center;
+a {
+    text-decoration: none;
+    color: #fff; /* Set your desired link color */
+    padding: 0 15px;
 }
 
-.ProfileIcon {
-    width: 34px;
-    height: 34px;
+/* Navbar Brand */
+.brand {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #fff; /* Set your brand color */
+    background-image: url('./assets/homepage/gastrome_logo_tekst_hvid.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 20px; /* Adjust height as needed */
+    width: 200px; /* Adjust width as needed */
+    display: block;
+}
+
+/* Navbar toggle button */
+.navbar-toggle {
+    display: none; /* Hide the toggle button initially for desktop */
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.toggle-icon {
+    display: block;
+    width: 20px; /* Set the width and height for the toggle icon */
+    height: 3px;
+    background-color: #fff; /* Set the toggle icon color */
+    margin: 4px;
+}
+
+/* Navbar links */
+.navbar-links {
+    display: flex;
+    align-items: center;
+}
+
+/* Dropdown */
+.dropdown {
+    position: relative;
+}
+
+.dropbtn {
+    background: none;
+    border: none;
+    color: #fff; /* Set dropdown button color */
+    cursor: pointer;
+    padding: 10px 15px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #333; /* Set your desired dropdown background color */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 10px 20px;
+    color: #fff; /* Set dropdown link color */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.divider {
+    border-top: 1px solid #555; /* Set divider color */
+    margin: 5px 0;
 }
