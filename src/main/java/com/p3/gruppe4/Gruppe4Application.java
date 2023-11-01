@@ -1,6 +1,6 @@
 package com.p3.gruppe4;
 
-import com.p3.gruppe4.Users.Admin;
+import com.p3.gruppe4.Models.Users.Admin;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -16,5 +16,4 @@ public class Gruppe4Application {
 		// Spring Boot run
 		SpringApplication.run(Gruppe4Application.class, args);
 	}
-
 }

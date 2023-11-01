@@ -1,4 +1,4 @@
-package com.p3.gruppe4.Users;
+package com.p3.gruppe4.Models.Users;
 
 public class ContentCreator extends User {
 
