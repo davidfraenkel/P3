@@ -1,10 +1,20 @@
 /* Container Styles */
-.HomeScreenBackgroundOverlay {
+.SignupBackgroundOverlay {
     background: linear-gradient(to bottom, #F8F8F8, #EAEAEA);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.SignupBackground {
+    width: 80vw;
+    height: 100vh;
+    background-image: url('../../assets/signup/signupCover.jpeg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.5;
 }
 
 .SignupContainer {

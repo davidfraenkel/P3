@@ -1,16 +1,20 @@
 import './styling/overview.css';
 import Header from '../Header';
 import React from "react";
+import {Link} from "react-router-dom";
 
 
 function Topic(props) {
     const topicImage = require('../assets/overview/' + props.name + '.' + props.imageType)
     return (
-        <div className="TopicContainer" style={{backgroundImage: "url(" + topicImage + ")"}}>
-            <div className="TopicTitle">
-                <p>{props.name}</p>
+        // Skal have linket til subtopic siden
+        <Link to=''>
+            <div className="TopicContainer" style={{backgroundImage: "url(" + topicImage + ")"}}>
+                <div className="TopicTitle">
+                    <p>{props.name}</p>
+                </div>
             </div>
-        </div>
+        </Link>
     )
 }
 

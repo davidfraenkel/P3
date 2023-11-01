@@ -17,7 +17,7 @@ export default function Signup() {
     };
 
     return (
-        <div className="HomeScreenBackgroundOverlay">
+        <div className="SignupBackgroundOverlay">
             <div className="SignupContainer">
                 <h1 className="Title">Welcome to Gastromé</h1>
                 <form onSubmit={handleSubmit}>
@@ -86,7 +86,7 @@ export default function Signup() {
                     </div>
                 </form>
             </div>
-            <div className="HomeScreenBackground"></div>
+            <div className="SignupBackground"></div>
         </div>
     );
 }
