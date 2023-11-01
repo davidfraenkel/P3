@@ -1,4 +1,4 @@
-package com.p3.gruppe4.Handbook;
+package com.p3.gruppe4.Models.Handbook;
 
 public class Handbook {
     public Handbook (){

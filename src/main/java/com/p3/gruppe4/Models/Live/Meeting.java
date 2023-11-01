@@ -1,4 +1,4 @@
-package com.p3.gruppe4.Live;
+package com.p3.gruppe4.Models.Live;
 
 import java.util.Date;
 
