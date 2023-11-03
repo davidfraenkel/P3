@@ -9,6 +9,6 @@ public class AdminController {
 
     @PostMapping("/addContentCreator")
     public void addContentCreator(@RequestBody ContentCreator contentCreator){
-
+        System.out.println("Hej \n\n\n\n Hej");
     }
 }
