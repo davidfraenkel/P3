@@ -8,7 +8,7 @@ export default function Header() {
         <div className="navbar">
             <div className="container">
                 <a href="#home" className="brand"></a>
-                <button className="navbar-toggle" aria-controls="basic-navbar-nav">
+                <button className="navbar-toggle">
                     <span className="toggle-icon"></span>
                 </button>
                 <div className="navbar-links" id="basic-navbar-nav">

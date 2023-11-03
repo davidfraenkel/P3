@@ -1,5 +1,8 @@
 import './styling/overview.css';
+<<<<<<< HEAD
 import Header from '../../Header';
+=======
+>>>>>>> 6a8795ed (Added createUpdateTopic)
 import React from "react";
 import {Link} from "react-router-dom";
 
@@ -23,7 +26,6 @@ export default function Overview() {
         <div>
             <h1>Hello user.name!</h1>
             <div>
-                <Header />
                 <div className="overview-content">
                 </div>
             </div>
