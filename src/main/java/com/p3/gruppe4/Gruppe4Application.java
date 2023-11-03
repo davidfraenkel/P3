@@ -11,7 +11,7 @@ public class Gruppe4Application {
 		// Database setup
 		Admin newAdmin = new Admin("Admin user", "password", "Admin");
 
-		newAdmin.addUser("User 1", "password123", "Admin");
+		newAdmin.addContentCreator("User 1", "password123");
 
 		// Spring Boot run
 		SpringApplication.run(Gruppe4Application.class, args);

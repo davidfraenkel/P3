@@ -13,8 +13,8 @@ public class Admin extends User {
         super(username, password, role);
     }
 
-    public void addUser(String username, String password, String role){
-        String connectionString = "mongodb+srv://pepperonis:ilovepepperonis321@p3gastrome.as1pjv9.mongodb.net/?retryWrites=true&w=majority";
+    public void addContentCreator(String username, String password){
+        String connectionString = System.getenv("CONNECTION_STRING");
 
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
@@ -22,9 +22,8 @@ public class Admin extends User {
             MongoCollection<Document> collection = db.getCollection("Users");
             collection.insertOne(new Document().append("username", username)
                     .append("password", password)
-                    .append("role", role)
+                    .append("role", "addContentCreator")
             );
-            System.out.println("Success! Inserted document id: ");
 
             // Prints a message if any exceptions occur during the operation
         } catch (MongoException me) {
