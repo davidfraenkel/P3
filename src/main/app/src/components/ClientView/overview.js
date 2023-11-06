@@ -1,8 +1,4 @@
 import './styling/overview.css';
-<<<<<<< HEAD
-import Header from '../../Header';
-=======
->>>>>>> 6a8795ed (Added createUpdateTopic)
 import React from "react";
 import {Link} from "react-router-dom";
 
