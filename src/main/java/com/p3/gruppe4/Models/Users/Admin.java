@@ -17,7 +17,6 @@ public class Admin extends User {
         String connectionString = "mongodb+srv://pepperonis:ilovepepperonis321@p3gastrome.as1pjv9.mongodb.net/?retryWrites=true&w=majority\n";
 
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            System.out.println("fasdfasd");
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
 
             MongoCollection<Document> collection = db.getCollection("Users");
