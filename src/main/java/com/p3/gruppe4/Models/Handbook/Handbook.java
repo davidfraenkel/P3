@@ -10,6 +10,7 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -19,18 +20,16 @@ public class Handbook {
         System.out.println("Handbook created");
     }
 
-    public Set<Document> getAllTopics(){
-        Set<Document> returnSet = Collections.emptySet();
+    public HashSet<Document> getAllTopics(){
+        HashSet<Document> returnSet = new HashSet<>(Collections.emptySet());
         try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
-            MongoCollection<Document> collection = db.getCollection("Users");
+            MongoCollection<Document> collection = db.getCollection("Topic");
 
             FindIterable<Document> iterableCollection = collection.find();
             Iterator iterator = iterableCollection.iterator();
 
             while (iterator.hasNext()) {
-                System.out.println("Next");
-                System.out.println(iterator.next());
                 returnSet.add((Document) iterator.next());
             }
             // Prints a message if any exceptions occur during the operation
@@ -57,6 +56,22 @@ public class Handbook {
             System.err.println("Unable to insert due to an error: " + me);
         }
         return returnDocument;
+    }
+
+    public void createTopic(String name, String imagePath, String summary) {
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+
+            MongoCollection<Document> collection = db.getCollection("Topic");
+            collection.insertOne(new Document().append("name", name)
+                    .append("imagePath", imagePath)
+                    .append("summary", summary)
+            );
+
+            // Prints a message if any exceptions occur during the operation
+        } catch (MongoException me) {
+            System.err.println("Unable to insert due to an error: " + me);
+        }
     }
 
     public void manageTopic(){

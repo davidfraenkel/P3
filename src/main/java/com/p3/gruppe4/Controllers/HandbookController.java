@@ -4,16 +4,14 @@ import com.p3.gruppe4.Models.Handbook.Handbook;
 import org.bson.Document;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
+import java.util.HashSet;
 
 @RestController
 public class HandbookController {
     Handbook handbook = new Handbook();
 
     @GetMapping("/getAllTopics")
-    public Set<Document> getAllTopics(){
-        System.out.println("Print 123");
-        System.out.println(this.handbook.getAllTopics());
+    public HashSet<Document> getAllTopics(){
         return this.handbook.getAllTopics();
     }
 
@@ -21,5 +19,10 @@ public class HandbookController {
     @ResponseBody
     public Document getTopicByName(@RequestParam(name = "topicName") String topicName){
         return this.handbook.getTopic(topicName);
+    }
+
+    @PostMapping("/createTopic")
+    public void createTopic(@RequestBody String name, String imagePath,String summary){
+        this.handbook.createTopic(name, imagePath, summary);
     }
 }
