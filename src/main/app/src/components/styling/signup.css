@@ -57,7 +57,6 @@ input[type="tel"],
 input[type="password"] {
     width: 100%;
     padding: 10px;
-    border: 2px solid #303133; /* Add a 2px solid border */
     border-radius: 5px;
     outline: none; /* Remove the default focus outline */
 }

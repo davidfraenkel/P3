@@ -1,0 +1,48 @@
+.OverviewHeaderContainer {
+    text-align: center;
+}
+.OverviewHeader {
+    font-weight: bolder;
+    font-size: 30px;
+}
+
+.TopicsContainer {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    max-width: 1400px;
+    flex-wrap: wrap;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.TopicContainer {
+    border-radius: 20px;
+    width: 384px;
+    height: 436px;
+    position: relative;
+    background-size: cover;
+}
+
+.TopicContainer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-radius: 30px;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
+    pointer-events: none;
+    z-index: 1;
+}
+
+.TopicTitle {
+    color: white;
+    position: absolute;
+    bottom: 3%;
+    left: 5%;
+    z-index: 2;
+    font-weight: bold;
+    font-size: 36px;
+}
