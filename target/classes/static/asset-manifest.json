@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/static/css/main.93e8e90d.css",
+    "main.js": "/static/js/main.c6524a54.js",
+    "static/js/787.c1112931.chunk.js": "/static/js/787.c1112931.chunk.js",
+    "static/media/background.jpg": "/static/media/background.b9e2d2347f598216012a.jpg",
+    "static/media/fine_dining.jpg": "/static/media/fine_dining.4844c1404cacafb4b99c.jpg",
+    "static/media/startBusiness.jpg": "/static/media/startBusiness.a33c61146453d8535717.jpg",
+    "static/media/trainStaff.jpg": "/static/media/trainStaff.624cec79c010f8d7ca9f.jpg",
+    "static/media/businessRelations.jpg": "/static/media/businessRelations.6e2158ea315987900fa4.jpg",
+    "index.html": "/index.html",
+    "main.93e8e90d.css.map": "/static/css/main.93e8e90d.css.map",
+    "main.c6524a54.js.map": "/static/js/main.c6524a54.js.map",
+    "787.c1112931.chunk.js.map": "/static/js/787.c1112931.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.93e8e90d.css",
+    "static/js/main.c6524a54.js"
+  ]
+}
