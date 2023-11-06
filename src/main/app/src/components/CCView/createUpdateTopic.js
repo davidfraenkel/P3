@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
+import {Link, useLocation} from "react-router-dom";
 import InputField from '../smartComponents/inputField';
 import '../CCView/styling/createUpdateTopic.css';
 
-const CreateUpdateTopic = () => {
+export default function CreateUpdateTopic(props)  {
     const [topicTitle, setTopicTitle] = useState('');
     const [file, setFile] = useState(null);
+    const location = useLocation();
+    const searchParams= new URLSearchParams(location.search);
+    const topicName = searchParams.get('topicName');
 
     const handleTitleChange = (e) => {
         setTopicTitle(e.target.value);
@@ -35,7 +39,7 @@ const CreateUpdateTopic = () => {
     return (
         <div className="FormCreateUpdateTopicBackgroundOverlay">
             <div className="FormCreateUpdateTopicContainer">
-                <h1 className="FormCreateUpdateTopicTitle">Create/Update Topic</h1>
+                <h1 className="FormCreateUpdateTopicTitle">{topicName ? `Update ${topicName}` : 'Create new topic'}</h1>
                 <form onSubmit={handleSubmit} className="FormCreateUpdateTopicForm">
                     <div className="FormCreateUpdateTopicInputContainer">
                         <InputField
@@ -66,4 +70,3 @@ const CreateUpdateTopic = () => {
     );
 };
 
-export default CreateUpdateTopic;

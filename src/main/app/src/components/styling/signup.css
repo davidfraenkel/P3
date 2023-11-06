@@ -1,6 +1,6 @@
 /* Container Styles */
 .SignupBackgroundOverlay {
-    background: linear-gradient(to bottom, #F8F8F8, #EAEAEA);
+    background-color: #000000;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -18,7 +18,7 @@
 }
 
 .SignupContainer {
-    background: #fff;
+    background: #ffffff;
     border-radius: 20px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     max-width: 700px;
@@ -26,6 +26,7 @@
     text-align: center;
     margin-right: 30px;
     margin-left: 30px;
+    margin-bottom: 100px;
 }
 
 /* Header Styles */

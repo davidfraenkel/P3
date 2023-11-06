@@ -24,7 +24,7 @@ function Router() {
                 </Route>
                 <Route path="/ccoverview/deletetopic" element={<DeleteTopic />}>
                 </Route>
-                <Route path="/ccoverview/createUpdateTopic" element={<CreateUpdateTopic />}>
+                <Route path="/ccoverview/createUpdateTopic/:topicName" element={<CreateUpdateTopic />}>
                 </Route>
             </Routes>
         </BrowserRouter>
