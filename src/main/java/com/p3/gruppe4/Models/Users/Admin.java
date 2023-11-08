@@ -14,7 +14,8 @@ public class Admin extends User {
     }
 
     public void addContentCreator(String username, String password){
-        String connectionString = System.getenv("CONNECTION_STRING");
+
+        String connectionString = "mongodb+srv://pepperonis:ilovepepperonis321@p3gastrome.as1pjv9.mongodb.net/?retryWrites=true&w=majority\n";
 
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
