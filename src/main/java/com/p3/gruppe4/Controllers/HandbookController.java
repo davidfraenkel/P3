@@ -22,7 +22,8 @@ public class HandbookController {
     }
 
     @PostMapping("/createTopic")
-    public void createTopic(@RequestBody String name, String imagePath,String summary){
+    public void createTopic(@RequestBody String name, String imagePath, String summary){
+        System.out.println(name);
         this.handbook.createTopic(name, imagePath, summary);
     }
 }
