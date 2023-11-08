@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 
+@CrossOrigin("http://localhost:3000")
 @RestController
 public class HandbookController {
     Handbook handbook = new Handbook();
