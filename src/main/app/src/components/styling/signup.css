@@ -1,32 +1,37 @@
 /* Container Styles */
+.SignupBackgroundImg{
+    background: url('../../assets/signup/signupCover.jpeg') center/cover no-repeat fixed;
+}
+
 .SignupBackgroundOverlay {
-    background-color: #000000;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
-.SignupBackground {
-    width: 80vw;
-    height: 100vh;
-    background-image: url('../../assets/signup/signupCover.jpeg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    opacity: 0.5;
+/* Apply opacity to the background image only */
+.SignupBackgroundOverlay::before {
+    content: "";
+    background: rgba(0, 0, 0, 0.5); /* Transparent black background with 0.5 opacity */
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
 .SignupContainer {
     background: #ffffff;
     border-radius: 20px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    max-width: 700px;
-    padding: 30px;
+    max-width: 1000px;
+    padding: 20px;
     text-align: center;
-    margin-right: 30px;
-    margin-left: 30px;
-    margin-bottom: 100px;
+    position: absolute;
+    top: 200px;
+    left: 100px; /* Positioned to the left */
 }
 
 /* Header Styles */
@@ -62,7 +67,6 @@ input[type="password"] {
     outline: none; /* Remove the default focus outline */
 }
 
-
 /* Checkbox Styles */
 .TermsCheckbox {
     display: flex;
@@ -94,7 +98,7 @@ input[type="password"] {
 /* Text Color for Links */
 a {
     color: #007bff;
-text-decoration: none;
+    text-decoration: none;
 }
 
 a:hover {

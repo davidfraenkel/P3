@@ -17,76 +17,78 @@ export default function Signup() {
     };
 
     return (
-        <div className="SignupBackgroundOverlay">
-            <div className="SignupContainer">
-                <h1 className="Title">Welcome to Gastromé</h1>
-                <form onSubmit={handleSubmit}>
-                    <div className="SignupWrapNameLast">
+        <div className="SignupBackgroundImg">
+            <div className="SignupBackgroundOverlay">
+                <div className="SignupContainer">
+                    <h1 className="Title">Welcome to Gastromé</h1>
+                    <form onSubmit={handleSubmit}>
+                        <div className="SignupWrapNameLast">
+                            <div className="SignupInput">
+                                <InputField
+                                    type={"text"}
+                                    name={"username"}
+                                    placeholder={"Name"}
+                                    value={inputs.username}
+                                    func={handleChange}
+                                />
+                            </div>
+                            <div className="SignupInput">
+                                <InputField
+                                    type={"text"}
+                                    name={"lastname"}
+                                    placeholder={"Lastname"}
+                                    value={inputs.lastname}
+                                    func={handleChange}
+                                />
+                            </div>
+                        </div>
                         <div className="SignupInput">
                             <InputField
-                                type={"text"}
-                                name={"username"}
-                                placeholder={"Name"}
-                                value={inputs.username}
+                                type={"email"}
+                                name={"email"}
+                                placeholder={"Email"}
+                                value={inputs.email}
                                 func={handleChange}
                             />
                         </div>
                         <div className="SignupInput">
                             <InputField
-                                type={"text"}
-                                name={"lastname"}
-                                placeholder={"Lastname"}
-                                value={inputs.lastname}
+                                type={"tel"}
+                                name={"phonenumber"}
+                                placeholder={"Phone number"}
+                                value={inputs.phonenumber}
                                 func={handleChange}
                             />
                         </div>
-                    </div>
-                    <div className="SignupInput">
-                        <InputField
-                            type={"email"}
-                            name={"email"}
-                            placeholder={"Email"}
-                            value={inputs.email}
-                            func={handleChange}
-                        />
-                    </div>
-                    <div className="SignupInput">
-                        <InputField
-                            type={"tel"}
-                            name={"phonenumber"}
-                            placeholder={"Phone number"}
-                            value={inputs.phonenumber}
-                            func={handleChange}
-                        />
-                    </div>
-                    <div className="SignupInput">
-                        <InputField
-                            type={"password"}
-                            name={"password"}
-                            placeholder={"Password"}
-                            value={inputs.password}
-                            func={handleChange}
-                        />
-                    </div>
-                    <div className="SignupInput">
-                        <InputField
-                            type={"password"}
-                            name={"confirmpassword"}
-                            placeholder={"Confirm Password"}
-                            value={inputs.confirmpassword}
-                            func={handleChange}
-                        />
-                    </div>
-                    <div className="TermsCheckbox">
-                        <input type="checkbox" name="terms" />
-                        <p>Accept Terms and Conditions</p>
-                    </div>
-                    <div className="SignupInput SignupSubmit">
-                        <input type="submit" value="Sign up" />
-                    </div>
-                </form>
+                        <div className="SignupInput">
+                            <InputField
+                                type={"password"}
+                                name={"password"}
+                                placeholder={"Password"}
+                                value={inputs.password}
+                                func={handleChange}
+                            />
+                        </div>
+                        <div className="SignupInput">
+                            <InputField
+                                type={"password"}
+                                name={"confirmpassword"}
+                                placeholder={"Confirm Password"}
+                                value={inputs.confirmpassword}
+                                func={handleChange}
+                            />
+                        </div>
+                        <div className="TermsCheckbox">
+                            <input type="checkbox" name="terms" />
+                            <p>Accept Terms and Conditions</p>
+                        </div>
+                        <div className="SignupInput SignupSubmit">
+                            <input type="submit" value="Sign up" />
+                        </div>
+                    </form>
+                </div>
+                <div className="SignupBackground"></div>
             </div>
-            <div className="SignupBackground"></div>
         </div>
     );
 }
