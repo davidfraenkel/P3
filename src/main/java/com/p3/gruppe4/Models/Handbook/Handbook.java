@@ -8,6 +8,7 @@ import com.mongodb.client.*;
 import com.mongodb.client.model.Projections;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -63,7 +64,8 @@ public class Handbook {
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
 
             MongoCollection<Document> collection = db.getCollection("Topic");
-            collection.insertOne(new Document().append("name", name)
+            collection.insertOne(new Document()
+                    .append("name", name)
                     .append("imagePath", imagePath)
                     .append("summary", summary)
             );
