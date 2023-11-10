@@ -2,6 +2,7 @@ import './styling/subOverview.css';
 import React from "react";
 import {Link} from "react-router-dom";
 import management from "../../assets/overview/subOverview/Management.jpg";
+import {BsBookmark, BsFillBookmarkFill} from "react-icons/bs"
 export default function SubOverview()  {
     const date = new Date;
 
@@ -20,7 +21,9 @@ export default function SubOverview()  {
                             <img src={management} alt="picture"/>
                         </div>
                         <div>
-                            <span className="SubTopicDato">{date.toDateString()}</span> <span className="subTag">Business</span>
+                            <div className="SubTopicDateTag">
+                                <span className="SubTopicDato">{date.toDateString()}</span> <span className="subTag"><BsBookmark /></span>
+                            </div>
                             <h2 className="SubTopicName">Management</h2>
                             <p className="SubTopicSummary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur cum ea excepturi ipsum iure maiores nesciunt non sit tempore velit. Eum ipsam numquam quia voluptate voluptatem. Aspernatur doloribus minus molestiae.</p>
                         </div>
@@ -31,7 +34,9 @@ export default function SubOverview()  {
                             <img src={management} alt="picture"/>
                         </div>
                         <div>
-                            <span className="SubTopicDato">{date.toDateString()}</span>        <span className="subTag">Business</span>
+                            <div className="SubTopicDateTag">
+                                <span className="SubTopicDato">{date.toDateString()}</span> <span className="subTag"><BsBookmark /></span>
+                            </div>
                             <h2 className="SubTopicName">Law</h2>
                             <p className="SubTopicSummary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur cum ea excepturi ipsum iure maiores nesciunt non sit tempore velit. Eum ipsam numquam quia voluptate voluptatem. Aspernatur doloribus minus molestiae.</p>
                         </div>
@@ -42,7 +47,9 @@ export default function SubOverview()  {
                             <img src={management} alt="picture"/>
                         </div>
                         <div>
-                            <span className="SubTopicDato">{date.toDateString()}</span>         <span className="subTag">Business</span> 
+                            <div className="SubTopicDateTag">
+                                <span className="SubTopicDato">{date.toDateString()}</span> <span className="subTag"><BsBookmark /></span>
+                            </div>
                             <h2 className="SubTopicName">Tips</h2>
                             <p className="SubTopicSummary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur cum ea excepturi ipsum iure maiores nesciunt non sit tempore velit. Eum ipsam numquam quia voluptate voluptatem. Aspernatur doloribus minus molestiae.</p>
                         </div>
