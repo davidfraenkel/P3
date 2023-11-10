@@ -1,14 +1,15 @@
 import './styling/overview.css';
 import React from "react";
 import {Link} from "react-router-dom";
+import { useEffect , useState} from "react";
 
 
 function Topic(props) {
-    const topicImage = require('../../assets/overview/' + props.name + '.' + props.imageType)
+    // const topicImage = require('../../assets/overview/' + props.name + '.' + props.imageType)
+    // style={{backgroundImage: "url(" + topicImage + ")"}} <- Den her skal ind i TOpicCOntainer når man kan upload et foto
     return (
-        // Skal have linket til subtopic siden
         <Link to=''>
-            <div className="TopicContainer" style={{backgroundImage: "url(" + topicImage + ")"}}>
+            <div className="TopicContainer" >
                 <div className="TopicTitle">
                     <p>{props.name}</p>
                 </div>
@@ -18,6 +19,16 @@ function Topic(props) {
 }
 
 export default function Overview() {
+    const [topics, setTopics] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:3002/api/getAllTopics')
+            .then(response => response.json())
+            .then(data => {
+                setTopics(data);
+            })
+    }, []);
+
     return (
         <div>
             <h1>Hello user.name!</h1>
@@ -33,15 +44,10 @@ export default function Overview() {
                     </p>
                 </div>
                 <div className="TopicsContainer">
-                    { topics.map(item => <Topic key={item.id} name={item.name} imageType={item.imageType} />)}
+                    {/* Den skal også have Imagetype med og et rigtigt id */}
+                    { topics.map(item => <Topic key={item.name} name={item.name} />)}
                 </div>
             </div>
         </div>
     )
 }
-/* Dummy Data vi skal have dette fra backend folket? */
-const topics = [
-    {'id': 1,'name': 'Economy', imageType: "jpg"},
-    {'id': 2,'name': 'Business', imageType: "jpeg"},
-]
-

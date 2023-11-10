@@ -1,7 +1,9 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Home from "./components/home"
 import Signup from "./components/signup"
+
 import Overview from "./components/ClientView/overview"
+import SubOverview from "./components/ClientView/subOverview"
 
 import CcOverview from "./components/CCView/ccoverview"
 import CreateUpdateTopic from "./components/CCView/createUpdateTopic"
@@ -25,6 +27,8 @@ function Router() {
                 <Route path="/ccoverview/deletetopic" element={<DeleteTopic />}>
                 </Route>
                 <Route path="/ccoverview/createUpdateTopic/:topicName" element={<CreateUpdateTopic />}>
+                </Route>
+                <Route path="/overview/subOverview" element={<SubOverview />}>
                 </Route>
             </Routes>
         </BrowserRouter>
