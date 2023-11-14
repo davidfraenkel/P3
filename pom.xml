@@ -19,13 +19,14 @@
 		<node.version>v18.14.2</node.version>
 		<yarn.version>v1.22.0</yarn.version>
 		<frontend-maven-plugin.version>1.14.1</frontend-maven-plugin.version>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
+		<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
