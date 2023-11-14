@@ -1,30 +1,29 @@
 package com.p3.gruppe4.Models.Users;
 
-import ch.qos.logback.classic.encoder.JsonEncoder;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
-public class UserAuth extends User {
+public class UserAuth {
 
     private static final String connectionString = "mongodb+srv://pepperonis:ilovepepperonis321@p3gastrome.as1pjv9.mongodb.net/";
     private static final String passwordEncoder = "passwordEncoder";
-    public UserAuth(String username, String password, String role) {
-        super(username, password, role);
-    }
-    public void createUser(String username, String password, String baseRole, String email, String phonenumber, String firstname, String lastname) {
+
+    public void createUser(User user) {
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Users");
-            collection.insertOne(new Document().append("username", username)
+            collection.insertOne(new Document()
+                    .append("_id", user.getId().toString())
+                    .append("username", user.getUsername())
                     .append("password", passwordEncoder)
                     .append("role", "baseRole")
-                    .append("email", email)
-                    .append("phonenumber", phonenumber)
-                    .append("firstname", firstname)
-                    .append("lastname", lastname)
+                    .append("email", user.getEmail())
+                    .append("phonenumber", user.getPhonenumber())
+                    .append("firstname", user.getFirstname())
+                    .append("lastname", user.getLastname())
             );
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
