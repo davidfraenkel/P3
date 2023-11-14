@@ -9,9 +9,8 @@ import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 public class UserAuth extends User {
 
-    String connectionString = "mongodb+srv://pepperonis:ilovepepperonis321@p3gastrome.as1pjv9.mongodb.net/?retryWrites=true&w=majority\n";
-    private static final JsonEncoder passwordEncoder = new JsonEncoder();
-
+    private static final String connectionString = "mongodb+srv://pepperonis:ilovepepperonis321@p3gastrome.as1pjv9.mongodb.net/";
+    private static final String passwordEncoder = "passwordEncoder";
     public UserAuth(String username, String password, String role) {
         super(username, password, role);
     }
