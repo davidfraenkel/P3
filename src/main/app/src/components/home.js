@@ -5,6 +5,7 @@ import trainStaff from "../assets/homepage/trainStaff.jpg";
 import fineDining from "../assets/homepage/fine_dining.jpg";
 import {forwardRef, useRef} from 'react';
 import { SlArrowDown } from "react-icons/sl";
+import Overview from "./ClientView/overview";
 
 function BackgroundText() {
     return (
@@ -26,15 +27,7 @@ function Background({resultRef}) {
     )
 }
 
-const LearnHowTo = forwardRef(function LearnHowTo(props,ref) {
-    return (
-        <div ref={ref} className='LearnHowToContainer'>
-            <h1>Learn how to...</h1>
-            <div className='HomepageCardContainer'>
-                { homepageCards.map(item => <HomepageCard key={item.id} name={item.name} image={item.image} />)}
-            </div>
-        </div>
-    )})
+
 /*function LearnHowTo() {
     return (
         <div ref={ref} className='LearnHowToContainer'>
@@ -58,18 +51,6 @@ function ScrollArrow({resultRef}) {
     )
 }
 
-function HomepageCard(card) {
-    return (
-        <div className='HomepageCard'>
-            <div className='HomepageCardImage'>
-                <img src={card.image} alt='Start a business'/>
-            </div>
-            <div className='HomepageCardHeadline'>
-                {card.name}
-            </div>
-        </div>
-    )
-}
 
 function InformationSection() {
     return (
@@ -92,7 +73,7 @@ export default function Home() {
     return (
         <div className='HomeStyling'>
             <Background resultRef={resultRef}/>
-            <LearnHowTo ref={resultRef}/>
+            <Overview />
             <InformationSection />
             <div className='EmptyDiv'></div>
         </div>

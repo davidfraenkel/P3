@@ -16,19 +16,20 @@ export default function SubOverview()  {
                     </p>
                 </div>
                 <div className="SubTopicsContainer">
-                    <div className="SubTopicContainer">
-                        <div className="subTopicCoverImage">
-                            <img src={management} alt="picture"/>
-                        </div>
-                        <div>
-                            <div className="SubTopicDateTag">
-                                <span className="SubTopicDato">{date.toDateString()}</span> <span className="subTag"><BsBookmark /></span>
+                    <Link to='subtopic'>
+                        <div className="SubTopicContainer">
+                            <div className="subTopicCoverImage">
+                                <img src={management} alt="picture"/>
                             </div>
-                            <h2 className="SubTopicName">Management</h2>
-                            <p className="SubTopicSummary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur cum ea excepturi ipsum iure maiores nesciunt non sit tempore velit. Eum ipsam numquam quia voluptate voluptatem. Aspernatur doloribus minus molestiae.</p>
+                            <div>
+                                <div className="SubTopicDateTag">
+                                    <span className="SubTopicDato">{date.toDateString()}</span> <span className="subTag"><BsBookmark /></span>
+                                </div>
+                                <h2 className="SubTopicName">Management</h2>
+                                <p className="SubTopicSummary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur cum ea excepturi ipsum iure maiores nesciunt non sit tempore velit. Eum ipsam numquam quia voluptate voluptatem. Aspernatur doloribus minus molestiae.</p>
+                            </div>
                         </div>
-                    </div>
-
+                    </Link>
                     <div className="SubTopicContainer">
                         <div className="subTopicCoverImage">
                             <img src={management} alt="picture"/>
@@ -59,15 +60,3 @@ export default function SubOverview()  {
         </div>
     )
 }
-
-const subTopics = [
-    {
-
-    },
-    {
-
-    },
-    {
-
-    }
-];

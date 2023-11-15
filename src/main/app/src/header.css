@@ -15,7 +15,7 @@
     padding-right: 50px;
 }
 
-a {
+.navbar a {
     text-decoration: none;
     color: #fff; /* Set your desired link color */
     padding: 0 15px;

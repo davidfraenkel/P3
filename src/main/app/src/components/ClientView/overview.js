@@ -3,13 +3,12 @@ import React from "react";
 import {Link} from "react-router-dom";
 import { useEffect , useState} from "react";
 
-
 function Topic(props) {
-    // const topicImage = require('../../assets/overview/' + props.name + '.' + props.imageType)
-    // style={{backgroundImage: "url(" + topicImage + ")"}} <- Den her skal ind i TOpicCOntainer når man kan upload et foto
+    const topicImage = require('../../assets/overview/' + props.name + '.' + props.imageType)
     return (
-        <Link to=''>
-            <div className="TopicContainer" >
+        // Skal have linket til subtopic siden
+        <Link to='sub-overview'>
+            <div className="TopicContainer" style={{backgroundImage: "url(" + topicImage + ")"}}>
                 <div className="TopicTitle">
                     <p>{props.name}</p>
                 </div>
@@ -19,19 +18,8 @@ function Topic(props) {
 }
 
 export default function Overview() {
-    const [topics, setTopics] = useState([]);
-
-    useEffect(() => {
-        fetch('http://localhost:3002/api/getAllTopics')
-            .then(response => response.json())
-            .then(data => {
-                setTopics(data);
-            })
-    }, []);
-
     return (
         <div>
-            <h1>Hello user.name!</h1>
             <div>
                 <div className="overview-content">
                 </div>
@@ -44,10 +32,14 @@ export default function Overview() {
                     </p>
                 </div>
                 <div className="TopicsContainer">
-                    {/* Den skal også have Imagetype med og et rigtigt id */}
-                    { topics.map(item => <Topic key={item.name} name={item.name} />)}
+                    { topics.map(item => <Topic key={item.id} name={item.name} imageType={item.imageType} />)}
                 </div>
             </div>
         </div>
     )
 }
+/* Dummy Data vi skal have dette fra backend folket? */
+const topics = [
+    {'id': 1,'name': 'Economy', imageType: "jpg"},
+    {'id': 2,'name': 'Business', imageType: "jpeg"},
+]
