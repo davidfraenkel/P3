@@ -25,7 +25,12 @@ public class HandbookController {
     }
 
     @PostMapping("/createTopic")
-    public void createTopic(@RequestBody Topic topic){
-        this.handbook.createTopic(topic);
+    public String createTopic(@RequestBody Topic topic){
+        return this.handbook.createTopic(topic).toJson();
+    }
+
+    @PostMapping("/editTopic")
+    public String editTopic(@RequestBody Topic topic){
+        return this.handbook.editTopic(topic).toJson();
     }
 }
