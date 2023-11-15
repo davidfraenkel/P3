@@ -1,0 +1,8 @@
+.Tag span {
+    color: #4B5563;
+    background-color: #f4f6f8;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 99px;
+    font-size: 12px;
+}

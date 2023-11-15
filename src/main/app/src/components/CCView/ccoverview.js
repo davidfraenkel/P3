@@ -14,7 +14,7 @@ function Topic(props) {
 
                 <div className="TopicTitle">
                     <p>{props.name}
-                        <Link to={`/ccoverview/createUpdateTopic?topicName=${dataToSend}`}>
+                        <Link to={`/ccoverview/create-update-topic?topicName=${dataToSend}`}>
                             <FiEdit2 />
                         </Link>
                     </p>
@@ -42,7 +42,7 @@ export default function CcOverview() {
                 </div>
                 <div className="TopicsContainer">
                     { topics.map(item => <Topic key={item.id} name={item.name} imageType={item.imageType} />)}
-                    <Link to='createUpdateTopic'>
+                    <Link to='create-update-topic'>
                         <div className="CreateUpdateTopicContainer FormCreateUpdateTopicContainer">
                             <div className="CreateUpdateTopic">
                             </div>

@@ -1,13 +1,13 @@
 import './styling/overview.css';
 import React from "react";
 import {Link} from "react-router-dom";
-
+import { useEffect , useState} from "react";
 
 function Topic(props) {
     const topicImage = require('../../assets/overview/' + props.name + '.' + props.imageType)
     return (
         // Skal have linket til subtopic siden
-        <Link to=''>
+        <Link to='sub-overview'>
             <div className="TopicContainer" style={{backgroundImage: "url(" + topicImage + ")"}}>
                 <div className="TopicTitle">
                     <p>{props.name}</p>
@@ -20,7 +20,6 @@ function Topic(props) {
 export default function Overview() {
     return (
         <div>
-            <h1>Hello user.name!</h1>
             <div>
                 <div className="overview-content">
                 </div>
@@ -44,4 +43,3 @@ const topics = [
     {'id': 1,'name': 'Economy', imageType: "jpg"},
     {'id': 2,'name': 'Business', imageType: "jpeg"},
 ]
-
