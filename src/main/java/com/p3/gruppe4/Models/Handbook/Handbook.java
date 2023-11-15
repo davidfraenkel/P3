@@ -15,7 +15,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class Handbook {
-    private String connectionString = "mongodb+srv://pepperonis:ilovepepperonis321@p3gastrome.as1pjv9.mongodb.net/?retryWrites=true&w=majority\n";
+    private String connectionString = "mongodb+srv://pepperonis:ilovepepperonis321@p3gastrome.as1pjv9.mongodb.net/?retryWrites=true&w=majority";
     public Handbook (){
         System.out.println("Handbook created");
     }
