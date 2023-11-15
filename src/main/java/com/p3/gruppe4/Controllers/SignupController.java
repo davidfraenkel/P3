@@ -8,6 +8,7 @@ import java.util.Map;
 import com.p3.gruppe4.Models.Users.UserAuth;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api")
 public class SignupController {
     private UserAuth userAuth = new UserAuth(); // Assuming a "NormalUser" role
