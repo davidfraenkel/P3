@@ -68,16 +68,16 @@ public class Handbook {
         return returnDocument;
     }
 
-    public Document editTopic(Topic topic){
+    public Document editTopic(String topicId, Topic topic){
         Document returnDoc = new Document();
         try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Topic");
 
-            Document oldDoc = collection.find(eq("_id", topic.getId().toString()))
+            Document oldDoc = collection.find(eq("_id", topicId))
                     .first();
 
-            collection.updateOne(new Document().append("_id",  topic.getId().toString()),
+            collection.updateOne(new Document().append("_id",  topicId),
                     new Document("$set", new Document()
                             .append("name", !topic.getName().isEmpty() ? topic.getName() : oldDoc.getString("name"))
                             .append("imagePath", !topic.getImagePath().isEmpty() ? topic.getImagePath() : oldDoc.getString("imagePath"))

@@ -30,7 +30,7 @@ public class HandbookController {
     }
 
     @PostMapping("/editTopic")
-    public String editTopic(@RequestBody Topic topic){
-        return this.handbook.editTopic(topic).toJson();
+    public String editTopic(@RequestBody Topic topic, @RequestParam(name = "topicId") String topicId){
+        return this.handbook.editTopic(topicId, topic).toJson();
     }
 }
