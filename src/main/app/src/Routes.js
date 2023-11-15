@@ -9,6 +9,7 @@ import Subtopic from "./components/ClientView/subtopic"
 import CcOverview from "./components/CCView/ccoverview"
 import CreateUpdateTopic from "./components/CCView/createUpdateTopic"
 import CreateUpdateSubtopic from "./components/CCView/ccCreateUpdateSubtopic";
+import AdminUserPanel from "./components/AdminView/adminUserPanel";
 
 
 function Router() {
@@ -32,6 +33,10 @@ function Router() {
                 <Route path="/overview/sub-overview" element={<SubOverview />}>
                 </Route>
                 <Route path="/ccoverview/create-update-subtopic" element={<CreateUpdateSubtopic />}>
+                </Route>
+
+                {/*Admin*/}
+                <Route path="/admin-panel" element={<AdminUserPanel />}>
                 </Route>
             </Routes>
         </BrowserRouter>
