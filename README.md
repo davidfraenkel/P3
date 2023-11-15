@@ -21,4 +21,7 @@ All backend calls are made to the following url: `/api/`
 - `POST /createTopic` - Creates a topic
 
 ### User
-- `POST /login ` - Returns true if user and password are correct
+- `POST /login ` - Returns true if user and password are correct provided a `username and password`
+- `POST /signup` - Creates a user provided a ``username, password, email, lastname and phonenumber``
+- `POST /editUser` - Edits a user provided a change happende to `username, password, email, lastname and phonenumber`
+- `POST /deleteUser` - Deletes a user provided a `username`

@@ -16,7 +16,7 @@ public class UserController {
         userAuth.createUser(user);
         Map<String, String> response = new HashMap<>();
         response.put("message", "User registered successfully!");
-        System.out.println("User data: " + user.getUsername() + " " + user.getRole() + " " + user.getPassword() + " " + user.getEmail() + " " + user.getPhonenumber() + " " + user.getFirstname() + " " + user.getLastname());
+        System.out.println("User data: " + user.getUsername() + " " + user.getRole() + " " + user.getPassword() + " " + user.getEmail() + " " + user.getPhonenumber() + " " + user.getLastname());
         return response;
     }
     @PostMapping("/login")
@@ -41,8 +41,8 @@ public class UserController {
         Map<String, String> response = new HashMap<>();
         response.put("message", "User edited successfully!");
         // User data changed from to
-        System.out.println("User data changed from " + user.getUsername() + " " + user.getRole() + " " + user.getPassword() + " " + user.getEmail() + " " + user.getPhonenumber() + " " + user.getFirstname() + " " + user.getLastname());
-        System.out.println("User data changed to " + user.getUsername() + " " + " " + user.getRole() + " " +user.getPassword() + " " + user.getEmail() + " " + user.getPhonenumber() + " " + user.getFirstname() + " " + user.getLastname());
+        System.out.println("User data changed from " + user.getUsername() + " " + user.getRole() + " " + user.getPassword() + " " + user.getEmail() + " " + user.getPhonenumber() + user.getLastname());
+        System.out.println("User data changed to " + user.getUsername() + " " + " " + user.getRole() + " " +user.getPassword() + " " + user.getEmail() + " " + user.getPhonenumber() + user.getLastname());
         return response;
     }
 
