@@ -64,4 +64,21 @@ public class UserAuth extends User {
             System.err.println("Unable to insert due to an error: " + me);
         }
     }
+    public boolean validateUser(String username, String password) {
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+            MongoCollection<Document> collection = db.getCollection("Users");
+
+            Document foundUser = collection.find(new Document("username", username)).first();
+            if (foundUser != null) {
+                String storedPasswordHash = foundUser.getString("password");
+                return storedPasswordHash.equals(hashPassword(password));
+            }
+            return false;
+        } catch (MongoException me) {
+            System.err.println("Error during user validation: " + me);
+            return false;
+        }
+    }
+
 }

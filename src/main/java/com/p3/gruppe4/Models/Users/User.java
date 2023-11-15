@@ -11,8 +11,8 @@ abstract class User {
         this.role = role;
     }
 
-    void login(String userName, String password) {
-        System.out.println("Login logic");
+    public boolean login(String userName, String password) {
+        return this.userName.equals(userName) && this.password.equals(password);
     };
 
     public int getId() {
