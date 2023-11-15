@@ -44,12 +44,8 @@ public class Handbook {
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Topic");
 
-            Bson projectionFields = Projections.fields(
-                    Projections.include("name"));
-
             returnDocument = collection.find(eq("_id", id))
                     .first();
-
             // Prints a message if any exceptions occur during the operation
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
@@ -66,13 +62,36 @@ public class Handbook {
                     .append("_id", topic.getId().toString())
                     .append("name", topic.getName())
                     .append("imagePath", topic.getImagePath())
-                    .append("summary", topic.getSummary())
             );
 
             // Prints a message if any exceptions occur during the operation
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
         }
+    }
+
+    public Document editTopic(Topic topic){
+        Document returnDocument = new Document();
+        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
+            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+            MongoCollection<Document> collection = db.getCollection("Topic");
+
+            Document newDocument = new Document().append("_id", topic.getId());
+            if (!topic.getName().isEmpty()){
+                newDocument.append("name", topic.getName());
+            }
+            if (!topic.getImagePath().isEmpty()){
+                newDocument.append("imagePath", topic.getImagePath());
+            }
+            returnDocument = newDocument;
+
+//            collection.updateOne(new)
+
+            // Prints a message if any exceptions occur during the operation
+        } catch (MongoException me) {
+            System.err.println("Unable to insert due to an error: " + me);
+        }
+        return returnDocument;
     }
 
     public void manageTopic(){
