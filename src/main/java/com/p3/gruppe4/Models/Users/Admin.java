@@ -7,11 +7,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
-public class Admin extends User {
-
-    public Admin(String username, String password, String role) {
-        super(username, password, role);
-    }
+public class Admin {
 
     public void addContentCreator(String username, String password){
 

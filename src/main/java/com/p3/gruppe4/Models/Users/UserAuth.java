@@ -1,41 +1,38 @@
 package com.p3.gruppe4.Models.Users;
 
-import ch.qos.logback.classic.encoder.JsonEncoder;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
-
-public class UserAuth extends User {
+public class UserAuth {
 
     private static final String connectionString = "mongodb+srv://pepperonis:ilovepepperonis321@p3gastrome.as1pjv9.mongodb.net/";
-
-    public UserAuth(String username, String password, String role) {
-
-        super(username, hashPassword(password), role);
-    }
-
     public static String hashPassword(String password) {
         return Integer.toString(password.hashCode());
     }
 
-
-    public void createUser(String username, String password, String role, String email, String phonenumber, String lastname) {
+    public Document createUser(User user) {
+        Document returnUser = new Document();
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Users");
-            collection.insertOne(new Document().append("username", username)
-                    .append("password", hashPassword(password))
-                    .append("role", role == null ? "NormalUser" : role)
-                    .append("email", email)
-                    .append("phonenumber", phonenumber)
-                    .append("lastname", lastname)
-            );
+
+            returnUser = new Document()
+                    .append("_id", user.getId().toString())
+                    .append("username", user.getUsername())
+                    .append("password", hashPassword(user.getPassword()))
+                    .append("role", user.getRole() == null ? "NormalUser" : user.getRole())
+                    .append("email", user.getEmail())
+                    .append("phonenumber", user.getPhonenumber())
+                    .append("lastname", user.getLastname());
+
+            collection.insertOne(returnUser);
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
         }
+        return returnUser;
     }
 
     public void editUser(String username, String password, String role, String email, String phonenumber, String lastname) {
