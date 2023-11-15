@@ -20,8 +20,8 @@ public class HandbookController {
 
     @GetMapping("/getTopicByName")
     @ResponseBody
-    public Document getTopicByName(@RequestParam(name = "topicName") String topicName){
-        return this.handbook.getTopic(topicName);
+    public Document getTopicByName(@RequestParam(name = "topicId") String topicId){
+        return this.handbook.getTopic(topicId);
     }
 
     @PostMapping("/createTopic")

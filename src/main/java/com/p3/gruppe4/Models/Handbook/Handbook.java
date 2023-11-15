@@ -5,6 +5,7 @@ import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.MongoException;
 import com.mongodb.client.*;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -73,10 +74,10 @@ public class Handbook {
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Topic");
 
-            Document oldDoc = collection.find(eq("_id", topic.getId()))
+            Document oldDoc = collection.find(eq("_id", topic.getId().toString()))
                     .first();
 
-            collection.updateOne(new Document().append("_id",  topic.getId()),
+            collection.updateOne(new Document().append("_id",  topic.getId().toString()),
                     new Document("$set", new Document()
                             .append("name", !topic.getName().isEmpty() ? topic.getName() : oldDoc.getString("name"))
                             .append("imagePath", !topic.getImagePath().isEmpty() ? topic.getImagePath() : oldDoc.getString("imagePath"))
