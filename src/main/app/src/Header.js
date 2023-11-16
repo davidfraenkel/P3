@@ -2,7 +2,6 @@ import './header.css'
 import {Link} from "react-router-dom";
 import Logo from './assets/homepage/logo2.png'
 import { HiUser } from "react-icons/hi";
-let isLoggedIn = false;
 
 export default function Header() {
     return (
