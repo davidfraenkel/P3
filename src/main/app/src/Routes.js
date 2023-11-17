@@ -9,6 +9,8 @@ import Subtopic from "./components/ClientView/subtopic"
 import CcOverview from "./components/CCView/ccoverview"
 import CreateUpdateTopic from "./components/CCView/createUpdateTopic"
 import CreateUpdateSubtopic from "./components/CCView/ccCreateUpdateSubtopic";
+import BookMeeting from "./components/ClientView/bookMeeting";
+import ContactForm from "./components/ClientView/bookMeeting";
 
 
 function Router() {
@@ -22,6 +24,8 @@ function Router() {
                 <Route path="/overview" element={<Overview />}>
                 </Route>
                 <Route path="/overview/sub-overview/subtopic" element={<Subtopic />}>
+                </Route>
+                <Route path="/overview/book-meeting" element={<ContactForm />}>
                 </Route>
 
                 {/*CONTENT CREATOR*/}
