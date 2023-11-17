@@ -64,7 +64,6 @@ public class Handbook {
                     .append("imagePath", topic.getImagePath())
             );
 
-
             // Prints a message if any exceptions occur during the operation
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
