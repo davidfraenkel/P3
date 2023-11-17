@@ -2,10 +2,8 @@ import './styling/signup.css';
 import { useState } from 'react';
 import { Route, useNavigate } from 'react-router-dom'
 import InputField from './smartComponents/inputField';
-import useRole from "./setRole";
 
-
-export default function Signup({setRole}) {
+export default function Signup({setRole, setName}) {
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
 
@@ -29,6 +27,7 @@ export default function Signup({setRole}) {
             .then(data => {
                 console.log('Success:', data);
                 setRole((data.role))
+                setName((data.username))
                 navigate('/overview')
             })
             .catch((error) => {

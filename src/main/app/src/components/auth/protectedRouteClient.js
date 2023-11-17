@@ -4,6 +4,7 @@ import { Route, redirect ,Navigate, Outlet, useNavigate, useLocation} from "reac
 const ProtectedRouteClient = ({role}) => {
     const navigate = useNavigate();
     function presentPage() {
+        console.log("test2");
         navigate("/"); // navigate(-1) is equivalent to hitting the back button
     }
 
@@ -14,6 +15,7 @@ const ProtectedRouteClient = ({role}) => {
     },[role && role!== "baseRole"])
 
     if(role === 'baseRole') {
+        console.log("test");
         return <Outlet />
     }
     else {

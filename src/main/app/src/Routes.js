@@ -10,21 +10,23 @@ import CreateUpdateTopic from "./components/CCView/createUpdateTopic"
 import CreateUpdateSubtopic from "./components/CCView/ccCreateUpdateSubtopic";
 import Header from "./Header";
 import React from "react";
-import useRole from "./components/setRole"
-import ProtectedRouteClient from "./components/protectedRouteClient";
-import ProtectedRouteCC from "./components/protectedRouteCC";
+import useUser from "./components/auth/setUser"
+import ProtectedRouteClient from "./components/auth/protectedRouteClient";
+import ProtectedRouteCC from "./components/auth/protectedRouteCC";
 
 function Router() {
-    const { role, setRole } = useRole();
-
+    const {role, setRole } = useUser();
+    const {name , setName } = useUser();
+    console.log(role);
+    console.log(name);
         return (
             <div>
-                <Header role={role}/>
+                <Header name={name}/>
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Home />}>
                         </Route>
-                        <Route path="/signup" element={<Signup setRole={setRole}/>}>
+                        <Route path="/signup" element={<Signup setRole={setRole} setName={setName}/>}>
                         </Route>
                         <Route element={<ProtectedRouteClient role={role}/>}>
                             <Route path="/overview" element={<Overview />}>
