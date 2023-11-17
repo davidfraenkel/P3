@@ -1,6 +1,5 @@
 package com.p3.gruppe4.Models.Users;
 
-import ch.qos.logback.classic.encoder.JsonEncoder;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -8,20 +7,25 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
-public class UserAuth extends User {
+import java.util.HashSet;
+
+public class UserOperations extends User {
 
     private static final String connectionString = "mongodb+srv://pepperonis:ilovepepperonis321@p3gastrome.as1pjv9.mongodb.net/";
 
-    public UserAuth(String username, String password, String role) {
+    // Constructor
+    public UserOperations(String username, String password, String role) {
 
         super(username, hashPassword(password), role);
     }
 
+    // Hash password method
     public static String hashPassword(String password) {
         return Integer.toString(password.hashCode());
     }
 
 
+    // Create user method
     public void createUser(String username, String password, String role, String email, String phonenumber, String lastname) {
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
@@ -38,6 +42,7 @@ public class UserAuth extends User {
         }
     }
 
+    // Edit user method
     public void editUser(String username, String password, String role, String email, String phonenumber, String lastname) {
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
@@ -55,6 +60,7 @@ public class UserAuth extends User {
         }
     }
 
+    // Delete user method
     public void deleteUser(String username) {
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
@@ -64,6 +70,8 @@ public class UserAuth extends User {
             System.err.println("Unable to insert due to an error: " + me);
         }
     }
+
+    // Login method
     public boolean validateUser(String username, String password) {
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
@@ -81,4 +89,19 @@ public class UserAuth extends User {
         }
     }
 
+    // Get all users method save to hashset allUsers and print all users
+/*    public HashSet<Document> getAllUsers() {
+        HashSet<Document> allUsers = new HashSet<>();
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+            MongoCollection<Document> collection = db.getCollection("Users");
+            for (Document doc : collection.find()) {
+                allUsers.add(doc);
+            }
+            System.out.println(allUsers);
+        } catch (MongoException me) {
+            System.err.println("Unable to insert due to an error: " + me);
+        }
+        return allUsers;
+    }*/
 }
