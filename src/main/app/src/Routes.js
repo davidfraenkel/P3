@@ -1,11 +1,14 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Home from "./components/home"
 import Signup from "./components/signup"
+
 import Overview from "./components/ClientView/overview"
+import SubOverview from "./components/ClientView/subOverview"
+import Subtopic from "./components/ClientView/subtopic"
 
 import CcOverview from "./components/CCView/ccoverview"
 import CreateUpdateTopic from "./components/CCView/createUpdateTopic"
-import DeleteTopic from "./components/CCView/deleteTopic"
+import CreateUpdateSubtopic from "./components/CCView/ccCreateUpdateSubtopic";
 
 
 function Router() {
@@ -18,13 +21,17 @@ function Router() {
                 </Route>
                 <Route path="/overview" element={<Overview />}>
                 </Route>
+                <Route path="/overview/sub-overview/subtopic" element={<Subtopic />}>
+                </Route>
+
+                {/*CONTENT CREATOR*/}
                 <Route path="/ccoverview" element={<CcOverview />}>
                 </Route>
-                <Route path="/ccoverview/createupdatetopic" element={<CreateUpdateTopic />}>
+                <Route path="/ccoverview/create-update-topic" element={<CreateUpdateTopic />}>
                 </Route>
-                <Route path="/ccoverview/deletetopic" element={<DeleteTopic />}>
+                <Route path="/overview/sub-overview" element={<SubOverview />}>
                 </Route>
-                <Route path="/ccoverview/createUpdateTopic/:topicName" element={<CreateUpdateTopic />}>
+                <Route path="/ccoverview/create-update-subtopic" element={<CreateUpdateSubtopic />}>
                 </Route>
             </Routes>
         </BrowserRouter>

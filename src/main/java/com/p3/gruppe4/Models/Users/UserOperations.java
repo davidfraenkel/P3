@@ -7,16 +7,12 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
-import java.util.HashSet;
-
-public class UserOperations extends User {
+public class UserOperations {
 
     private static final String connectionString = "mongodb+srv://pepperonis:ilovepepperonis321@p3gastrome.as1pjv9.mongodb.net/";
 
     // Constructor
-    public UserOperations(String username, String password, String role) {
-
-        super(username, hashPassword(password), role);
+    public UserOperations() {
     }
 
     // Hash password method
@@ -24,84 +20,95 @@ public class UserOperations extends User {
         return Integer.toString(password.hashCode());
     }
 
-
     // Create user method
-    public void createUser(String username, String password, String role, String email, String phonenumber, String lastname) {
+    public Document createUser(User user) {
+        Document returnUser = new Document();
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Users");
-            collection.insertOne(new Document().append("username", username)
-                    .append("password", hashPassword(password))
-                    .append("role", role == null ? "NormalUser" : role)
-                    .append("email", email)
-                    .append("phonenumber", phonenumber)
-                    .append("lastname", lastname)
-            );
+
+            returnUser = new Document()
+                    .append("_id", user.getId().toString())
+                    .append("username", user.getUsername())
+                    .append("password", hashPassword(user.getPassword()))
+                    .append("role", user.getRole() == null ? "NormalUser" : user.getRole())
+                    .append("email", user.getEmail())
+                    .append("phonenumber", user.getPhonenumber())
+                    .append("lastname", user.getLastname());
+
+            collection.insertOne(returnUser);
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
         }
+        return returnUser;
     }
 
     // Edit user method
     public void editUser(String username, String password, String role, String email, String phonenumber, String lastname) {
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Users");
-            collection.updateOne(new Document().append("username", username),
-                    new Document("$set", new Document()
-                            .append("password", hashPassword(password))
-                            .append("role", role == null ? "NormalUser" : role)
-                            .append("email", email)
-                            .append("phonenumber", phonenumber)
-                            .append("lastname", lastname)
-                    ));
+            Document user = collection.find(new Document().append("username", username)).first();
+            if (user != null) {
+                if (password != null) {
+                    user.append("password", hashPassword(password));
+                }
+                if (role != null) {
+                    user.append("role", role);
+                }
+                if (email != null) {
+                    user.append("email", email);
+                }
+                if (phonenumber != null) {
+                    user.append("phonenumber", phonenumber);
+                }
+                if (lastname != null) {
+                    user.append("lastname", lastname);
+                }
+                collection.replaceOne(new Document().append("username", username), user);
+            } else {
+                System.out.println("User not found");
+            }
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
         }
     }
 
     // Delete user method
-    public void deleteUser(String username) {
+    public void deleteUser(String id) {
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Users");
-            collection.deleteOne(new Document().append("username", username));
+            Document user = collection.find(new Document().append("_id", id)).first();
+            if (user != null) {
+                collection.deleteOne(new Document().append("_id", id));
+            } else {
+                System.out.println("User not found");
+            }
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
         }
     }
 
     // Login method
-    public boolean validateUser(String username, String password) {
+    public String login(String username, String password) {
+        String returnString = "";
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Users");
-
-            Document foundUser = collection.find(new Document("username", username)).first();
-            if (foundUser != null) {
-                String storedPasswordHash = foundUser.getString("password");
-                return storedPasswordHash.equals(hashPassword(password));
+            Document user = collection.find(new Document().append("username", username)).first();
+            if (user != null) {
+                if (user.getString("password").equals(hashPassword(password))) {
+                    returnString = user.toJson();
+                } else {
+                    returnString = "Wrong password";
+                }
+            } else {
+                returnString = "User not found";
             }
-            return false;
-        } catch (MongoException me) {
-            System.err.println("Error during user validation: " + me);
-            return false;
-        }
-    }
-
-    // Get all users method save to hashset allUsers and print all users
-/*    public HashSet<Document> getAllUsers() {
-        HashSet<Document> allUsers = new HashSet<>();
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
-            MongoCollection<Document> collection = db.getCollection("Users");
-            for (Document doc : collection.find()) {
-                allUsers.add(doc);
-            }
-            System.out.println(allUsers);
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
         }
-        return allUsers;
-    }*/
+        return returnString;
+    }
 }

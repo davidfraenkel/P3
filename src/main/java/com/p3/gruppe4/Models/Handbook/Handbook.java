@@ -15,7 +15,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class Handbook {
-    String connectionString = "mongodb+srv://pepperonis:ilovepepperonis321@p3gastrome.as1pjv9.mongodb.net/?retryWrites=true&w=majority\n";
+    private String connectionString = "mongodb+srv://pepperonis:ilovepepperonis321@p3gastrome.as1pjv9.mongodb.net/?retryWrites=true&w=majority";
     public Handbook (){
         System.out.println("Handbook created");
     }
@@ -38,7 +38,7 @@ public class Handbook {
         return returnSet;
     }
 
-    public Document getTopic(String topicName){
+    public Document getTopic(String id){
         Document returnDocument = new Document();
         try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
@@ -47,7 +47,7 @@ public class Handbook {
             Bson projectionFields = Projections.fields(
                     Projections.include("name"));
 
-            returnDocument = collection.find(eq("name", topicName))
+            returnDocument = collection.find(eq("_id", id))
                     .first();
 
             // Prints a message if any exceptions occur during the operation
@@ -57,15 +57,16 @@ public class Handbook {
         return returnDocument;
     }
 
-    public void createTopic(String name, String imagePath, String summary) {
+    public void createTopic(Topic topic) {
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
 
             MongoCollection<Document> collection = db.getCollection("Topic");
             collection.insertOne(new Document()
-                    .append("name", name)
-                    .append("imagePath", imagePath)
-                    .append("summary", summary)
+                    .append("_id", topic.getId().toString())
+                    .append("name", topic.getName())
+                    .append("imagePath", topic.getImagePath())
+                    .append("summary", topic.getSummary())
             );
 
             // Prints a message if any exceptions occur during the operation

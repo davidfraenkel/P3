@@ -1,4 +1,5 @@
 import './header.css'
+import {Link} from "react-router-dom";
 import Logo from './assets/homepage/logo2.png'
 import { HiUser } from "react-icons/hi";
 let isLoggedIn = false;
@@ -13,7 +14,7 @@ export default function Header() {
                 </button>
                 <div className="navbar-links" id="basic-navbar-nav">
                     <a href="#home">Home</a>
-                    <a href="#link">Link</a>
+                    <a href="http://localhost:3000/signup">Sign up</a>
                     <div className="dropdown">
                         <button className="dropbtn">User.name</button>
                         <div className="dropdown-content">
