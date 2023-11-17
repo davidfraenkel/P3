@@ -1,6 +1,11 @@
 import './styling/adminUserPanel.css';
 
 export default function AdminUserPanel() {
+    const users = [
+        { name: 'User1', title: 'Title1', email: 'user1@example.com', role: 'Role1' },
+        { name: 'User2', title: 'Title2', email: 'user2@example.com', role: 'Role2' },
+    ];
+
     return (
         <div className="adminUserPanel">
             <div className="adminHeader">
@@ -21,48 +26,15 @@ export default function AdminUserPanel() {
                         </tr>
                     </thead>
                     <tbody className="adminTableBody">
-                        <tr>
-                            <td className="tableUserName">User.name</td>
-                            <td className="tableUserTitle">User.title</td>
-                            <td className="tableUserEmail">User.email</td>
-                            <td className="tableUserRole">User.role</td>
-                            <td className="tableUserEdit"> <a>Edit</a></td>
-                        </tr>
-                        <tr>
-                            <td className="tableUserName">User.name</td>
-                            <td className="tableUserTitle">User.title</td>
-                            <td className="tableUserEmail">User.email</td>
-                            <td className="tableUserRole">User.role</td>
-                            <td className="tableUserEdit"> <a>Edit</a></td>
-                        </tr>
-                        <tr>
-                            <td className="tableUserName">User.name</td>
-                            <td className="tableUserTitle">User.title</td>
-                            <td className="tableUserEmail">User.email</td>
-                            <td className="tableUserRole">User.role</td>
-                            <td className="tableUserEdit"> <a>Edit</a></td>
-                        </tr>
-                        <tr>
-                            <td className="tableUserName">User.name</td>
-                            <td className="tableUserTitle">User.title</td>
-                            <td className="tableUserEmail">User.email</td>
-                            <td className="tableUserRole">User.role</td>
-                            <td className="tableUserEdit"> <a>Edit</a></td>
-                        </tr>
-                        <tr>
-                            <td className="tableUserName">User.name</td>
-                            <td className="tableUserTitle">User.title</td>
-                            <td className="tableUserEmail">User.email</td>
-                            <td className="tableUserRole">User.role</td>
-                            <td className="tableUserEdit"> <a>Edit</a></td>
-                        </tr>
-                        <tr>
-                            <td className="tableUserName">User.name</td>
-                            <td className="tableUserTitle">User.title</td>
-                            <td className="tableUserEmail">User.email</td>
-                            <td className="tableUserRole">User.role</td>
-                            <td className="tableUserEdit"> <a>Edit</a></td>
-                        </tr>
+                        {users.map((user, index) => (
+                            <tr key={index}>
+                                <td className="tableUserName">{user.name}</td>
+                                <td className="tableUserTitle">{user.title}</td>
+                                <td className="tableUserEmail">{user.email}</td>
+                                <td className="tableUserRole">{user.role}</td>
+                                <td className="tableUserEdit"><a>Edit</a></td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
