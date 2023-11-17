@@ -1,19 +1,19 @@
 import {useEffect} from "react";
-import { Route, redirect ,Navigate, Outlet, useNavigate, useLocation} from "react-router-dom";
+import { Route,Redirect, Navigate, Outlet, useNavigate, useLocation} from "react-router-dom";
 
-const ProtectedRouteClient = ({role}) => {
+const ProtectedRouteCC = ({role}) => {
     const navigate = useNavigate();
     function presentPage() {
         navigate("/"); // navigate(-1) is equivalent to hitting the back button
     }
 
     useEffect(()=>{
-        if(role && role !== "baseRole"){
+        if(role && role !== "creator"){
             presentPage()
         }
-    },[role && role!== "baseRole"])
+    },[role && role!== "creator"])
 
-    if(role === 'baseRole') {
+    if(role === 'creator') {
         return <Outlet />
     }
     else {
@@ -21,4 +21,4 @@ const ProtectedRouteClient = ({role}) => {
     }
 }
 
-export default ProtectedRouteClient;
+export default ProtectedRouteCC;

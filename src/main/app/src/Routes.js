@@ -12,6 +12,7 @@ import Header from "./Header";
 import React from "react";
 import useRole from "./components/setRole"
 import ProtectedRouteClient from "./components/protectedRouteClient";
+import ProtectedRouteCC from "./components/protectedRouteCC";
 
 function Router() {
     const { role, setRole } = useRole();
@@ -27,6 +28,10 @@ function Router() {
                         </Route>
                         <Route element={<ProtectedRouteClient role={role}/>}>
                             <Route path="/overview" element={<Overview />}>
+                            </Route>
+                        </Route>
+                        <Route element={<ProtectedRouteCC role={role}/>}>
+                            <Route path="/overview/sub-overview" element={<SubOverview />}>
                             </Route>
                         </Route>
                         <Route path="/overview/sub-overview/subtopic" element={<Subtopic />}>
