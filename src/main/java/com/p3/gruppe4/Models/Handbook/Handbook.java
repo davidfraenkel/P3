@@ -79,7 +79,7 @@ public class Handbook {
 
             collection.updateOne(new Document().append("_id",  topicId),
                     new Document("$set", new Document()
-                            .append("name", !topic.getName().isEmpty() ? topic.getName() : oldDoc.getString("name"))
+                            .append("name", topic.getName().isEmpty() ? oldDoc.getString("name") : topic.getName())
                             .append("imagePath", !topic.getImagePath().isEmpty() ? topic.getImagePath() : oldDoc.getString("imagePath"))
                     ));
         } catch (MongoException me) {
