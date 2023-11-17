@@ -141,4 +141,60 @@ public class Handbook {
         }
         return returnDocument;
     }
+
+    public Document createSubTopic(SubTopic subTopic, String parentId){
+        Document returnDocument = new Document();
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+
+            MongoCollection<Document> collection = db.getCollection("SubTopic");
+            returnDocument = new Document()
+                    .append("_id", subTopic.getId().toString())
+                    .append("name", subTopic.getName())
+                    .append("imagePath", parentId)
+                    .append("parentId", subTopic.getParentId())
+                    .append("content", subTopic.getContent());
+            collection.insertOne(returnDocument);
+            // Prints a message if any exceptions occur during the operation
+        } catch (MongoException me) {
+            System.err.println("Unable to insert due to an error: " + me);
+        }
+        return returnDocument;
+    }
+
+    public Document editSubTopic(SubTopic subTopic, String subTopicId){
+        Document returnDoc = new Document();
+        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
+            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+            MongoCollection<Document> collection = db.getCollection("SubTopic");
+
+            Document oldDoc = collection.find(eq("_id", subTopicId))
+                    .first();
+
+            returnDoc = new Document("$set", new Document()
+                    .append("name", !subTopic.getName().isEmpty() ? subTopic.getName() : oldDoc.getString("name"))
+                    .append("imagePath", !subTopic.getImagePath().isEmpty() ? subTopic.getImagePath() : oldDoc.getString("imagePath"))
+                    .append("content", !subTopic.getContent().isEmpty() ? subTopic.getContent() : oldDoc.getString("content"))
+            );
+
+            collection.updateOne(new Document().append("_id",  subTopic), returnDoc);
+        } catch (MongoException me) {
+            System.err.println("Unable to insert due to an error: " + me);
+        }
+        return returnDoc;
+    }
+
+    public String deleteSubTopic(String subTopicId){
+        String returnString = "deletion failed";
+        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
+            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+            MongoCollection<Document> collection = db.getCollection("SubTopic");
+
+            collection.deleteOne(new Document().append("_id",  subTopicId));
+            returnString = "Topic deleted successfully";
+        } catch (MongoException me) {
+            System.err.println("Unable to insert due to an error: " + me);
+        }
+        return returnString;
+    }
 }
