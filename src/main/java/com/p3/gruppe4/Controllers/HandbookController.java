@@ -13,6 +13,7 @@ import java.util.HashSet;
 public class HandbookController {
     Handbook handbook = new Handbook();
 
+//  TOPIC OPERATOINS
     @GetMapping("/getAllTopics")
     public HashSet<Document> getAllTopics(){
         return this.handbook.getAllTopics();
@@ -32,5 +33,21 @@ public class HandbookController {
     @PostMapping("/editTopic")
     public String editTopic(@RequestBody Topic topic, @RequestParam(name = "topicId") String topicId){
         return this.handbook.editTopic(topicId, topic).toJson();
+    }
+
+    @PostMapping("/deleteTopic")
+    public String editTopic(@RequestParam(name = "topicId") String topicId){
+        return this.handbook.deleteTopic(topicId);
+    }
+
+//  SUBTOPIC CONTROLLERS
+    @GetMapping("/getAllSubTopics")
+    public HashSet<Document> getAllSubTopics(@RequestParam(name = "parentTopicId") String parentId){
+        return this.handbook.getAllSubTopics(parentId);
+    }
+
+    @GetMapping("/getSubTopic")
+    public String getSubTopc(@RequestParam(name = "subTopicId") String id){
+        return this.handbook.getSubTopic(id).toJson();
     }
 }

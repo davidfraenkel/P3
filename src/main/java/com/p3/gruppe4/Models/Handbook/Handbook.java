@@ -5,7 +5,6 @@ import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.MongoException;
 import com.mongodb.client.*;
 import org.bson.Document;
-import org.bson.types.ObjectId;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -16,6 +15,8 @@ public class Handbook {
     public Handbook (){
         System.out.println("Handbook created");
     }
+
+//  TOPIC OPERATIONS
     public HashSet<Document> getAllTopics(){
         HashSet<Document> returnSet = new HashSet<>(Collections.emptySet());
         try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
@@ -77,14 +78,67 @@ public class Handbook {
             Document oldDoc = collection.find(eq("_id", topicId))
                     .first();
 
-            collection.updateOne(new Document().append("_id",  topicId),
-                    new Document("$set", new Document()
-                            .append("name", topic.getName().isEmpty() ? oldDoc.getString("name") : topic.getName())
-                            .append("imagePath", !topic.getImagePath().isEmpty() ? topic.getImagePath() : oldDoc.getString("imagePath"))
-                    ));
+            returnDoc = new Document("$set", new Document()
+                    .append("name", topic.getName().isEmpty() ? oldDoc.getString("name") : topic.getName())
+                    .append("imagePath", !topic.getImagePath().isEmpty() ? topic.getImagePath() : oldDoc.getString("imagePath"))
+            );
+
+            collection.updateOne(new Document().append("_id",  topicId), returnDoc);
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
         }
         return returnDoc;
+    }
+
+    public String deleteTopic(String topicId){
+        String returnString = "deletion failed";
+        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
+            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+            MongoCollection<Document> collection = db.getCollection("Topic");
+
+            collection.deleteOne(new Document().append("_id",  topicId));
+            returnString = "Topic deleted successfully";
+        } catch (MongoException me) {
+            System.err.println("Unable to insert due to an error: " + me);
+        }
+        return returnString;
+    }
+
+
+//  SUBTOPIC OPERATIONS
+    public HashSet<Document> getAllSubTopics(String parentId){
+        HashSet<Document> returnSet = new HashSet<>(Collections.emptySet());
+        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
+            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+            MongoCollection<Document> collection = db.getCollection("SubTopic");
+
+            Document query = new Document().append("parentTopicId", parentId);
+
+            MongoCursor<Document> cursor = collection.find(query).iterator();
+
+            while (cursor.hasNext()){
+                returnSet.add(cursor.next());
+            }
+            // Prints a message if any exceptions occur during the operation
+        } catch (MongoException me) {
+            System.err.println("Unable to insert due to an error: " + me);
+        }
+        return returnSet;
+    }
+
+    public Document getSubTopic(String id){
+        Document returnDocument = new Document();
+        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
+            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+            MongoCollection<Document> collection = db.getCollection("SubTopic");
+
+            returnDocument = collection.find(eq("_id", id))
+                    .first();
+
+            // Prints a message if any exceptions occur during the operation
+        } catch (MongoException me) {
+            System.err.println("Unable to insert due to an error: " + me);
+        }
+        return returnDocument;
     }
 }
