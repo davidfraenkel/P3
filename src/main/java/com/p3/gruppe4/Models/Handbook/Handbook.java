@@ -1,11 +1,13 @@
 package com.p3.gruppe4.Models.Handbook;
 
+
 import static com.mongodb.client.model.Filters.eq;
 
 import com.mongodb.MongoException;
 import com.mongodb.client.*;
 import org.bson.Document;
 import org.bson.types.ObjectId;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -50,7 +52,7 @@ public class Handbook {
         return returnDocument;
     }
 
-    public Document createTopic(Topic topic) {
+    public Document createTopic(Topic topic, MultipartFile file) {
         Document returnDocument = new Document();
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
@@ -61,9 +63,14 @@ public class Handbook {
                     .append("name", topic.getName())
                     .append("imagePath", topic.getImagePath());
             collection.insertOne(returnDocument);
+
+            SaveFile saveFile = new SaveFile();
+            saveFile.store(file);
+
+
             // Prints a message if any exceptions occur during the operation
         } catch (MongoException me) {
-            System.err.println("Unable to insert due to an error: " + me);
+                System.err.println("Unable to insert due to an error: " + me);
         }
         return returnDocument;
     }
