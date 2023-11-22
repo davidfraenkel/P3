@@ -28,8 +28,8 @@ public class HandbookController {
     }
 
     @PostMapping("/createTopic")
-    public String createTopic(@RequestBody Topic topic, @RequestParam(name = "file") MultipartFile flie){
-        return this.handbook.createTopic(topic, flie).toJson();
+    public String createTopic(@RequestBody Topic topic, @RequestParam(name = "file") MultipartFile file){
+        return this.handbook.createTopic(topic, file).toJson();
     }
 
     @PostMapping("/editTopic")
@@ -42,8 +42,6 @@ public class HandbookController {
         return this.handbook.deleteTopic(topicId);
     }
 
-
-//  SUBTOPIC CONTROLLERS
     @GetMapping("/getAllSubTopics")
     public HashSet<Document> getAllSubTopics(@RequestParam(name = "parentTopicId") String parentId){
         return this.handbook.getAllSubTopics(parentId);

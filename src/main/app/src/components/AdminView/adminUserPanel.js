@@ -1,43 +1,71 @@
+import React, { useState, useEffect } from 'react';
 import './styling/adminUserPanel.css';
 
 export default function AdminUserPanel() {
-    const users = [
-        { name: 'User1', title: 'Title1', email: 'user1@example.com', role: 'Role1' },
-        { name: 'User2', title: 'Title2', email: 'user2@example.com', role: 'Role2' },
-    ];
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:3002/api/getAllUsers')
+            .then(response => response.json())
+            .then(data => {
+                const parsedData = data.map(user => JSON.parse(user));
+                setUsers(parsedData);
+                console.log(parsedData);
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+
+    const handleRoleChange = (event, index) => {
+        const newUsers = [...users];
+        newUsers[index].role = event.target.value;
+        setUsers(newUsers);
+
+        fetch(`http://localhost:3002/api/editUserRole?id=${users[index]._id}&role=${event.target.value}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+
+        })
+            .then(response => response.json())
+            .then(data => console.log('Success:', data))
+            .catch((error) => console.error('Error:', error));
+
+    };
 
     return (
         <div className="adminUserPanel">
             <div className="adminHeader">
                 <h1>Users</h1>
-                <p>A list of all the users in your account including their name, title, email and role.</p>
+                <p>A list of all the users in your account including their name, email, and role.</p>
             </div>
             <div className="adminTableDiv">
                 <table className="adminTable">
                     <thead className="adminTableHeader">
-                        <tr>
-                            <th>Name</th>
-                            <th>Title</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>
-                                <span></span>
-                            </th>
-                        </tr>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                    </tr>
                     </thead>
                     <tbody className="adminTableBody">
-                        {users.map((user, index) => (
-                            <tr key={index}>
-                                <td className="tableUserName">{user.name}</td>
-                                <td className="tableUserTitle">{user.title}</td>
-                                <td className="tableUserEmail">{user.email}</td>
-                                <td className="tableUserRole">{user.role}</td>
-                                <td className="tableUserEdit"><a>Edit</a></td>
-                            </tr>
-                        ))}
+                    {users.map((user, index) => (
+                        <tr key={index}>
+                            <td className="tableUserName">{user.username} {user.lastname || " "}</td>
+                            <td className="tableUserEmail">{user.email}</td>
+                            <td className="tableUserRole">{user.role}
+                                <select className="tableDropdown" value={user.role} onChange={(event) => handleRoleChange(event, index)}>
+                                    <option value="Default">Default</option>
+                                    <option value="Client">Client</option>
+                                    <option value="Content Creator">Content Creator</option>
+                                    <option value="Admin">Admin</option>
+                                </select>
+                            </td>
+                        </tr>
+                    ))}
                     </tbody>
                 </table>
             </div>
         </div>
-    )
+    );
 }
