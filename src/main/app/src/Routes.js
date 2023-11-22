@@ -7,8 +7,9 @@ import SubOverview from "./components/ClientView/subOverview"
 import Subtopic from "./components/ClientView/subtopic"
 
 import CcOverview from "./components/CCView/ccoverview"
+import CcSubOverview from "./components/CCView/ccsuboverview"
 import CreateUpdateTopic from "./components/CCView/createUpdateTopic"
-import CreateUpdateSubtopic from "./components/CCView/ccCreateUpdateSubtopic";
+import CreateUpdateSubtopic from "./components/CCView/createUpdateSubtopic";
 
 
 function Router() {
@@ -31,7 +32,9 @@ function Router() {
                 </Route>
                 <Route path="/overview/sub-overview" element={<SubOverview />}>
                 </Route>
-                <Route path="/ccoverview/create-update-subtopic" element={<CreateUpdateSubtopic />}>
+                <Route path="/ccoverview/ccsub-overview/create-update-subtopic" element={<CreateUpdateSubtopic />}>
+                </Route>
+                <Route path="/ccoverview/ccsub-overview" element={<CcSubOverview />}>
                 </Route>
             </Routes>
         </BrowserRouter>

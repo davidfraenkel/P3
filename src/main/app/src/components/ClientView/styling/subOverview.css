@@ -50,6 +50,8 @@
 }
 .subTopicCoverImage {
     margin-bottom: 25px;
+    height: 225px;
+
 }
 .subTopicCoverImage img {
     width: 100%;
