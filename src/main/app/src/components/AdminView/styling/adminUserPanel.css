@@ -46,20 +46,25 @@
 
 .tableUserName {
     font-weight: 500;
-}
-
-.tableUserTitle {
-    color: rgb(107 114 128);
+    width: 400px;
 }
 
 .tableUserEmail {
     color: rgb(107 114 128);
+    width: 400px;
 }
 
 .tableUserRole {
     color: rgb(107 114 128);
+    width: 200px;
 }
 
 .tableUserEdit {
     color: rgb(8,26,44);
+    width: 100px
+}
+
+.tableDropdown {
+    width: auto;
+    margin-left: 15px;
 }

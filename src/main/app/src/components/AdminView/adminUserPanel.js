@@ -5,18 +5,42 @@ export default function AdminUserPanel() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        // Fetch data from the backend when the component mounts
-        fetch('/getAllUsers')
+        fetch('http://localhost:3002/api/getAllUsers')
             .then(response => response.json())
-            .then(data => setUsers(data))
+            .then(data => {
+                const parsedData = data.map(user => JSON.parse(user));
+                setUsers(parsedData);
+                console.log(parsedData);
+            })
             .catch(error => console.error('Error fetching data:', error));
-    }, []); // Empty dependency array ensures that the effect runs only once, similar to componentDidMount
-    console.log(users);
+    }, []);
+
+    const handleRoleChange = (event, index) => {
+        const newUsers = [...users];
+        newUsers[index].role = event.target.value;
+        setUsers(newUsers);
+
+        fetch('http://localhost:3002/api/editUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: users[index]._id, // The user's ID
+                role: event.target.value, // The new role
+            }),
+        })
+            .then(response => response.json())
+            .then(data => console.log('Success:', data))
+            .catch((error) => console.error('Error:', error));
+
+    };
+
     return (
         <div className="adminUserPanel">
             <div className="adminHeader">
                 <h1>Users</h1>
-                <p>A list of all the users in your account including their name, title, email, and role.</p>
+                <p>A list of all the users in your account including their name, email, and role.</p>
             </div>
             <div className="adminTableDiv">
                 <table className="adminTable">
@@ -25,18 +49,21 @@ export default function AdminUserPanel() {
                         <th>Name</th>
                         <th>Email</th>
                         <th>Role</th>
-                        <th>
-                            <span></span>
-                        </th>
                     </tr>
                     </thead>
                     <tbody className="adminTableBody">
                     {users.map((user, index) => (
                         <tr key={index}>
-                            <td className="tableUserName">{user.username}</td>
+                            <td className="tableUserName">{user.username} {user.lastname || " "}</td>
                             <td className="tableUserEmail">{user.email}</td>
-                            <td className="tableUserRole">{user.role}</td>
-                            <td className="tableUserEdit">Edit</td>
+                            <td className="tableUserRole">{user.role}
+                                <select className="tableDropdown" value={user.role} onChange={(event) => handleRoleChange(event, index)}>
+                                    <option value="Default">Default</option>
+                                    <option value="Client">Client</option>
+                                    <option value="Content Creator">Content Creator</option>
+                                    <option value="Admin">Admin</option>
+                                </select>
+                            </td>
                         </tr>
                     ))}
                     </tbody>
