@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 
-public class Handbook {
+public class Handbook { //TODO: Make abstract class and have the constructor take a mongo database so we can mock up db for test
     private String connectionString = "mongodb+srv://pepperonis:ilovepepperonis321@p3gastrome.as1pjv9.mongodb.net/?retryWrites=true&w=majority";
     public Handbook (){
         System.out.println("Handbook created");
