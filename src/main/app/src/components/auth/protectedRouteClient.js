@@ -9,12 +9,12 @@ const ProtectedRouteClient = ({role}) => {
     }
 
     useEffect(()=>{
-        if(role && role !== "baseRole"){
+        if(role && role !== "client"){
             presentPage()
         }
-    },[role && role!== "baseRole"])
+    },[role && role!== "client"])
 
-    if(role === 'baseRole') {
+    if(role === 'client') {
         console.log("test");
         return <Outlet />
     }
