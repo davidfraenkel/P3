@@ -20,15 +20,12 @@ export default function AdminUserPanel() {
         newUsers[index].role = event.target.value;
         setUsers(newUsers);
 
-        fetch('http://localhost:3002/api/editUser', {
+        fetch(`http://localhost:3002/api/editUserRole?id=${users[index]._id}&role=${event.target.value}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                id: users[index]._id, // The user's ID
-                role: event.target.value, // The new role
-            }),
+
         })
             .then(response => response.json())
             .then(data => console.log('Success:', data))
