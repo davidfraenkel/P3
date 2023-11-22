@@ -42,8 +42,6 @@ public class HandbookController {
         return this.handbook.deleteTopic(topicId);
     }
 
-
-//  SUBTOPIC CONTROLLERS
     @GetMapping("/getAllSubTopics")
     public HashSet<Document> getAllSubTopics(@RequestParam(name = "parentTopicId") String parentId){
         return this.handbook.getAllSubTopics(parentId);
