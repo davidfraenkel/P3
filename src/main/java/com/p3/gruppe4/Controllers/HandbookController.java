@@ -5,6 +5,8 @@ import com.p3.gruppe4.Models.Handbook.SubTopic;
 import com.p3.gruppe4.Models.Handbook.Topic;
 import org.bson.Document;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.HashSet;
 
 @RestController
@@ -26,8 +28,8 @@ public class HandbookController {
     }
 
     @PostMapping("/createTopic")
-    public String createTopic(@RequestBody Topic topic){
-        return this.handbook.createTopic(topic).toJson();
+    public String createTopic(@RequestBody Topic topic, @RequestParam(name = "file") MultipartFile flie){
+        return this.handbook.createTopic(topic, flie).toJson();
     }
 
     @PostMapping("/editTopic")
