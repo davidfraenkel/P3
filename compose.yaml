@@ -20,7 +20,9 @@
 version: '3'
 services:
   backend:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "3002:8080"
   frontend:
