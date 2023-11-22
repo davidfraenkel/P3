@@ -24,22 +24,26 @@ public class UserController {
 
     @PostMapping("/signup")
     public String signup(@RequestBody User user) {
-        UserOperations userAuth = new UserOperations(); // Assuming a "NormalUser" role
+        UserOperations userAuth = new UserOperations();
         return userAuth.createUser(user).toJson();
     }
 
     @PostMapping("/login")
     public String login(@RequestBody User user) {
         UserOperations userAuth = new UserOperations();
-        return userAuth.login(user.getUsername(), user.getPassword());
+        return userAuth.login(user.getUsername(), user.getPassword()).toJson();
     }
 
-
     @PostMapping("/editUser")
-    public String editUser(@RequestBody User user) {
+    public String editUser(@RequestBody User user, @RequestParam(name = "id") String id) {
         UserOperations userAuth = new UserOperations();
-        userAuth.editUser(user.getUsername(), user.getPassword(), user.getRole(), user.getEmail(), user.getPhonenumber(), user.getLastname());
-        return "User edited successfully!";
+        return userAuth.editUser(user, id).toJson();
+    }
+
+    @PostMapping("/editUserRole")
+    public String editUserRole(@RequestParam(name = "id") String id, @RequestParam(name = "role") String role) {
+        UserOperations userAuth = new UserOperations();
+        return userAuth.editUserRole(id, role).toJson();
     }
 
     @PostMapping("/deleteUser")

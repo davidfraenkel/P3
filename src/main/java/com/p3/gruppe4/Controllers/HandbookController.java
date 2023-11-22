@@ -25,10 +25,10 @@ public class HandbookController {
         return this.handbook.getTopic(topicId);
     }
 
-    @PostMapping("/createTopic")
+/*    @PostMapping("/createTopic")
     public String createTopic(@RequestBody Topic topic){
         return this.handbook.createTopic(topic).toJson();
-    }
+    }*/
 
     @PostMapping("/editTopic")
     public String editTopic(@RequestBody Topic topic, @RequestParam(name = "topicId") String topicId){
@@ -40,8 +40,6 @@ public class HandbookController {
         return this.handbook.deleteTopic(topicId);
     }
 
-
-//  SUBTOPIC CONTROLLERS
     @GetMapping("/getAllSubTopics")
     public HashSet<Document> getAllSubTopics(@RequestParam(name = "parentTopicId") String parentId){
         return this.handbook.getAllSubTopics(parentId);
