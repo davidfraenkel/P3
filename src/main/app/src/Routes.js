@@ -1,6 +1,7 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Home from "./components/home"
 import Signup from "./components/signup"
+import Login from "./components/login"
 
 import Overview from "./components/ClientView/overview"
 import SubOverview from "./components/ClientView/subOverview"
@@ -20,6 +21,8 @@ function Router() {
                 </Route>
                 <Route path="/signup" element={<Signup />}>
                 </Route>
+                <Route path="/login" element={<Login />}>
+                </Route>
                 <Route path="/overview" element={<Overview />}>
                 </Route>
                 <Route path="/overview/sub-overview/subtopic" element={<Subtopic />}>
@@ -34,6 +37,7 @@ function Router() {
                 </Route>
                 <Route path="/ccoverview/create-update-subtopic" element={<CreateUpdateSubtopic />}>
                 </Route>
+
 
                 {/*Admin*/}
                 <Route path="/admin-panel" element={<AdminUserPanel />}>
