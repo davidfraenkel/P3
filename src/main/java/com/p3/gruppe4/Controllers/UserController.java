@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api")
 public class UserController {
 
@@ -42,6 +43,7 @@ public class UserController {
         return "User edited successfully!";
     }
 
+
     @PostMapping("/deleteUser")
     public String deleteUser(@RequestParam(name = "id") String id){
         UserOperations userAuth = new UserOperations();
@@ -57,8 +59,18 @@ public class UserController {
             MongoDatabase db = mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Users");
 
-            collection.find().forEach(doc -> userRoles.add("User: " + doc.getString("username") + ", Role: " + doc.getString("role")));
-        } catch (MongoException me) {
+            collection.find().forEach(doc -> {
+                Map<String, String> userRoleMap = new HashMap<>();
+                userRoleMap.put("username", doc.toJson());
+                userRoleMap.put("lastname", doc.toJson());
+                userRoleMap.put("role", doc.toJson());
+                userRoleMap.put("email", doc.toJson());
+                userRoleMap.put("id", doc.toJson());
+                userRoles.add(doc.toJson());
+            });
+            System.out.println("Retrieved users: " + userRoles);
+        }
+        catch (MongoException me) {
             System.err.println("Unable to retrieve users due to an error: " + me);
         }
         return userRoles;

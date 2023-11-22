@@ -74,6 +74,7 @@ try (MongoClient mongoClient = MongoClients.create(connectionString)) {
         }
     }
 
+
     // Delete user method
     public void deleteUser(String id) {
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
