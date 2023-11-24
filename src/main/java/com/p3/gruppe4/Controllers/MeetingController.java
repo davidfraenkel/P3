@@ -22,7 +22,7 @@ public class MeetingController {
                 + "Email: " + request.getEmail() + "\n"
                 + "Message: " + request.getMessage() + "\n"
                 + "Date: " + request.getDate() + "\n"
-                + "Time: " + request.getSelectedTime();
+                + "Time: " + request.getSelectedTime().getLabel();
 
         // Send the email
         emailService.sendEmail("gustaw1313@gmail.com", "New Meeting Request", emailContent);

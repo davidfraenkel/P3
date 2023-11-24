@@ -5,45 +5,46 @@ public class MeetingRequest {
     private String email;
     private String message;
     private String date;
-    private String selectedTime;
+    private SelectedTime selectedTime;
 
+    // Getters and Setters
     public String getName() {
         return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public String getSelectedTime() {
-        return selectedTime;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public void setEmail(String email) {
-        this.email= email;
+        this.email = email;
+    }
+
+    public String getMessage() {
+        return message;
     }
 
     public void setMessage(String message) {
         this.message = message;
     }
 
+    public String getDate() {
+        return date;
+    }
+
     public void setDate(String date) {
         this.date = date;
     }
 
-    public void setSelectedTime(String selectedTime) {
+    public SelectedTime getSelectedTime() {
+        return selectedTime;
+    }
+
+    public void setSelectedTime(SelectedTime selectedTime) {
         this.selectedTime = selectedTime;
     }
 }
