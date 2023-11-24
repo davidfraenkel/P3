@@ -17,6 +17,7 @@ public class User {
         this.id = new ObjectId();
     }
 
+
     public boolean login(String userName, String password) {
         return this.username.equals(userName) && this.password.equals(password);
     };

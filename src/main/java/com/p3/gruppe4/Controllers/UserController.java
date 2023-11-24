@@ -4,56 +4,80 @@ import com.p3.gruppe4.Models.Users.User;
 import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
-import com.p3.gruppe4.Models.Users.UserAuth;
+import com.p3.gruppe4.Models.Users.UserOperations;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.MongoException;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import org.bson.Document;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api")
 public class UserController {
 
     @PostMapping("/signup")
-    public Map<String, String> signup(@RequestBody User user) {
-        UserAuth userAuth = new UserAuth(); // Assuming a "NormalUser" role
-        userAuth.createUser(user);
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "User registered successfully!");
-        System.out.println("User data: " + user.getUsername() + " " + user.getRole() + " " + user.getPassword() + " " + user.getEmail() + " " + user.getPhonenumber() + " " + user.getLastname());
-        return response;
+    public String signup(@RequestBody User user) {
+        UserOperations userAuth = new UserOperations();
+        return userAuth.createUser(user).toJson();
     }
+
     @PostMapping("/login")
-    public Map<String, String> login(@RequestBody User user) {
-        UserAuth userAuth = new UserAuth();
-        boolean isUserValid = userAuth.validateUser(user.getUsername(), user.getPassword());
-
-        Map<String, String> response = new HashMap<>();
-        if (isUserValid) {
-            response.put("message", "User login successful!");
-        } else {
-            response.put("message", "User login failed. Invalid username or password.");
-        }
-        return response;
+    public String login(@RequestBody User user) {
+        UserOperations userAuth = new UserOperations();
+        return userAuth.login(user.getUsername(), user.getPassword()).toJson();
     }
-
 
     @PostMapping("/editUser")
-    public Map<String, String> editUser(@RequestBody User user) {
-        UserAuth userAuth = new UserAuth();
-        userAuth.editUser(user.getUsername(), user.getPassword(), user.getRole(), user.getEmail(), user.getPhonenumber(), user.getLastname());
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "User edited successfully!");
-        // User data changed from to
-        System.out.println("User data changed from " + user.getUsername() + " " + user.getRole() + " " + user.getPassword() + " " + user.getEmail() + " " + user.getPhonenumber() + user.getLastname());
-        System.out.println("User data changed to " + user.getUsername() + " " + " " + user.getRole() + " " +user.getPassword() + " " + user.getEmail() + " " + user.getPhonenumber() + user.getLastname());
-        return response;
+    public String editUser(@RequestBody User user, @RequestParam(name = "id") String id) {
+        UserOperations userAuth = new UserOperations();
+        return userAuth.editUser(user, id).toJson();
     }
 
+    @PostMapping("/editUserRole")
+    public String editUserRole(@RequestParam(name = "id") String id, @RequestParam(name = "role") String role) {
+        UserOperations userAuth = new UserOperations();
+        return userAuth.editUserRole(id, role).toJson();
+    }
+
+
     @PostMapping("/deleteUser")
-    public Map<String, String> deleteUser(@RequestBody User user) {
-        UserAuth userAuth = new UserAuth();
-        userAuth.deleteUser(user.getUsername());
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "User deleted successfully!");
-        System.out.println("User deleted: " + user.getUsername() + " " + user.getRole());
-        return response;
+    public String deleteUser(@RequestParam(name = "id") String id){
+        UserOperations userAuth = new UserOperations();
+        userAuth.deleteUser(id);
+        return "User deleted successfully!";
+    }
+
+    @GetMapping("/getAllUsers")
+    public List<String> getAllUsers() {
+        List<String> userRoles = new ArrayList<>();
+        String connectionString = "mongodb+srv://pepperonis:ilovepepperonis321@p3gastrome.as1pjv9.mongodb.net/";
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+            MongoCollection<Document> collection = db.getCollection("Users");
+
+            collection.find().forEach(doc -> {
+                Map<String, String> userRoleMap = new HashMap<>();
+                userRoleMap.put("username", doc.toJson());
+                userRoleMap.put("lastname", doc.toJson());
+                userRoleMap.put("role", doc.toJson());
+                userRoleMap.put("email", doc.toJson());
+                userRoleMap.put("id", doc.toJson());
+                userRoles.add(doc.toJson());
+            });
+            System.out.println("Retrieved users: " + userRoles);
+        }
+        catch (MongoException me) {
+            System.err.println("Unable to retrieve users due to an error: " + me);
+        }
+        return userRoles;
     }
 
 }
