@@ -55,7 +55,7 @@ public class UserController {
         return "User deleted successfully!";
     }
 
-    @GetMapping("/getUser")
+    @PostMapping("/getUser")
     public String getUser(@RequestParam(name = "id") String id) {
         UserOperations userAuth = new UserOperations();
         return userAuth.getUser(id).toJson();
