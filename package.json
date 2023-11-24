@@ -1,15 +1,11 @@
 {
   "dependencies": {
-<<<<<<< HEAD
     "axios": "^1.6.2",
-    "react-icons": "^4.11.0"
-=======
     "docker": "^1.0.0",
     "reack": "^1.0.0",
     "react": "^18.2.0",
     "react-icons": "^4.11.0",
     "yarn": "^1.22.19"
->>>>>>> 8e12eba394d5aed705f256298d18126c7a80afc6
   },
   "version": "0.0.0"
 }
