@@ -71,7 +71,7 @@ export default function BookMeeting() {
                         placeholder="Name"
                         value={contactInfo.name}
                         onChange={handleChange}
-                        required
+                        //required
                     />
                 </div>
                 <div className="ContactInput">
@@ -81,7 +81,7 @@ export default function BookMeeting() {
                         placeholder="Email"
                         value={contactInfo.email}
                         onChange={handleChange}
-                        required
+                        //required
                     />
                 </div>
                 <div className="ContactInput">
@@ -91,7 +91,7 @@ export default function BookMeeting() {
               placeholder="Your Message"
               value={contactInfo.message}
               onChange={handleChange}
-              required
+              //required
           />
                 </div>
                 <div className="ContactInput ContactSubmit">

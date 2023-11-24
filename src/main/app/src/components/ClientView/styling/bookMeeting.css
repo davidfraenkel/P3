@@ -16,6 +16,7 @@
     font-size: 30px;
     margin: 20px 0;
     color: #333;
+    font-family: 'open sans', sans-serif;
 }
 
 /* Form Styles */
@@ -55,7 +56,22 @@ a {
 textarea {
     height: 200px;
     resize: none;
+    font-family: 'open sans', sans-serif;
+}
+.dropdownTime {
+    width: 200px;
 }
 
+.CalenderContainer {
+    display: flex;
+    width: 200px;
+    position: relative;
+    flex: 1;
+    height: 36px;
+}
 
+.calender-time-box {
+    display: flex;
+    margin-bottom: 15px;
+}
 
