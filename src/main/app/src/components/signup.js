@@ -1,6 +1,6 @@
 import './styling/signup.css';
 import { useState } from 'react';
-import { Route, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import InputField from './smartComponents/inputField';
 
 export default function Signup({setRole, setName}) {
@@ -26,9 +26,22 @@ export default function Signup({setRole, setName}) {
             .then(response => response.json())
             .then(data => {
                 console.log('Success:', data);
+                data.role.toLocaleLowerCase();
                 setRole((data.role))
                 setName((data.username))
-                navigate('/overview')
+                switch (data.role) {
+                    case "NormalUser":
+                        navigate('/overview');
+                        break;
+                    case "client":
+                        navigate('/overview');
+                        break;
+                    case "content creator":
+                        navigate("/ccoverview");
+                        break;
+                    case "admin":
+                        navigate("/");
+                }
             })
             .catch((error) => {
                 console.error('Error:', error);

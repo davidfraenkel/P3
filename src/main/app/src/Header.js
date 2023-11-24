@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import Logo from './assets/homepage/logo2.png'
 import { HiUser } from "react-icons/hi";
 
-export default function Header({name}) {
+export default function Header({name, role}) {
     return (
         <div className="navbar">
             <div className="container">
@@ -12,8 +12,8 @@ export default function Header({name}) {
                     <span className="toggle-icon"></span>
                 </button>
                 <div className="navbar-links" id="basic-navbar-nav">
-                    <a href="#home">Home</a>
-                    <a href="http://localhost:3000/signup">Sign up</a>
+                    <a href="/">Home</a>
+                    {name ? "" : <a href="http://localhost:3000/signup">Sign up</a>}
                     <div className="dropdown">
                         <button className="dropbtn">{name}</button>
                         <div className="dropdown-content">
