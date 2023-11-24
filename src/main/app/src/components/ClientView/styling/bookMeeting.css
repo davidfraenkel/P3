@@ -1,0 +1,77 @@
+/* Container Styles */
+.ContactContainer {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    padding: 20px;
+    margin-top: 150px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Header Styles */
+.Title {
+    font-size: 30px;
+    margin: 20px 0;
+    color: #333;
+    font-family: 'open sans', sans-serif;
+}
+
+/* Form Styles */
+.ContactInput {
+    margin-bottom: 15px;
+}
+
+/* Input Field Styles */
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    outline: none; /* Remove the default focus outline */
+}
+
+/* Submit Button Styles */
+.ContactSubmit input[type="submit"] {
+    background: rgb(8, 26, 44);
+    color: #fff;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background 0.3s;
+}
+
+.ContactSubmit input[type="submit"]:hover {
+    background: rgb(31, 74, 126);
+}
+
+/* Text Color for Links */
+a {
+    text-decoration: none;
+}
+
+textarea {
+    height: 200px;
+    resize: none;
+    font-family: 'open sans', sans-serif;
+}
+.dropdownTime {
+    width: 200px;
+}
+
+.CalenderContainer {
+    display: flex;
+    width: 200px;
+    position: relative;
+    flex: 1;
+    height: 36px;
+}
+
+.calender-time-box {
+    display: flex;
+    margin-bottom: 15px;
+}
+
