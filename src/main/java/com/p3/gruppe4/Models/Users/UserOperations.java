@@ -155,10 +155,26 @@ public class UserOperations {
                 userRoles.add(doc.toJson());
             });
             System.out.println("Retrieved users: " + userRoles);
-        }
-        catch (MongoException me) {
+        } catch (MongoException me) {
             System.err.println("Unable to retrieve users due to an error: " + me);
         }
         return userRoles;
+    }
+
+    public Document getUser(String id) {
+        Document returnUser = new Document();
+        try {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
+            MongoCollection<Document> collection = db.getCollection("Users");
+            Document user = collection.find(new Document().append("_id", id)).first();
+            if (user != null) {
+                returnUser = user;
+            } else {
+                System.out.println("User not found");
+            }
+        } catch (MongoException me) {
+            System.err.println("Unable to insert due to an error: " + me);
+        }
+        return returnUser;
     }
 }

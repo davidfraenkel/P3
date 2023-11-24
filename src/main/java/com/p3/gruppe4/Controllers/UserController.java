@@ -56,6 +56,11 @@ public class UserController extends Controller {
         return "User deleted successfully!";
     }
 
+    @GetMapping("/getUser")
+    public String getUser(@RequestParam(name = "id") String id) {
+        return this.userOperations.getUser(id).toJson();
+    }
+
     @GetMapping("/getAllUsers")
     public List<String> getAllUsers() {
         return this.userOperations.getAllUsers();
