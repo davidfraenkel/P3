@@ -15,16 +15,18 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 public class Handbook {
-    private String connectionString = "mongodb+srv://pepperonis:ilovepepperonis321@p3gastrome.as1pjv9.mongodb.net/?retryWrites=true&w=majority";
+
+    private MongoClient mongoClient;
     public Handbook (MongoClient client){
+        this.mongoClient = client;
         System.out.println("Handbook created");
     }
 
 //  TOPIC OPERATIONS
     public HashSet<Document> getAllTopics(){
         HashSet<Document> returnSet = new HashSet<>(Collections.emptySet());
-        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+        try {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Topic");
 
             FindIterable<Document> iterableCollection = collection.find();
@@ -42,8 +44,8 @@ public class Handbook {
 
     public Document getTopic(String id){
         Document returnDocument = new Document();
-        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+        try {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Topic");
 
             returnDocument = collection.find(eq("_id", id))
@@ -57,8 +59,8 @@ public class Handbook {
 
     public Document createTopic(Topic topic, MultipartFile file) {
         Document returnDocument = new Document();
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+        try  {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
 
             MongoCollection<Document> collection = db.getCollection("Topic");
             returnDocument = new Document()
@@ -80,8 +82,8 @@ public class Handbook {
 
     public Document editTopic(String topicId, Topic topic){
         Document returnDoc = new Document();
-        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+        try {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Topic");
 
             Document oldDoc = collection.find(eq("_id", topicId))
@@ -101,8 +103,8 @@ public class Handbook {
 
     public String deleteTopic(String topicId){
         String returnString = "deletion failed";
-        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+        try {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Topic");
 
             collection.deleteOne(new Document().append("_id",  topicId));
@@ -117,8 +119,8 @@ public class Handbook {
 //  SUBTOPIC OPERATIONS
     public HashSet<Document> getAllSubTopics(String parentId){
         HashSet<Document> returnSet = new HashSet<>(Collections.emptySet());
-        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+        try {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("SubTopic");
 
             Document query = new Document().append("parentTopicId", parentId);
@@ -137,8 +139,8 @@ public class Handbook {
 
     public Document getSubTopic(String id){
         Document returnDocument = new Document();
-        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+        try {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("SubTopic");
 
             returnDocument = collection.find(eq("_id", id))
@@ -153,8 +155,8 @@ public class Handbook {
 
     public Document createSubTopic(SubTopic subTopic, String parentId){
         Document returnDocument = new Document();
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+        try  {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
 
             MongoCollection<Document> collection = db.getCollection("SubTopic");
             returnDocument = new Document()
@@ -173,8 +175,8 @@ public class Handbook {
 
     public Document editSubTopic(SubTopic subTopic, String subTopicId){
         Document returnDoc = new Document();
-        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+        try  {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("SubTopic");
 
             Document oldDoc = collection.find(eq("_id", subTopicId))
@@ -195,8 +197,8 @@ public class Handbook {
 
     public String deleteSubTopic(String subTopicId){
         String returnString = "deletion failed";
-        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+        try  {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("SubTopic");
 
             collection.deleteOne(new Document().append("_id",  subTopicId));
