@@ -31,10 +31,10 @@ public class HandbookController extends Controller {
         return this.handbook.getTopic(topicId);
     }
 
-    @PostMapping("/createTopic")
-    public String createTopic(@RequestBody Topic topic, @RequestParam(name = "file") MultipartFile file){
-        return this.handbook.createTopic(topic, file).toJson();
-    }
+//    @PostMapping("/createTopic")
+//    public String createTopic(@RequestBody Topic topic, @RequestParam(name = "file") MultipartFile file){
+//        return this.handbook.createTopic(topic, file).toJson();
+//    }
 
     @PostMapping("/editTopic")
     public String editTopic(@RequestBody Topic topic, @RequestParam(name = "topicId") String topicId){
