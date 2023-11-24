@@ -14,7 +14,7 @@ import BookMeeting from "./components/ClientView/bookMeeting";
 import Meeting from "./components/ClientView/meeting"; // Import the Meeting component
 
 function Router() {
-    let payload = {
+/*    let payload = {
         meetingNumber: 84084099070,
         role: 0,
         sdkKey: 'wD1nCdGxR6eV7qOFMxD5Ag',
@@ -23,7 +23,7 @@ function Router() {
         userName: 'Testing',
         userEmail: '',
         leaveUrl: 'https://localhost:3000',
-    };
+    };*/
 
     return (
         <BrowserRouter>
@@ -56,7 +56,7 @@ function Router() {
                 <Route path="/admin-panel" element={<AdminUserPanel />} />
 
                 {/* Meeting route */}
-                <Route path="/meeting" element={<Meeting payload={payload} />} />
+                {/*<Route path="/meeting" element={<Meeting payload={payload} />} />*/}
             </Routes>
         </BrowserRouter>
     );
