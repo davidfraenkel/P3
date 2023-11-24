@@ -12,8 +12,12 @@ import java.util.HashSet;
 @RestController
 @CrossOrigin("http://localhost:3000")
 @RequestMapping("/api")
-public class HandbookController {
-    Handbook handbook = new Handbook();
+public class HandbookController extends Controller {
+
+    private Handbook handbook;
+    public HandbookController() {
+        this.handbook = new Handbook(this.createClient());
+    }
 
 //  TOPIC OPERATOINS
     @GetMapping("/getAllTopics")
@@ -27,10 +31,11 @@ public class HandbookController {
         return this.handbook.getTopic(topicId);
     }
 
-    /*@PostMapping("/createTopic")
-    public String createTopic(@RequestBody Topic topic, @RequestParam(name = "file") MultipartFile file){
-        return this.handbook.createTopic(topic, file).toJson();
-    }*/
+
+//    @PostMapping("/createTopic")
+//    public String createTopic(@RequestBody Topic topic, @RequestParam(name = "file") MultipartFile file){
+//        return this.handbook.createTopic(topic, file).toJson();
+//    }
 
     @PostMapping("/editTopic")
     public String editTopic(@RequestBody Topic topic, @RequestParam(name = "topicId") String topicId){
