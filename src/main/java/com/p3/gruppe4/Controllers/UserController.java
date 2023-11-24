@@ -55,6 +55,12 @@ public class UserController {
         return "User deleted successfully!";
     }
 
+    @GetMapping("/getUser")
+    public String getUser(@RequestParam(name = "id") String id) {
+        UserOperations userAuth = new UserOperations();
+        return userAuth.getUser(id).toJson();
+    }
+
     @GetMapping("/getAllUsers")
     public List<String> getAllUsers() {
         List<String> userRoles = new ArrayList<>();
