@@ -1,13 +1,15 @@
 import './styling/userProfilePanel.css'
 import React, { useState, useEffect } from 'react';
 
+// Assuming user object has an 'id' field
+const userId = '65576090797f5a24a6e0bc1f';
 export default function UserProfilePanel() {
     const [user, setUser] = useState({});
 
     useEffect(() => {
         // Fetch user data when the component is mounted
         const fetchUserData = async () => {
-            const response = await fetch('http://localhost:3002/api/getUser?id=655dec225f108b74df740d40');
+            const response = await fetch(`http://localhost:3002/api/getUser?id=${userId}`);
             const data = await response.json();
 
             setUser(data);
@@ -19,16 +21,26 @@ export default function UserProfilePanel() {
     const handleSaveEdit = async (event) => {
         event.preventDefault();
 
-        const response = await fetch(`http://localhost:3002/api/editUser?id=${user}`, {
+
+
+        const response = await fetch(`http://localhost:3002/api/editUser?id=${userId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
+            body: JSON.stringify({
+                username: user.username,
+                lastname: user.lastname,
+                email: user.email,
+                phonenumber: user.phonenumber,
+                // Add other user fields as needed
+            })
         });
 
         const data = await response.json();
         console.log('Success:', data);
     };
+
 
     // Rest of the component
     return (
