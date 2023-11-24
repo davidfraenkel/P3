@@ -13,7 +13,8 @@ import AdminUserPanel from "./components/AdminView/adminUserPanel";
 import BookMeeting from "./components/ClientView/bookMeeting";
 import Meeting from "./components/ClientView/meeting";
 import useUser from "./components/auth/setUser";
-import Login from "./components/login"; // Import the Meeting component
+import Login from "./components/login";
+import Header from "./Header"; // Import the Meeting component
 
 function Router() {
     const {role, setRole} = useUser();
