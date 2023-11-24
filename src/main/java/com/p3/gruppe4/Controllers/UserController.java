@@ -1,5 +1,6 @@
 package com.p3.gruppe4.Controllers;
 
+import com.p3.gruppe4.Models.Handbook.Handbook;
 import com.p3.gruppe4.Models.Users.User;
 import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
@@ -21,69 +22,48 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin("http://localhost:3000")
 @RequestMapping("/api")
-public class UserController {
+public class UserController extends Controller {
+
+    private UserOperations userOperations;
+    public UserController(){
+        this.userOperations = new UserOperations(this.createClient());
+    }
 
     @PostMapping("/signup")
     public String signup(@RequestBody User user) {
-        UserOperations userAuth = new UserOperations();
-        return userAuth.createUser(user).toJson();
+        return this.userOperations.createUser(user).toJson();
     }
 
     @PostMapping("/login")
     public String login(@RequestBody User user) {
-        UserOperations userAuth = new UserOperations();
-        return userAuth.login(user.getUsername(), user.getPassword()).toJson();
+        return this.userOperations.login(user.getUsername(), user.getPassword()).toJson();
     }
 
     @PostMapping("/editUser")
     public String editUser(@RequestBody User user, @RequestParam(name = "id") String id) {
-        UserOperations userAuth = new UserOperations();
-        return userAuth.editUser(user, id).toJson();
+        return this.userOperations.editUser(user, id).toJson();
     }
 
     @PostMapping("/editUserRole")
     public String editUserRole(@RequestParam(name = "id") String id, @RequestParam(name = "role") String role) {
-        UserOperations userAuth = new UserOperations();
-        return userAuth.editUserRole(id, role).toJson();
+        return this.userOperations.editUserRole(id, role).toJson();
     }
 
 
     @PostMapping("/deleteUser")
     public String deleteUser(@RequestParam(name = "id") String id){
-        UserOperations userAuth = new UserOperations();
-        userAuth.deleteUser(id);
+        this.userOperations.deleteUser(id);
         return "User deleted successfully!";
     }
 
-    @GetMapping("/getUser")
+    @PostMapping("/getUser")
     public String getUser(@RequestParam(name = "id") String id) {
-        UserOperations userAuth = new UserOperations();
-        return userAuth.getUser(id).toJson();
+        return this.userOperations.getUser(id).toJson();
     }
 
     @GetMapping("/getAllUsers")
     public List<String> getAllUsers() {
-        List<String> userRoles = new ArrayList<>();
-        String connectionString = "mongodb+srv://pepperonis:ilovepepperonis321@p3gastrome.as1pjv9.mongodb.net/";
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
-            MongoCollection<Document> collection = db.getCollection("Users");
-
-            collection.find().forEach(doc -> {
-                Map<String, String> userRoleMap = new HashMap<>();
-                userRoleMap.put("username", doc.toJson());
-                userRoleMap.put("lastname", doc.toJson());
-                userRoleMap.put("role", doc.toJson());
-                userRoleMap.put("email", doc.toJson());
-                userRoleMap.put("id", doc.toJson());
-                userRoles.add(doc.toJson());
-            });
-            System.out.println("Retrieved users: " + userRoles);
-        }
-        catch (MongoException me) {
-            System.err.println("Unable to retrieve users due to an error: " + me);
-        }
-        return userRoles;
+        return this.userOperations.getAllUsers();
     }
 
 }
