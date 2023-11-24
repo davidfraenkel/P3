@@ -2,7 +2,7 @@ import './styling/userProfilePanel.css'
 import React, { useState, useEffect } from 'react';
 
 // Assuming user object has an 'id' field
-const userId = '65576090797f5a24a6e0bc1f';
+const userId = '655dec265f108b74df740d42';
 export default function UserProfilePanel() {
     const [user, setUser] = useState({});
 
@@ -33,6 +33,7 @@ export default function UserProfilePanel() {
                 lastname: user.lastname,
                 email: user.email,
                 phonenumber: user.phonenumber,
+                password: user.password
                 // Add other user fields as needed
             })
         });
@@ -75,6 +76,12 @@ export default function UserProfilePanel() {
                                 <h4>Phone number</h4>
                             </dt>
                             <input className="inputField" type="tel" value={user.phonenumber} onChange={e => setUser({...user, phonenumber: e.target.value})} />
+                        </div>
+                        <div className="Password">
+                            <dt>
+                                <h4>Password</h4>
+                            </dt>
+                            <input className="inputField" type="text" value={user.password} onChange={e => setUser({...user, password: e.target.value})} />
                         </div>
                         <div className="Role">
                             <dt>
