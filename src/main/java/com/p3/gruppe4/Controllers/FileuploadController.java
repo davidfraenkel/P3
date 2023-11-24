@@ -18,7 +18,6 @@ public class FileuploadController {
     @PostMapping("/PictureUpload")
     public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
         images.store(file);
-
         // Implementation goes here
         return ResponseEntity.ok("File uploaded successfully");
     }
@@ -27,7 +26,4 @@ public class FileuploadController {
     public String test() {
         return "test";
     }
-
-
-
 }

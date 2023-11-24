@@ -132,4 +132,21 @@ public class UserOperations {
         }
         return returnUser;
     }
+
+    public Document getUser(String id) {
+        Document returnUser = new Document();
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+            MongoCollection<Document> collection = db.getCollection("Users");
+            Document user = collection.find(new Document().append("_id", id)).first();
+            if (user != null) {
+                returnUser = user;
+            } else {
+                System.out.println("User not found");
+            }
+        } catch (MongoException me) {
+            System.err.println("Unable to insert due to an error: " + me);
+        }
+        return returnUser;
+    }
 }
