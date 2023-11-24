@@ -63,8 +63,6 @@ export default function BookMeeting() {
                 console.error('Error:', error);
             });
         }
-    };
-
     return (
         <div className="ContactContainer">
             <h1 className="Title">Contact Us</h1>
