@@ -10,12 +10,14 @@ import CcOverview from "./components/CCView/ccoverview"
 import CreateUpdateTopic from "./components/CCView/createUpdateTopic"
 import CreateUpdateSubtopic from "./components/CCView/ccCreateUpdateSubtopic";
 import AdminUserPanel from "./components/AdminView/adminUserPanel";
+import UserProfilePanel from "./components/UserProfile/userProfilePanel";
 
 
 function Router() {
     return (
         <BrowserRouter>
             <Routes>
+                {/*CLIENT*/}
                 <Route path="/" element={<Home />}>
                 </Route>
                 <Route path="/signup" element={<Signup />}>
@@ -23,6 +25,8 @@ function Router() {
                 <Route path="/overview" element={<Overview />}>
                 </Route>
                 <Route path="/overview/sub-overview/subtopic" element={<Subtopic />}>
+                </Route>
+                <Route path={"/userprofile"} element={<UserProfilePanel />}>
                 </Route>
 
                 {/*CONTENT CREATOR*/}
