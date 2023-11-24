@@ -9,13 +9,9 @@ import CcOverview from "./components/CCView/ccoverview";
 import CreateUpdateTopic from "./components/CCView/createUpdateTopic";
 import CreateUpdateSubtopic from "./components/CCView/ccCreateUpdateSubtopic";
 import AdminUserPanel from "./components/AdminView/adminUserPanel";
-<<<<<<< HEAD
 import UserProfilePanel from "./components/UserProfile/userProfilePanel";
-
-=======
 import BookMeeting from "./components/ClientView/bookMeeting";
 import Meeting from "./components/ClientView/meeting"; // Import the Meeting component
->>>>>>> 8e12eba394d5aed705f256298d18126c7a80afc6
 
 function Router() {
     let payload = {
