@@ -16,7 +16,7 @@ import java.util.Iterator;
 
 public class Handbook {
     private String connectionString = "mongodb+srv://pepperonis:ilovepepperonis321@p3gastrome.as1pjv9.mongodb.net/?retryWrites=true&w=majority";
-    public Handbook (){
+    public Handbook (MongoClient client){
         System.out.println("Handbook created");
     }
 
