@@ -10,20 +10,20 @@ ajv@^4.9.1:
     co "^4.6.0"
     json-stable-stringify "^1.0.1"
 
-ambi@^2.2.0:
-  version "2.5.0"
-  resolved "https://registry.npmjs.org/ambi/-/ambi-2.5.0.tgz"
-  integrity sha512-5nS0gYMPNgZz/UALDHMStcwO42youpIWBQVbI92vV5j0+2bMxv/iVqearrLu3/f0XaU6xVIbf3RRtDxOcHxSkw==
-  dependencies:
-    editions "^1.1.1"
-    typechecker "^4.3.0"
-
 ambi@3.2.0:
   version "3.2.0"
   resolved "https://registry.npmjs.org/ambi/-/ambi-3.2.0.tgz"
   integrity sha512-nj5sHLPFd7u2OLmHdFs4DHt3gK6edpNw35hTRIKyI/Vd2Th5e4io50rw1lhmCdUNO2Mm4/4FkHmv6shEANAWcw==
   dependencies:
     editions "^2.1.0"
+    typechecker "^4.3.0"
+
+ambi@^2.2.0:
+  version "2.5.0"
+  resolved "https://registry.npmjs.org/ambi/-/ambi-2.5.0.tgz"
+  integrity sha512-5nS0gYMPNgZz/UALDHMStcwO42youpIWBQVbI92vV5j0+2bMxv/iVqearrLu3/f0XaU6xVIbf3RRtDxOcHxSkw==
+  dependencies:
+    editions "^1.1.1"
     typechecker "^4.3.0"
 
 argparse@^1.0.7:
@@ -45,20 +45,15 @@ asn1@~0.2.3:
   dependencies:
     safer-buffer "~2.1.0"
 
+assert-plus@1.0.0, assert-plus@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/assert-plus/-/assert-plus-1.0.0.tgz"
+  integrity sha512-NfJ4UzBCcQGLDlQq7nHxH+tv3kyZ0hHQqF5BO6J7tNJeP5do1llPr8dZ8zHonfhAu0PHAdMkSo+8o0wxg9lZWw==
+
 assert-plus@^0.2.0:
   version "0.2.0"
   resolved "https://registry.npmjs.org/assert-plus/-/assert-plus-0.2.0.tgz"
   integrity sha512-u1L0ZLywRziOVjUhRxI0Qg9G+4RnFB9H/Rq40YWn0dieDgO7vAYeJz6jKAO6t/aruzlDFLAPkQTT87e+f8Imaw==
-
-assert-plus@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/assert-plus/-/assert-plus-1.0.0.tgz"
-  integrity sha512-NfJ4UzBCcQGLDlQq7nHxH+tv3kyZ0hHQqF5BO6J7tNJeP5do1llPr8dZ8zHonfhAu0PHAdMkSo+8o0wxg9lZWw==
-
-assert-plus@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/assert-plus/-/assert-plus-1.0.0.tgz"
-  integrity sha512-NfJ4UzBCcQGLDlQq7nHxH+tv3kyZ0hHQqF5BO6J7tNJeP5do1llPr8dZ8zHonfhAu0PHAdMkSo+8o0wxg9lZWw==
 
 async@^1.4.0:
   version "1.5.2"
@@ -217,12 +212,7 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
-editions@^1.1.1:
-  version "1.3.4"
-  resolved "https://registry.npmjs.org/editions/-/editions-1.3.4.tgz"
-  integrity sha512-gzao+mxnYDzIysXKMQi/+M1mjy/rjestjg6OPoYTtI+3Izp23oiGZitsl9lPDPiTGXbcSIk1iJWhliSaglxnUg==
-
-editions@^1.3.3:
+editions@^1.1.1, editions@^1.3.3:
   version "1.3.4"
   resolved "https://registry.npmjs.org/editions/-/editions-1.3.4.tgz"
   integrity sha512-gzao+mxnYDzIysXKMQi/+M1mjy/rjestjg6OPoYTtI+3Izp23oiGZitsl9lPDPiTGXbcSIk1iJWhliSaglxnUg==
@@ -284,7 +274,7 @@ extract-opts@^3.3.1:
     editions "^2.2.0"
     typechecker "^4.9.0"
 
-extsprintf@^1.2.0, extsprintf@1.3.0:
+extsprintf@1.3.0, extsprintf@^1.2.0:
   version "1.3.0"
   resolved "https://registry.npmjs.org/extsprintf/-/extsprintf-1.3.0.tgz"
   integrity sha512-11Ndz7Nv+mvAC1j0ktTa7fAb0vLyGGX+rMHNBYQviQDGU0Hw7lhctJANqbPhu9nV9/izT/IntTgZ7Im/9LJs9g==
@@ -581,7 +571,7 @@ react-icons@^4.11.0:
   resolved "https://registry.npmjs.org/react-icons/-/react-icons-4.11.0.tgz"
   integrity sha512-V+4khzYcE5EBk/BvcuYRq6V/osf11ODUM2J8hg2FDSswRrGvqiYUYPRy4OdrWaQOBj4NcpJfmHZLNaD+VH0TyA==
 
-react@*, react@^18.2.0:
+react@^18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==

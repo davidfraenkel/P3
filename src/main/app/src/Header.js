@@ -2,9 +2,8 @@ import './header.css'
 import {Link} from "react-router-dom";
 import Logo from './assets/homepage/logo2.png'
 import { HiUser } from "react-icons/hi";
-let isLoggedIn = false;
 
-export default function Header() {
+export default function Header({name, role}) {
     return (
         <div className="navbar">
             <div className="container">
@@ -13,10 +12,10 @@ export default function Header() {
                     <span className="toggle-icon"></span>
                 </button>
                 <div className="navbar-links" id="basic-navbar-nav">
-                    <a href="#home">Home</a>
-                    <a href="http://localhost:3000/signup">Sign up</a>
+                    <a href="/">Home</a>
+                    {name ? "" : <a href="http://localhost:3000/signup">Sign up</a>}
                     <div className="dropdown">
-                        <button className="dropbtn">User.name</button>
+                        <button className="dropbtn">{name}</button>
                         <div className="dropdown-content">
                             <a href="#action/3.1">Settings</a>
                             <a href="#action/3.2">User</a>

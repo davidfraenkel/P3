@@ -34,12 +34,35 @@ export default function BookMeeting() {
         setContactInfo((values) => ({ ...values, selectedTime: selectedOption[0] }));
     };
 
+    // JSON info:
+    // {
+    //     "name": "John Doe",
+    //     "email": "john.doe@gmail",
+    //     "message": "Hello, I would like to book a meeting with you.",
+    //     "date": "2021-05-25T22:00:00.000Z",
+    //     "selectedTime": "10:00"
+    // }
+
+
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log('Form Data:', contactInfo);
-        // Add your fetch logic here if needed
-    };
 
+        fetch('http://localhost:3002/api/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(contactInfo),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
     return (
         <div className="ContactContainer">
             <h1 className="Title">Contact Us</h1>
