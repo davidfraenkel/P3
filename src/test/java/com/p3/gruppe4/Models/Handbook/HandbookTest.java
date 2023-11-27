@@ -38,24 +38,32 @@ public class HandbookTest {
 
         // Configure the cursor to return no documents when iterated
         Mockito.when(mockCursor.hasNext()).thenReturn(false);
-    }
 
-    @Test
-    public void testGetAllTopics() {
-        // Call the method under test
-        HashSet<Document> result = handbook.getAllTopics();
+        Topic topic1 = new Topic("Document 1", "path 1");
+        Document doc1 = new Document()
+                .append("_id", topic1.getId().toString())
+                .append("name", topic1.getName())
+                .append("imagePath", topic1.getImagePath());
 
-        // Verify the expected behavior
-        assertEquals(0, result.size()); // Check that the result set is empty
-
-        // Verify that the MongoDB client is properly closed
-        mockClient.close();
-        Mockito.verify(mockClient).close();
+        Topic topic2 = new Topic("Document 2", "path 2");
+        Document doc2 = new Document()
+                .append("_id", topic2.getId().toString())
+                .append("name", topic2.getName())
+                .append("imagePath", topic2.getImagePath());
     }
 
 
     @Test
     void getAllTopics() {
+        // Call the method under test
+        HashSet<Document> result = handbook.getAllTopics();
+
+        // Verify the expected behavior
+        assertEquals(2, result.size()); // Check that the result set is empty
+
+        // Verify that the MongoDB client is properly closed
+        mockClient.close();
+        Mockito.verify(mockClient).close();
     }
 
     @Test
