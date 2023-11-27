@@ -1,5 +1,6 @@
 package com.p3.gruppe4.Controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.p3.gruppe4.Models.Handbook.Handbook;
 import com.p3.gruppe4.Models.Handbook.SubTopic;
 import com.p3.gruppe4.Models.Handbook.Topic;
@@ -32,7 +33,7 @@ public class HandbookController extends Controller {
     }
 
     @PostMapping("/createTopic")
-    public String createTopic(@RequestBody Topic topic, @RequestParam(name = "file") MultipartFile file){
+    public String createTopic(@RequestBody Topic topic, @RequestParam MultipartFile file){
         return this.handbook.createTopic(topic, file).toJson();
     }
 
