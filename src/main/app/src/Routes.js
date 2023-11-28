@@ -2,13 +2,14 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from "./components/home";
 import Signup from "./components/signup";
+import Homeview from "./components/ClientView/homeview";
 import Overview from "./components/ClientView/overview";
 import CcSubOverview from "./components/CCView/ccsuboverview"
 import SubOverview from "./components/ClientView/subOverview";
 import Subtopic from "./components/ClientView/subtopic";
 import CcOverview from "./components/CCView/ccoverview";
 import CreateUpdateTopic from "./components/CCView/createUpdateTopic";
-import CreateUpdateSubtopic from "./components/CCView/ccCreateUpdateSubtopic";
+import CreateUpdateSubtopic from "./components/CCView/createUpdateSubtopic";
 import AdminUserPanel from "./components/AdminView/adminUserPanel";
 import UserProfilePanel from "./components/UserProfile/userProfilePanel";
 import BookMeeting from "./components/ClientView/bookMeeting";
@@ -61,6 +62,8 @@ function Router() {
                 <Route path="/ccoverview/ccsub-overview/create-update-subtopic" element={<CreateUpdateSubtopic />}>
                 </Route>
                 <Route path="/ccoverview/ccsub-overview" element={<CcSubOverview />}>
+                </Route>
+                <Route path="/homeview" element={<Homeview />}>
                 </Route>
 
 
