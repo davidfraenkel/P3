@@ -1,5 +1,6 @@
 package com.p3.gruppe4.Models.Handbook;
 
+import static com.mongodb.client.model.Filters.eq;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterEach;
@@ -27,57 +28,48 @@ public class HandbookTest {
     private FindIterable<Document> mockFindIterable;
     private MongoCursor<Document> mockCursor;
 
+    private Topic topic1;
+    private Topic topic2;
+    private Document sampleDocument1;
+    private Document sampleDocument2;
+
     @BeforeEach
     public void setUp() {
-        mockClient = Mockito.mock(MongoClient.class);
-        mockDatabase = Mockito.mock(MongoDatabase.class);
-        mockCollection = Mockito.mock(MongoCollection.class);
-        handbook = new Handbook(mockClient);
+        this.mockClient = Mockito.mock(MongoClient.class);
+        this.mockDatabase = Mockito.mock(MongoDatabase.class);
+        this.mockCollection = Mockito.mock(MongoCollection.class);
+        this.handbook = new Handbook(mockClient);
 
         Mockito.when(mockClient.getDatabase("Gastrome")).thenReturn(mockDatabase);
         Mockito.when(mockDatabase.getCollection("Topic")).thenReturn(mockCollection);
-//        mockClient = Mockito.mock(MongoClient.class);
-//        mockDatabase = Mockito.mock(MongoDatabase.class);
-//        mockCollection = Mockito.mock(MongoCollection.class);
-//        mockFindIterable = Mockito.mock(FindIterable.class);
-//        mockCursor = Mockito.mock(MongoCursor.class);
-//        handbook = new Handbook(mockClient);
-//
-//
-//        Mockito.when(mockCollection.insertMany(docList)).thenReturn(null);
-//
-//        Mockito.when(mockClient.getDatabase("Gastrome")).thenReturn(mockDatabase);
-//        Mockito.when(mockDatabase.getCollection("Topic")).thenReturn(mockCollection);
-//        Mockito.when(mockCollection.find()).thenReturn(mockFindIterable);
-//        Mockito.when(mockFindIterable.iterator()).thenReturn(mockCursor);
-//
-//        // Configure the cursor to return no documents when iterated
-//        Mockito.when(mockCursor.hasNext()).thenReturn(false);
+
+        // Create sample documents
+        this.topic1 = new Topic("Document 1", "path 1");
+        this.topic2 = new Topic("Document 2", "path 2");
+
+        this.sampleDocument1 = new Document()
+                .append("_id", topic1.getId().toString())
+                .append("name", topic1.getName())
+                .append("imagePath", topic1.getImagePath());
+        this.sampleDocument2 = new Document()
+                .append("_id", topic2.getId().toString())
+                .append("name", topic2.getName())
+                .append("imagePath", topic2.getImagePath());
+
     }
 
 
     @Test
     void getAllTopics() {
-        // Create sample documents
-        Topic topic1 = new Topic("Document 1", "path 1");
-        Topic topic2 = new Topic("Document 2", "path 2");
-
-        Document sampleDocument1 = new Document()
-                .append("_id", topic1.getId().toString())
-                .append("name", topic1.getName())
-                .append("imagePath", topic1.getImagePath());
-        Document sampleDocument2 = new Document()
-                .append("_id", topic2.getId().toString())
-                .append("name", topic2.getName())
-                .append("imagePath", topic2.getImagePath());
-
         // Create a real FindIterable and MongoCursor with the sample documents
         FindIterable<Document> realFindIterable = Mockito.mock(FindIterable.class);
         MongoCursor<Document> realCursor = Mockito.mock(MongoCursor.class);
 
         Mockito.when(mockCollection.find()).thenReturn(realFindIterable);
         Mockito.when(realFindIterable.iterator()).thenReturn(realCursor);
-        Mockito.when(realCursor.hasNext()).thenReturn(true, true, false); // Simulate two documents
+
+        // Simulate two documents in the cursor
+        Mockito.when(realCursor.hasNext()).thenReturn(true, true, false);
         Mockito.when(realCursor.next()).thenReturn(sampleDocument1, sampleDocument2);
 
         // Call the method under test
@@ -93,7 +85,20 @@ public class HandbookTest {
 
     @Test
     void getTopic() {
+        // Create a real FindIterable and MongoCursor with the sample documents
+        FindIterable<Document> realFindIterable = Mockito.mock(FindIterable.class);
+        MongoCursor<Document> realCursor = Mockito.mock(MongoCursor.class);
 
+        Mockito.when(mockCollection.find(eq("_id", this.topic1.getId().toString()))).thenReturn(realFindIterable);
+        Mockito.when(realFindIterable.iterator()).thenReturn(realCursor);
+        Mockito.when(realCursor.hasNext()).thenReturn(true, true, false); // Simulate two documents
+        Mockito.when(realCursor.next()).thenReturn(sampleDocument1, sampleDocument2);
+
+        Document result = this.handbook.getTopic(this.topic1.getId().toString());
+
+        System.out.println(result);
+
+        assertEquals(this.sampleDocument1, result);
     }
 
     @Test

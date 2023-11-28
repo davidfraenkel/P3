@@ -18,7 +18,6 @@ public class Handbook {
     private MongoClient mongoClient;
     public Handbook (MongoClient client){
         this.mongoClient = client;
-        System.out.println("Handbook created");
     }
 
 //  TOPIC OPERATIONS
