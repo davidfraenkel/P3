@@ -10,6 +10,7 @@ import CcOverview from "./components/CCView/ccoverview";
 import CreateUpdateTopic from "./components/CCView/createUpdateTopic";
 import CreateUpdateSubtopic from "./components/CCView/ccCreateUpdateSubtopic";
 import AdminUserPanel from "./components/AdminView/adminUserPanel";
+import UserProfilePanel from "./components/UserProfile/userProfilePanel";
 import BookMeeting from "./components/ClientView/bookMeeting";
 import Meeting from "./components/ClientView/meeting";
 import useUser from "./components/auth/setUser";
@@ -35,12 +36,19 @@ function Router() {
         <Header name={name} role={role}/>
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/overview" element={<Overview />} />
-                <Route path="/overview/sub-overview" element={<SubOverview />} />
-                <Route path="/overview/sub-overview/subtopic" element={<Subtopic />} />
+
+                {/*CLIENT*/}
+                <Route path="/" element={<Home />}>
+                </Route>
+                <Route path="/signup" element={<Signup />}>
+                </Route>
+                <Route path="/overview" element={<Overview />}>
+                </Route>
+                <Route path="/overview/sub-overview/subtopic" element={<Subtopic />}>
+                </Route>
+                <Route path={"/userprofile"} element={<UserProfilePanel />}>
+                </Route>
                 <Route path="/overview/book-meeting" element={<BookMeeting />} />
 
                 {/*CONTENT CREATOR*/}
@@ -55,15 +63,12 @@ function Router() {
                 <Route path="/ccoverview/ccsub-overview" element={<CcSubOverview />}>
                 </Route>
 
-                {/* CONTENT CREATOR */}
-                <Route path="/ccoverview" element={<CcOverview />} />
-                <Route path="/ccoverview/create-update-topic" element={<CreateUpdateTopic />} />
-                <Route path="/ccoverview/create-update-subtopic" element={<CreateUpdateSubtopic />} />
 
                 {/* Admin */}
                 <Route path="/admin-panel" element={<AdminUserPanel />} />
 
                 {/* Meeting route */}
+
                 {/*<Route path="/meeting" element={<Meeting payload={payload} />} />*/}
             </Routes>
         </BrowserRouter>
