@@ -6,7 +6,6 @@ import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.MongoException;
 import com.mongodb.client.*;
 import org.bson.Document;
-import org.bson.types.ObjectId;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -57,7 +56,7 @@ public class Handbook {
         return returnDocument;
     }
 
-    public Document createTopic(Topic topic) {
+    public Document createTopic(Topic topic, MultipartFile file) {
         Document returnDocument = new Document();
         try  {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
