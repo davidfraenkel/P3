@@ -3,7 +3,6 @@ package com.p3.gruppe4.Controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.p3.gruppe4.Models.Handbook.Handbook;
-import com.p3.gruppe4.Models.Handbook.SaveFile;
 import com.p3.gruppe4.Models.Handbook.SubTopic;
 import com.p3.gruppe4.Models.Handbook.Topic;
 import org.bson.Document;
@@ -54,7 +53,7 @@ public class HandbookController extends Controller {
         System.out.println("Phone Number: " + topic.getImagePath());
         System.out.println("File Name: " + image.getOriginalFilename());
 
-        return this.handbook.createTopic(topic, image, new SaveFile()).toJson();
+        return this.handbook.createTopic(topic, image).toJson();
     }
 
     @PostMapping("/editTopic")
