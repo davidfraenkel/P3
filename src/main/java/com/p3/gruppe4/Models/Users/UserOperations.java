@@ -60,15 +60,20 @@ public class UserOperations {
                 returnUser = new Document()
                         .append("_id", id)
                         .append("username", user.getUsername())
-                        .append("password", hashPassword(user.getPassword()))
                         .append("role", user.getRole() == null ? "NormalUser" : user.getRole())
                         .append("email", user.getEmail())
                         .append("phonenumber", user.getPhonenumber())
                         .append("lastname", user.getLastname());
+
+                if (user.getPassword() != null) {
+                    returnUser.append("password", hashPassword(user.getPassword()));
+                }
+
                 collection.replaceOne(userToEdit, returnUser);
             } else {
                 System.out.println("User not found");
             }
+
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
         }
