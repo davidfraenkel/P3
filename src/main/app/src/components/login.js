@@ -3,7 +3,7 @@ import { useState } from 'react';
 import InputField from './smartComponents/inputField';
 import { useNavigate } from 'react-router-dom'
 
-export default function Login({setRole, setName}) {
+export default function Login({setRole, setName, setUserId}) {
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
 
@@ -26,8 +26,9 @@ export default function Login({setRole, setName}) {
             .then(response => response.json())
             .then(data => {
                 data.role.toLocaleLowerCase();
-                setRole((data.role))
-                setName((data.username))
+                setRole(data.role)
+                setName(data.username)
+                setUserId(data._id)
                 switch (data.role) {
                     case "normalrole":
                         navigate('/overview');

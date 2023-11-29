@@ -13,7 +13,7 @@ export default function Header({name, role}) {
                 </button>
                 <div className="navbar-links" id="basic-navbar-nav">
                     <a href="/">Home</a>
-                    {name ? name : <a href="http://localhost:3000/signup">Sign up</a>}
+                    {name ? "" : <a href="http://localhost:3000/signup">Sign up</a>}
                     <div className="dropdown">
                         <button className="dropbtn">{name}</button>
                         <div className="dropdown-content">

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import InputField from './smartComponents/inputField';
 
-export default function Signup({setRole, setName}) {
+export default function Signup({setRole, setName, setUserId}) {
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
 
@@ -27,8 +27,9 @@ export default function Signup({setRole, setName}) {
             .then(data => {
                 console.log('Success:', data);
                 data.role.toLocaleLowerCase();
-                setRole((data.role))
-                setName((data.username))
+                setRole(data.role)
+                setName(data.username)
+                setUserId(data._id)
                 switch (data.role) {
                     case "NormalUser":
                         navigate('/overview');

@@ -21,6 +21,7 @@ import Header from "./Header"; // Import the Meeting component
 function Router() {
     const {role, setRole} = useUser();
     const {name, setName} = useUser();
+    const {userId, setUserId} = useUser();
 /*    let payload = {
         meetingNumber: 84084099070,
         role: 0,
@@ -37,18 +38,18 @@ function Router() {
         <Header name={name} role={role}/>
         <BrowserRouter>
             <Routes>
-                <Route path="/login" element={<Login setRole={setRole} setName={setName}/>}/>
+                <Route path="/login" element={<Login setRole={setRole} setName={setName} setUserId={setUserId}/>}/>
 
                 {/*CLIENT*/}
                 <Route path="/" element={<Home />}>
                 </Route>
-                <Route path="/signup" element={<Signup setRole={setRole} setName={setName}/>}>
+                <Route path="/signup" element={<Signup setRole={setRole} setName={setName} setUserId={setUserId}/>}>
                 </Route>
                 <Route path="/overview" element={<Overview />}>
                 </Route>
                 <Route path="/overview/sub-overview/subtopic" element={<Subtopic />}>
                 </Route>
-                <Route path={"/userprofile"} element={<UserProfilePanel />}>
+                <Route path={"/userprofile"} element={<UserProfilePanel userId={userId}/>}>
                 </Route>
                 <Route path="/overview/book-meeting" element={<BookMeeting />} />
 
