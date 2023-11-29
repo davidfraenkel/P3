@@ -121,12 +121,13 @@ public class Handbook {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("SubTopic");
 
-            Document query = new Document().append("parentTopicId", parentId);
+            Document query = new Document().append("parentId", parentId);
 
-            MongoCursor<Document> cursor = collection.find(query).iterator();
+            FindIterable<Document> iterableCollection = collection.find(query);
+            Iterator iterator = iterableCollection.iterator();
 
-            while (cursor.hasNext()){
-                returnSet.add(cursor.next());
+            while (iterator.hasNext()) {
+                returnSet.add((Document) iterator.next());
             }
             // Prints a message if any exceptions occur during the operation
         } catch (MongoException me) {
@@ -160,8 +161,8 @@ public class Handbook {
             returnDocument = new Document()
                     .append("_id", subTopic.getId().toString())
                     .append("name", subTopic.getName())
-                    .append("imagePath", parentId)
-                    .append("parentId", subTopic.getParentId())
+                    .append("imagePath", subTopic.getParentId())
+                    .append("parentId", parentId)
                     .append("content", subTopic.getContent());
             collection.insertOne(returnDocument);
             // Prints a message if any exceptions occur during the operation
