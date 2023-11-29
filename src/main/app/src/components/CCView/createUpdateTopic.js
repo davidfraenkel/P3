@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import {Link, useLocation} from "react-router-dom";
 import InputField from '../smartComponents/inputField';
@@ -7,11 +6,10 @@ import '../CCView/styling/createUpdateTopic.css';
 export default function CreateUpdateTopic(props)  {
     const [name, setName] = useState('');
     const [imagePath, setImagePath] = useState('');
-    const [image, setImage] = useState(null);
+
     const location = useLocation();
     const searchParams= new URLSearchParams(location.search);
     const topicName = searchParams.get('topicName');
-
     const handleNameChange = (e) => {
         setName(e.target.value);
     };
