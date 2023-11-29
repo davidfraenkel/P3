@@ -28,11 +28,6 @@ function Topic(props) {
 export default function CcOverview() {
     return (
         <div>
-            <h1>Hello user.name!</h1>
-            <div>
-                <div className="overview-content">
-                </div>
-            </div>
             <div className="OverviewContainer">
                 <div className="OverviewHeaderContainer">
                     <h2 className="OverviewHeader">Topics</h2>

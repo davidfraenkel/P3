@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import InputField from '../smartComponents/inputField';
 import '../CCView/styling/createUpdateTopic.css';
 
@@ -7,6 +7,7 @@ export default function CreateUpdateTopic(props)  {
     const [name, setName] = useState('');
     const [imagePath, setImagePath] = useState('');
     const [image, setImage] = useState('');
+    const navigate = useNavigate();
 
     const location = useLocation();
     const searchParams= new URLSearchParams(location.search);
@@ -46,6 +47,7 @@ export default function CreateUpdateTopic(props)  {
 
             if (response.ok) {
                 console.log('Topic created successfully');
+                navigate("/ccoverview");
             } else {
                 console.error('Failed to create topic');
             }
