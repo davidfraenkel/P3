@@ -65,9 +65,11 @@ public class Handbook {
             returnDocument = new Document()
                     .append("_id", topic.getId().toString())
                     .append("name", topic.getName())
-                    .append("imagePath", topic.getImagePath());
+                    .append("imagePath", file.getOriginalFilename());
             collection.insertOne(returnDocument);
 
+            SaveFile saveFile = new SaveFile();
+            saveFile.store(file);
 
             // Prints a message if any exceptions occur during the operation
         } catch (MongoException me) {
