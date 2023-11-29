@@ -1,23 +1,46 @@
 import './styling/overview.css';
-import React from "react";
-import {Link} from "react-router-dom";
-import { useEffect , useState} from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function Topic(props) {
-    const topicImage = require('../../assets/overview/' + props.name + '.' + props.imageType)
+    const topicImage = require('../../../public/images/' + props.imageType);
+
     return (
-        // Skal have linket til subtopic siden
         <Link to='sub-overview'>
-            <div className="TopicContainer" style={{backgroundImage: "url(" + topicImage + ")"}}>
+            <div className="TopicContainer" style={{backgroundImage: `url(${topicImage})`}}>
                 <div className="TopicTitle">
                     <p>{props.name}</p>
                 </div>
             </div>
         </Link>
-    )
+    );
 }
 
 export default function Overview() {
+    const [topics, setTopics] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://localhost:3002/api/getAllTopics', {
+                    method: 'GET',
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                console.log('Success:', data);
+                setTopics(data);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+        fetchData();
+    }, []); // Empty dependency array to ensure the effect runs once on mount
+
     return (
         <div>
             <div>
@@ -32,14 +55,9 @@ export default function Overview() {
                     </p>
                 </div>
                 <div className="TopicsContainer">
-                    { topics.map(item => <Topic key={item.id} name={item.name} imageType={item.imageType} />)}
+                    { topics.map(item => <Topic key={item._id} name={item.name} imageType={item.imagePath} />)}
                 </div>
             </div>
         </div>
-    )
+    );
 }
-/* Dummy Data vi skal have dette fra backend folket? */
-const topics = [
-    {'id': 1,'name': 'Economy', imageType: "jpg"},
-    {'id': 2,'name': 'Business', imageType: "jpeg"},
-]

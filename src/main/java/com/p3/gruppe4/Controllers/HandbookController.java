@@ -1,9 +1,12 @@
 package com.p3.gruppe4.Controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.p3.gruppe4.Models.Handbook.Handbook;
 import com.p3.gruppe4.Models.Handbook.SubTopic;
 import com.p3.gruppe4.Models.Handbook.Topic;
 import org.bson.Document;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,9 +34,26 @@ public class HandbookController extends Controller {
         return this.handbook.getTopic(topicId);
     }
 
-    @PostMapping("/createTopic")
-    public String createTopic(@RequestBody Topic topic, @RequestParam MultipartFile file){
-        return this.handbook.createTopic(topic, file).toJson();
+    @PostMapping(value= "/createTopic", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public String createTopic(@RequestParam MultipartFile image,
+                              @RequestParam("topic") String topicJson) {
+        // Convert JSON string to TopicRequest object
+        ObjectMapper objectMapper = new ObjectMapper();
+        Topic topic = null;
+        try {
+            topic = objectMapper.readValue(topicJson, Topic.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            // Handle the exception as needed
+            return "Failed to create topic";
+        }
+
+        // Access the properties of the TopicRequest object
+        System.out.println("Name: " + topic.getName());
+        System.out.println("Phone Number: " + topic.getImagePath());
+        System.out.println("File Name: " + image.getOriginalFilename());
+
+        return this.handbook.createTopic(topic, image).toJson();
     }
 
     @PostMapping("/editTopic")

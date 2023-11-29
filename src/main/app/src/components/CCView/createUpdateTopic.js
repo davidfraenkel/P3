@@ -6,17 +6,16 @@ import '../CCView/styling/createUpdateTopic.css';
 export default function CreateUpdateTopic(props)  {
     const [name, setName] = useState('');
     const [imagePath, setImagePath] = useState('');
-    const [image, setImage] = useState(null);
 
+    const location = useLocation();
+    const searchParams= new URLSearchParams(location.search);
+    const topicName = searchParams.get('topicName');
     const handleNameChange = (e) => {
         setName(e.target.value);
     };
 
     const handleImageChange = (e) => {
         setImage(e.target.files[0]);
-    };
-    const handlePhoneNumberChange = (e) => {
-        setImagePath(e.target.value);
     };
 
     const handleSubmit = async (e) => {
@@ -48,20 +47,18 @@ export default function CreateUpdateTopic(props)  {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Name:
-                <input type="text" value={name} onChange={handleNameChange} />
-                <input type="text" value={imagePath} onChange={handlePhoneNumberChange} />
-            </label>
-            <br />
-            <label>
-                Image:
-                <input type="file" accept="image/*" onChange={handleImageChange} />
-            </label>
-            <br />
-            <button type="submit">Submit</button>
-        </form>
+        <div className="FormCreateUpdateTopicBackgroundOverlay">
+            <div className="FormCreateUpdateTopicContainer">
+                <h1 className="FormCreateUpdateTopicTitle">{topicName ? `Update ${topicName}` : 'Create new topic'}</h1>
+                <form onSubmit={handleSubmit} className="FormCreateUpdateTopicForm">
+                    <div className="FormCreateUpdateTopicInputContainer">
+                        <input type="text" value={name} onChange={handleNameChange} />
+                    </div>
+                    <input type="file" accept="image/*" onChange={handleImageChange} />
+
+                    <button type="submit" className="FormCreateUpdateTopicSubmitButton">Submit</button>
+                </form>
+            </div>
+        </div>
     );
 };
-
