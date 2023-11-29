@@ -127,7 +127,7 @@ public class HandbookTest {
         Mockito.when(mockCollection.insertOne(sampleDocument1)).thenReturn(insertOneResult);
         Mockito.doNothing().when(saveFile).store(Mockito.any(MultipartFile.class));
 
-        Document result = this.handbook.createTopic(topic1, file, saveFile);
+        Document result = this.handbook.createTopic(topic1, file);
 
         Document expected = new Document()
                 .append("_id", sampleDocument1.get("_id"))

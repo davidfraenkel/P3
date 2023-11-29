@@ -3,7 +3,6 @@ package com.p3.gruppe4.Controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.p3.gruppe4.Models.Handbook.Handbook;
-import com.p3.gruppe4.Models.Handbook.SaveFile;
 import com.p3.gruppe4.Models.Handbook.SubTopic;
 import com.p3.gruppe4.Models.Handbook.Topic;
 import org.bson.Document;
@@ -55,7 +54,7 @@ public class HandbookController extends Controller {
         System.out.println("File Name: " + image.getOriginalFilename());
 
         // Your logic to save or process the data
-        this.handbook.createTopic(topic, image, new SaveFile()).toJson();
+        this.handbook.createTopic(topic, image).toJson();
 
         return "Topic created successfully";
     }
