@@ -155,8 +155,8 @@ public class Handbook {
             returnDocument = new Document()
                     .append("_id", subTopic.getId().toString())
                     .append("name", subTopic.getName())
-                    .append("imagePath", parentId)
-                    .append("parentId", subTopic.getParentId())
+                    .append("imagePath", subTopic.getImagePath())
+                    .append("parentId", parentId)
                     .append("content", subTopic.getContent());
             collection.insertOne(returnDocument);
             // Prints a message if any exceptions occur during the operation
