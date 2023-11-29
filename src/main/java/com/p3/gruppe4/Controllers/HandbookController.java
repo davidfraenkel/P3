@@ -87,7 +87,7 @@ public class HandbookController extends Controller {
     }
 
     @PostMapping("/deleteSubTopic")
-    public String deleteSubTopic(@RequestParam(name = "subTopicId") String subTopicId){
+    public long deleteSubTopic(@RequestParam(name = "subTopicId") String subTopicId){
         return this.handbook.deleteSubTopic(subTopicId);
     }
 }

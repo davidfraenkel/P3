@@ -191,17 +191,16 @@ public class Handbook {
         return returnDoc;
     }
 
-    public String deleteSubTopic(String subTopicId){
-        String returnString = "deletion failed";
+    public long deleteSubTopic(String subTopicId){
         try  {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("SubTopic");
 
-            collection.deleteOne(new Document().append("_id",  subTopicId));
-            returnString = "Topic deleted successfully";
+            DeleteResult result = collection.deleteOne(new Document().append("_id",  subTopicId));
+            return result.getDeletedCount();
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
         }
-        return returnString;
+        return 0;
     }
 }
