@@ -5,6 +5,7 @@ import static com.mongodb.client.model.Filters.eq;
 
 import com.mongodb.MongoException;
 import com.mongodb.client.*;
+import com.mongodb.client.result.DeleteResult;
 import org.bson.Document;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -46,8 +47,7 @@ public class Handbook {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Topic");
 
-            returnDocument = collection.find(eq("_id", id))
-                    .first();
+            return collection.find(eq("_id", id)).first();
             // Prints a message if any exceptions occur during the operation
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
@@ -95,18 +95,17 @@ public class Handbook {
         return returnDoc;
     }
 
-    public String deleteTopic(String topicId){
-        String returnString = "deletion failed";
+    public long deleteTopic(String topicId){
         try {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Topic");
 
-            collection.deleteOne(new Document().append("_id",  topicId));
-            returnString = "Topic deleted successfully";
+            DeleteResult result = collection.deleteOne(new Document().append("_id",  topicId));
+            return result.getDeletedCount();
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
         }
-        return returnString;
+        return 0;
     }
 
 

@@ -1,6 +1,5 @@
 package com.p3.gruppe4.Controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.p3.gruppe4.Models.Handbook.Handbook;
 import com.p3.gruppe4.Models.Handbook.SubTopic;
 import com.p3.gruppe4.Models.Handbook.Topic;
@@ -26,7 +25,7 @@ public class HandbookController extends Controller {
         return this.handbook.getAllTopics();
     }
 
-    @GetMapping("/getTopicByName")
+    @GetMapping("/getTopic")
     @ResponseBody
     public Document getTopicByName(@RequestParam(name = "topicId") String topicId){
         return this.handbook.getTopic(topicId);
@@ -42,8 +41,8 @@ public class HandbookController extends Controller {
         return this.handbook.editTopic(topicId, topic).toJson();
     }
 
-    @PostMapping("/deleteTopic")
-    public String editTopic(@RequestParam(name = "topicId") String topicId){
+    @GetMapping("/deleteTopic")
+    public long deleteTopic(@RequestParam(name = "topicId") String topicId){
         return this.handbook.deleteTopic(topicId);
     }
 
@@ -52,7 +51,7 @@ public class HandbookController extends Controller {
         return this.handbook.getAllSubTopics(parentId);
     }
 
-    @GetMapping("/getSubTopic")
+    @PostMapping("/getSubTopic")
     public String getSubTopc(@RequestParam(name = "subTopicId") String id){
         return this.handbook.getSubTopic(id).toJson();
     }
