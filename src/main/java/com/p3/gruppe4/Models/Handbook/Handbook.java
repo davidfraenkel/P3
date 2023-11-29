@@ -6,6 +6,7 @@ import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.MongoException;
 import com.mongodb.client.*;
 import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.InsertOneResult;
 import org.bson.Document;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -55,19 +56,19 @@ public class Handbook {
         return returnDocument;
     }
 
-    public Document createTopic(Topic topic, MultipartFile file) {
+    public Document createTopic(Topic topic, MultipartFile file, SaveFile saveFile) {
         Document returnDocument = new Document();
         try  {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
 
             MongoCollection<Document> collection = db.getCollection("Topic");
+            topic.setImagePath(file.getOriginalFilename());
             returnDocument = new Document()
                     .append("_id", topic.getId().toString())
                     .append("name", topic.getName())
-                    .append("imagePath", file.getOriginalFilename());
+                    .append("imagePath", topic.getImagePath());
             collection.insertOne(returnDocument);
 
-            SaveFile saveFile = new SaveFile();
             saveFile.store(file);
             // Prints a message if any exceptions occur during the operation
         } catch (MongoException me) {

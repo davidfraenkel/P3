@@ -5,12 +5,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.client.result.UpdateResult;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -22,6 +26,9 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.FindIterable;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 public class HandbookTest {
     private Handbook handbook;
@@ -101,6 +108,29 @@ public class HandbookTest {
 
     @Test
     void createTopic() {
+        InsertOneResult insertOneResult = Mockito.mock(InsertOneResult.class);
+        SaveFile saveFile = Mockito.mock(SaveFile.class);
+
+        MockMultipartFile file
+                = new MockMultipartFile(
+                "file",
+                "test.txt",
+                MediaType.TEXT_PLAIN_VALUE,
+                "Hello, World!".getBytes()
+        );
+
+        Mockito.when(mockCollection.insertOne(sampleDocument1)).thenReturn(insertOneResult);
+        Mockito.doNothing().when(saveFile).store(Mockito.any(MultipartFile.class));
+
+        Document result = this.handbook.createTopic(topic1, file, saveFile);
+
+        Document expected = new Document()
+                .append("_id", sampleDocument1.get("_id"))
+                .append("name", sampleDocument1.get("name"))
+                .append("imagePath", file.getOriginalFilename())
+                ;
+
+        assertEquals(result, expected);
     }
 
     @Test

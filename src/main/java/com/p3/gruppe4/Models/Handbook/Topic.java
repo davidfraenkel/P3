@@ -25,4 +25,8 @@ public class Topic {
     public String getImagePath() {
         return imagePath;
     }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
 }
