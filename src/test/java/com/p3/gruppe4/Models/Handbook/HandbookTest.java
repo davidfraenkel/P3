@@ -52,7 +52,6 @@ public class HandbookTest {
         this.handbook = new Handbook(mockClient);
 
         Mockito.when(mockClient.getDatabase("Gastrome")).thenReturn(mockDatabase);
-        Mockito.when(mockDatabase.getCollection("Topic")).thenReturn(mockCollection);
 
         // Create sample documents
         this.topic1 = new Topic("Document 1", "path 1");
@@ -75,6 +74,8 @@ public class HandbookTest {
 
     @Test
     void getAllTopics() {
+        Mockito.when(mockDatabase.getCollection("Topic")).thenReturn(mockCollection);
+
         Mockito.when(mockCollection.find()).thenReturn(mockFindIterable);
         Mockito.when(mockFindIterable.iterator()).thenReturn(mockCursor);
 
@@ -95,6 +96,8 @@ public class HandbookTest {
 
     @Test
     void getTopic() {
+        Mockito.when(mockDatabase.getCollection("Topic")).thenReturn(mockCollection);
+
         Mockito.when(mockCollection.find(Filters.eq("_id", this.sampleDocument1.get("_id")))).thenReturn(mockFindIterable);
         Mockito.when(mockFindIterable.iterator()).thenReturn(mockCursor);
         Mockito.when(mockCursor.hasNext()).thenReturn(true, true, false); // Simulate two documents
@@ -108,7 +111,10 @@ public class HandbookTest {
 
     @Test
     void createTopic() {
+        Mockito.when(mockDatabase.getCollection("Topic")).thenReturn(mockCollection);
+
         InsertOneResult insertOneResult = Mockito.mock(InsertOneResult.class);
+        SaveFile saveFile = Mockito.mock(SaveFile.class);
 
         MockMultipartFile file
                 = new MockMultipartFile(
@@ -119,11 +125,9 @@ public class HandbookTest {
         );
 
         Mockito.when(mockCollection.insertOne(sampleDocument1)).thenReturn(insertOneResult);
+        Mockito.doNothing().when(saveFile).store(Mockito.any(MultipartFile.class));
 
-        Handbook handbookSpy = Mockito.spy(handbook);
-        Mockito.doNothing().when(handbookSpy.saveFile).store(Mockito.any(MultipartFile.class));
-
-        Document result = handbookSpy.createTopic(topic1, file);
+        Document result = this.handbook.createTopic(topic1, file, saveFile);
 
         Document expected = new Document()
                 .append("_id", sampleDocument1.get("_id"))
@@ -136,6 +140,8 @@ public class HandbookTest {
 
     @Test
     void editTopic() {
+        Mockito.when(mockDatabase.getCollection("Topic")).thenReturn(mockCollection);
+
         UpdateResult updateResult = Mockito.mock(UpdateResult.class);
 
         Topic expectedTopic = new Topic("name of topic", "image path of topic");
@@ -158,6 +164,8 @@ public class HandbookTest {
 
     @Test
     void deleteTopic() {
+        Mockito.when(mockDatabase.getCollection("Topic")).thenReturn(mockCollection);
+
         DeleteResult deleteResult = Mockito.mock(DeleteResult.class);
 
         Mockito.when(mockCollection.deleteOne(new Document().append("_id",  topic1.getId().toString()))).thenReturn(deleteResult);
@@ -170,6 +178,25 @@ public class HandbookTest {
 
     @Test
     void getAllSubTopics() {
+        Mockito.when(mockDatabase.getCollection("Topic")).thenReturn(mockCollection);
+
+
+        Mockito.when(mockCollection.find()).thenReturn(mockFindIterable);
+        Mockito.when(mockFindIterable.iterator()).thenReturn(mockCursor);
+
+        // Simulate two documents in the cursor
+        Mockito.when(mockCursor.hasNext()).thenReturn(true, true, false);
+        Mockito.when(mockCursor.next()).thenReturn(sampleDocument1, sampleDocument2);
+
+        // Call the method under test
+        HashSet<Document> result = handbook.getAllTopics();
+
+        // Verify the expected behavior
+        assertEquals(2, result.size()); // Check that the result set has 2 documents
+
+        // Verify that the MongoDB client is properly closed
+        mockClient.close();
+        Mockito.verify(mockClient).close();
     }
 
     @Test

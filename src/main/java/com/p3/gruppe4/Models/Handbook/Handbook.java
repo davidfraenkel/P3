@@ -56,7 +56,7 @@ public class Handbook {
         return returnDocument;
     }
 
-    public Document createTopic(Topic topic, MultipartFile file) {
+    public Document createTopic(Topic topic, MultipartFile file, SaveFile saveFile) {
         Document returnDocument = new Document();
         try  {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
@@ -69,7 +69,6 @@ public class Handbook {
                     .append("imagePath", topic.getImagePath());
             collection.insertOne(returnDocument);
 
-            SaveFile saveFile = new SaveFile();
             saveFile.store(file);
             // Prints a message if any exceptions occur during the operation
         } catch (MongoException me) {
