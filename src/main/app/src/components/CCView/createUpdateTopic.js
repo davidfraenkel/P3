@@ -6,6 +6,7 @@ import '../CCView/styling/createUpdateTopic.css';
 export default function CreateUpdateTopic(props)  {
     const [name, setName] = useState('');
     const [imagePath, setImagePath] = useState('');
+    const [image, setImage] = useState('');
 
     const location = useLocation();
     const searchParams= new URLSearchParams(location.search);
@@ -15,7 +16,14 @@ export default function CreateUpdateTopic(props)  {
     };
 
     const handleImageChange = (e) => {
-        setImage(e.target.files[0]);
+        const selectedFile = e.target.files[0];
+        const fileNameWithoutSpaces = selectedFile.name.replace(/\s/g, '_');
+
+        // Create a new File object with the updated name
+        const updatedFile = new File([selectedFile], fileNameWithoutSpaces, { type: selectedFile.type });
+
+        // Use the updated file
+        setImage(updatedFile);
     };
 
     const handleSubmit = async (e) => {
