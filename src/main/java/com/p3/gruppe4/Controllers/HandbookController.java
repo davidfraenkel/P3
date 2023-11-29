@@ -53,7 +53,10 @@ public class HandbookController extends Controller {
         System.out.println("Phone Number: " + topic.getImagePath());
         System.out.println("File Name: " + image.getOriginalFilename());
 
-        return this.handbook.createTopic(topic, image).toJson();
+        // Your logic to save or process the data
+        this.handbook.createTopic(topic, image).toJson();
+
+        return "Topic created successfully";
     }
 
     @PostMapping("/editTopic")

@@ -109,7 +109,6 @@ public class HandbookTest {
     @Test
     void createTopic() {
         InsertOneResult insertOneResult = Mockito.mock(InsertOneResult.class);
-        SaveFile saveFile = Mockito.mock(SaveFile.class);
 
         MockMultipartFile file
                 = new MockMultipartFile(
@@ -120,9 +119,11 @@ public class HandbookTest {
         );
 
         Mockito.when(mockCollection.insertOne(sampleDocument1)).thenReturn(insertOneResult);
-        Mockito.doNothing().when(saveFile).store(Mockito.any(MultipartFile.class));
 
-        Document result = this.handbook.createTopic(topic1, file);
+        Handbook handbookSpy = Mockito.spy(handbook);
+        Mockito.doNothing().when(handbookSpy.saveFile).store(Mockito.any(MultipartFile.class));
+
+        Document result = handbookSpy.createTopic(topic1, file);
 
         Document expected = new Document()
                 .append("_id", sampleDocument1.get("_id"))
