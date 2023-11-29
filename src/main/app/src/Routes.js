@@ -37,12 +37,12 @@ function Router() {
         <Header name={name} role={role}/>
         <BrowserRouter>
             <Routes>
-                <Route path="/login" element={<Login />} />
+                <Route path="/login" element={<Login setRole={setRole} setName={setName}/>}/>
 
                 {/*CLIENT*/}
                 <Route path="/" element={<Home />}>
                 </Route>
-                <Route path="/signup" element={<Signup />}>
+                <Route path="/signup" element={<Signup setRole={setRole} setName={setName}/>}>
                 </Route>
                 <Route path="/overview" element={<Overview />}>
                 </Route>
