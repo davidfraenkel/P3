@@ -1,0 +1,70 @@
+.adminUserPanel {
+    margin-top: 2rem;
+    border: 1px solid rgb(229 231 235);
+    border-radius: 10px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 2.5rem;
+    padding-top: 2.5rem;
+}
+
+.adminHeader {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+.adminHeader p{
+    color: rgb(55 65 81);
+}
+
+.adminTableDiv {
+
+}
+.adminTable {
+    border-collapse: collapse;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.adminTable td, th {
+    text-align: left;
+}
+
+.adminTable tr:nth-child(even) {
+    background-color: #f8f6f6;
+}
+.adminTableHeader {
+    border-bottom: 1px solid rgb(229 231 235);
+}
+
+.adminTableBody tr, td, th{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.tableUserName {
+    font-weight: 500;
+    width: 400px;
+}
+
+.tableUserEmail {
+    color: rgb(107 114 128);
+    width: 400px;
+}
+
+.tableUserRole {
+    color: rgb(107 114 128);
+    width: 200px;
+}
+
+.tableUserEdit {
+    color: rgb(8,26,44);
+    width: 100px
+}
+
+.tableDropdown {
+    width: auto;
+    margin-left: 15px;
+}

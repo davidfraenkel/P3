@@ -1,33 +1,59 @@
-import './header.css'
-import {Link} from "react-router-dom";
-import Logo from './assets/homepage/logo2.png'
-import { HiUser } from "react-icons/hi";
+import React from 'react';
+import { HiUser } from 'react-icons/hi';
+import Logo from './assets/homepage/logo2.png';
+import './header.css';
 
-export default function Header({name, role}) {
+export default function Header({ name, role }) {
+    const isAdmin = role === 'Admin';
+    const isClient = role === 'Client';
+    const isContentCreator = role === 'Content Creator';
+
     return (
         <div className="navbar">
             <div className="container">
-                <a href="#home" className="brand"></a>
+                <a href="/" className="brand">
+                    <img src={Logo} alt="Logo" />
+                </a>
                 <button className="navbar-toggle">
                     <span className="toggle-icon"></span>
                 </button>
                 <div className="navbar-links" id="basic-navbar-nav">
+                    {isAdmin && (
+                        <>
+                            <a href="/meeting">Meeting</a>
+                            <a href="/webinar">Webinar</a>
+                            <a href="/admin-panel">Manage roles</a>
+                        </>
+                    )}
+                    {isContentCreator && (
+                        <>
+                            <a href="/ccoverview">Handbook</a>
+                            <a href="/webinar">Webinar</a>
+                        </>
+                    )}
+                    {isClient && (
+                        <>
+                            <a href="/overview">Handbook</a>
+                            <a href="/webinar">Webinar</a>
+                            <a href="/meeting">Meeting</a>
+                        </>
+                    )}
                     <a href="/">Home</a>
-                    {name ? name : <a href="http://localhost:3000/signup">Sign up</a>}
                     <div className="dropdown">
-                        <button className="dropbtn">{name}</button>
+                        <button className="dropbtn">
+                            {name} <HiUser />
+                        </button>
                         <div className="dropdown-content">
-                            <a href="#action/3.1">Settings</a>
-                            <a href="#action/3.2">User</a>
-                            <a href="#action/3.3">Something</a>
+                            <a href="/settings">Settings</a>
+                            <a href="/user">User</a>
+                            <a href="/something">Something</a>
                             <div className="divider"></div>
-                            <a href="#action/3.4">Log ud</a>
+                            <a href="/logout">Log ud</a>
                         </div>
                     </div>
 
                 </div>
             </div>
         </div>
-
-    )
+    );
 }

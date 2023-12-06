@@ -11,6 +11,7 @@ import CcOverview from "./components/CCView/ccoverview";
 import CreateUpdateTopic from "./components/CCView/createUpdateTopic";
 import CreateUpdateSubtopic from "./components/CCView/createUpdateSubtopic";
 import AdminUserPanel from "./components/AdminView/adminUserPanel";
+import AdminHomeview from "./components/AdminView/adminHomeview";
 import UserProfilePanel from "./components/UserProfile/userProfilePanel";
 import BookMeeting from "./components/ClientView/bookMeeting";
 import Meeting from "./components/ClientView/meeting";
@@ -69,6 +70,7 @@ function Router() {
 
                 {/* Admin */}
                 <Route path="/admin-panel" element={<AdminUserPanel />} />
+                <Route path="/admin-homeview" element={<AdminHomeview />} />
 
                 {/* Meeting route */}
 
