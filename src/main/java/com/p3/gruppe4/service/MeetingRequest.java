@@ -1,13 +1,29 @@
 package com.p3.gruppe4.service;
 
+import org.bson.types.ObjectId;
+
 public class MeetingRequest {
+    private ObjectId id;
     private String name;
     private String email;
     private String message;
     private String date;
     private SelectedTime selectedTime;
 
+    public MeetingRequest(String name, String email, String message, String date, SelectedTime selectedTime) {
+        this.id = new ObjectId();
+        this.name = name;
+        this.email = email;
+        this.message = message;
+        this.date = date;
+        this.selectedTime = selectedTime;
+    }
+
     // Getters and Setters
+
+    public ObjectId getId() {
+        return id;
+    }
     public String getName() {
         return name;
     }
