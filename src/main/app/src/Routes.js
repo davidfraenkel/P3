@@ -16,7 +16,8 @@ import BookMeeting from "./components/ClientView/bookMeeting";
 import Meeting from "./components/ClientView/meeting";
 import useUser from "./components/auth/setUser";
 import Login from "./components/login";
-import Header from "./Header"; // Import the Meeting component
+import Header from "./Header";
+import AdminMeetingPanel from "./components/AdminView/AdminMeetingPanel"; // Import the Meeting component
 
 function Router() {
     const {role, setRole} = useUser();
@@ -69,6 +70,7 @@ function Router() {
 
                 {/* Admin */}
                 <Route path="/admin-panel" element={<AdminUserPanel />} />
+                <Route path="/admin-panel/meeting" element={<AdminMeetingPanel />} />
 
                 {/* Meeting route */}
 
