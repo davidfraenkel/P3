@@ -151,7 +151,7 @@ public class Handbook {
         return returnDocument;
     }
 
-    public Document createSubTopic(SubTopic subTopic, String parentId){
+    public Document createSubTopic(SubTopic subTopic, String parentId, MultipartFile file){
         Document returnDocument = new Document();
         try  {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
@@ -164,6 +164,9 @@ public class Handbook {
                     .append("parentId", parentId)
                     .append("content", subTopic.getContent());
             collection.insertOne(returnDocument);
+
+            SaveFile saveFile = new SaveFile();
+            saveFile.store(file);
             // Prints a message if any exceptions occur during the operation
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);

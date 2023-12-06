@@ -76,9 +76,21 @@ public class HandbookController extends Controller {
         return this.handbook.getSubTopic(id).toJson();
     }
 
-    @PostMapping("/createSubTopic")
-    public String createSubTopic(@RequestBody SubTopic subTopic, @RequestParam(name = "parentTopicId") String parentId){
-        return this.handbook.createSubTopic(subTopic, parentId).toJson();
+    @PostMapping(value= "/createSubTopic", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public String createSubTopic(@RequestParam("subTopic") String subTopicJson,
+                                 @RequestParam(name = "parentTopicId") String parentId,
+                                 @RequestParam MultipartFile image){
+        ObjectMapper objectMapper = new ObjectMapper();
+        SubTopic subTopic = null;
+        try {
+            subTopic = objectMapper.readValue(subTopicJson, SubTopic.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            // Handle the exception as needed
+            return "Failed to create topic";
+        }
+
+        return this.handbook.createSubTopic(subTopic, parentId, image).toJson();
     }
 
     @PostMapping("/editSubTopic")

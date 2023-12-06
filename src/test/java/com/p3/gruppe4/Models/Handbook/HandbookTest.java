@@ -3,10 +3,12 @@ package com.p3.gruppe4.Models.Handbook;
 import static com.mongodb.client.model.Filters.eq;
 import static org.junit.jupiter.api.Assertions.*;
 
+import ch.qos.logback.core.util.FileUtil;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.client.result.UpdateResult;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,11 +16,7 @@ import org.mockito.Mockito;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 import org.bson.Document;
 import com.mongodb.client.MongoClient;
@@ -107,14 +105,16 @@ public class HandbookTest {
     }
 
     @Test
-    void createTopic() {
+    void createTopic() throws IOException {
         InsertOneResult insertOneResult = Mockito.mock(InsertOneResult.class);
         SaveFile saveFile = Mockito.mock(SaveFile.class);
+
+        String filename = new Date().getTime()+ ".txt";
 
         MockMultipartFile file
                 = new MockMultipartFile(
                 "file",
-                "test.txt",
+                filename,
                 MediaType.TEXT_PLAIN_VALUE,
                 "Hello, World!".getBytes()
         );
@@ -130,7 +130,11 @@ public class HandbookTest {
                 .append("imagePath", file.getOriginalFilename())
                 ;
 
+        File deleteFile = new File("src/main/app/public/images/" + filename);
+
         assertEquals(result, expected);
+
+        FileUtils.forceDelete(deleteFile);
     }
 
     @Test
@@ -177,6 +181,31 @@ public class HandbookTest {
 
     @Test
     void createSubTopic() {
+        Mockito.when(mockDatabase.getCollection("Topic")).thenReturn(mockCollection);
+
+        InsertOneResult insertOneResult = Mockito.mock(InsertOneResult.class);
+        SaveFile saveFile = Mockito.mock(SaveFile.class);
+
+        MockMultipartFile file
+                = new MockMultipartFile(
+                "file",
+                ".txt",
+                MediaType.TEXT_PLAIN_VALUE,
+                "Hello, World!".getBytes()
+        );
+
+        Mockito.when(mockCollection.insertOne(sampleDocument1)).thenReturn(insertOneResult);
+        Mockito.doNothing().when(saveFile).store(Mockito.any(MultipartFile.class));
+
+        Document result = this.handbook.createTopic(topic1, file);
+
+        Document expected = new Document()
+                .append("_id", sampleDocument1.get("_id"))
+                .append("name", sampleDocument1.get("name"))
+                .append("imagePath", file.getOriginalFilename())
+                ;
+
+        assertEquals(result, expected);
     }
 
     @Test
