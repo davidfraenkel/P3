@@ -48,14 +48,14 @@ public class Meeting {
         try  {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
 
-            MongoCollection<Document> collection = db.getCollection("Topic");
+            MongoCollection<Document> collection = db.getCollection("Meeting");
             returnDocument = new Document()
                     .append("_id", request.getId().toString())
                     .append("name", request.getName())
                     .append("email", request.getEmail())
                     .append("message", request.getMessage())
                     .append("date", request.getDate())
-                    .append("selectedTime", request.getSelectedTime().getLabel())
+                    .append("selectedTime", request.getSelectedTime().getValue())
                     ;
             collection.insertOne(returnDocument);
 
