@@ -48,7 +48,13 @@ public class Meeting {
         try  {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
 
+            if (db.getCollection("Meeting") == null) {
+                db.createCollection("Meeting");
+                System.out.println("Collection created successfully");
+            }
+
             MongoCollection<Document> collection = db.getCollection("Meeting");
+            System.out.println("Collection sampleCollection selected successfully");
             returnDocument = new Document()
                     .append("_id", request.getId().toString())
                     .append("name", request.getName())

@@ -42,7 +42,7 @@ public class MeetingController extends Controller {
                 + "Time: " + request.getSelectedTime().getLabel();
 
         // Send the email
-        emailService.sendEmail("gustaw1313@gmail.com", "New Meeting Request", emailContent);
+        emailService.sendEmail("gustaw1313@gmail.com", "New Meeting Request", emailContent, request.getEmail());
 
         return this.meeting.createMeeting(request).toJson();
     }
