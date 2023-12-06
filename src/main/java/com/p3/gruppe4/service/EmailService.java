@@ -18,6 +18,7 @@ public class EmailService {
     public void sendEmail(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
+        message.setCc("");
         message.setSubject(subject);
         message.setText(text);
         mailSender.send(message);
