@@ -44,6 +44,11 @@ public class MeetingController extends Controller {
         // Send the email
         emailService.sendEmail("gustaw1313@gmail.com", "New Meeting Request", emailContent);
 
+        return "Email sent";
+    }
+
+    @PostMapping("/createMeeting")
+    public String createMeeting(MeetingRequest request){
         return this.meeting.createMeeting(request).toJson();
     }
 }
