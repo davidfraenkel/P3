@@ -6,7 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import { FiEdit2 } from "react-icons/fi";
 
 function Topic(props) {
-    const topicImage = require('../../../public/images/' + props.imageType);
+    let topicImage;
+    try {
+        topicImage = require('../../../public/images/' + props.imageType);
+    } catch (e) {
+        console.log(e);
+    }
     const dataToSend = "Kappa";
     return (
         // Skal have linket til subtopic siden
