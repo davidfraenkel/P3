@@ -13,6 +13,11 @@ import CreateSubTopicContent from "./components/CCView/createSubTopicContent"
 import AdminUserPanel from "./components/AdminView/adminUserPanel";
 import BookMeeting from "./components/ClientView/bookMeeting";
 import YouTubeApp from "./components/ClientView/YouTubeApp";
+import useUser from "./components/auth/setUser";
+import UserProfilePanel from "./components/UserProfile/userProfilePanel";
+import CcSubOverview from "./components/CCView/ccsuboverview";
+import Homeview from "./components/ClientView/homeview";
+import Login from "./components/login";
 
 function Router() {
     const {role, setRole} = useUser();
