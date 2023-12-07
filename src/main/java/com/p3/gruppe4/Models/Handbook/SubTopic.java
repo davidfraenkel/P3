@@ -7,7 +7,7 @@ import org.bson.types.ObjectId;
 
 public class SubTopic {
 
-    private String name, imagePath, parentId, content, order;
+    private String name, imagePath, parentId, content;
     private ObjectId id;
 
 
@@ -18,7 +18,6 @@ public class SubTopic {
         this.parentId = parentId;
         this.content = content;
         this.id = new ObjectId();
-        this.order = order;
     }
 
     public ObjectId getId() {
