@@ -10,19 +10,9 @@ import CreateUpdateTopic from "./components/CCView/createUpdateTopic";
 import CreateUpdateSubtopic from "./components/CCView/ccCreateUpdateSubtopic";
 import AdminUserPanel from "./components/AdminView/adminUserPanel";
 import BookMeeting from "./components/ClientView/bookMeeting";
-import Meeting from "./components/ClientView/meeting"; // Import the Meeting component
+import YouTubeApp from "./components/ClientView/YouTubeApp";
 
 function Router() {
-    let payload = {
-        meetingNumber: 84084099070,
-        role: 0,
-        sdkKey: 'wD1nCdGxR6eV7qOFMxD5Ag',
-        sdkSecret: 'oVqL5KNytCv6HmHavD0zB4112f7dqHc7',
-        passWord: 'vQXUR4',
-        userName: 'Testing',
-        userEmail: '',
-        leaveUrl: 'https://localhost:3000',
-    };
 
     return (
         <BrowserRouter>
@@ -33,6 +23,9 @@ function Router() {
                 <Route path="/overview/sub-overview" element={<SubOverview />} />
                 <Route path="/overview/sub-overview/subtopic" element={<Subtopic />} />
                 <Route path="/overview/book-meeting" element={<BookMeeting />} />
+                <Route path="/webinar" element={<YouTubeApp />} />
+
+
 
                 {/* CONTENT CREATOR */}
                 <Route path="/ccoverview" element={<CcOverview />} />
@@ -42,11 +35,11 @@ function Router() {
                 {/* Admin */}
                 <Route path="/admin-panel" element={<AdminUserPanel />} />
 
-                {/* Meeting route */}
-                <Route path="/meeting" element={<Meeting payload={payload} />} />
+
             </Routes>
         </BrowserRouter>
     );
+
 }
 
 export default Router;
