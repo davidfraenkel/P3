@@ -5,12 +5,21 @@ import {Link, useLocation} from "react-router-dom";
 import { FiEdit2 } from "react-icons/fi";
 
 function Subtopic(props) {
-    const subtopicImage =  require('../../../public/images/' + props.imagePath);
+    let subtopicImage;
+    try {
+        subtopicImage = require('../../../public/images/' + props.imagePath);
+    } catch (e) {
+        console.log(e);
+    }
+
+
     return (
         <Link to={`/ccoverview/ccsub-overview/ccsubtopic?subtopicId=${props.id}`}>
         <div className="SubTopicContainer">
             <div className="subTopicCoverImage">
+
                 <img src={subtopicImage} alt="picture" />
+
             </div>
             <div>
                 <div className="SubTopicDateTag">
