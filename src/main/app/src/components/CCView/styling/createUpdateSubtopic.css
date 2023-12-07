@@ -1,0 +1,88 @@
+/* CreateUpdateSubtopic.css */
+/* Bruger ingenting her fra apparently*/
+
+.FormCreateUpdateSubtopicBackgroundOverlay {
+    background: linear-gradient(to bottom, #F8F8F8, #EAEAEA);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.FormCreateUpdateSubtopicContainer {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    max-width: 500px; /* Adjust max-width for your container */
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 400px;
+
+}
+
+.FormCreateUpdateSubtopicContainer {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    max-width: 500px; /* Adjust max-width for your container */
+    padding: 30px;
+    text-align: center;
+}
+
+
+.FormCreateUpdateTopicTitle {
+    font-size: 30px;
+    margin: 20px 0;
+    color: #333;
+}
+
+.FormCreateUpdateSubtopicForm {
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.FormCreateUpdateSubtopicInputContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.FormCreateUpdateSubtopicInputContainer input {
+    border: black 0.5px solid;
+}
+
+.FormCreateUpdateSubtopicLabel {
+    font-weight: bold;
+}
+
+.FormCreateUpdateSubtopicDropArea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23333' stroke-width='2' stroke-dasharray='6%2c 15' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.FormCreateUpdateSubtopicFileInput {
+    display: none;
+}
+
+.FormCreateUpdateSubtopicSubmitButton {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: rgb(8,26,44);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.FormCreateUpdateSubtopicSubmitButton:hover {
+    background-color: #0056b3;
+}
+
+.FormCreateUpdateSubtopicFileName {
+    margin-top: 10px;
+    color: #0074d9;
+}

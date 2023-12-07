@@ -1,0 +1,51 @@
+.homeviewBody {
+  background-image: url('../../../../src/assets/homeview/soren_gastrome2.jpeg');
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  background-blend-mode: overlay;
+  overflow: hidden;
+}
+
+.homeviewContentContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 100px;
+}
+
+.redirectBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #333;
+  border-radius: 8px;
+  width: 250px;
+  height: 150px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.1s ease-in-out;
+  background-color: rgba(218, 218, 218, 0.8);
+  margin-top: -65px;
+}
+
+.redirectBox:hover {
+  transform: scale(1.05);
+}
+
+.redirectBox h1 {
+  font-size: 32px;
+  margin: 0;
+  color: #181818;
+}
+
+.redirectBox p {
+  font-size: 16px;
+  color: #2a2a2a;
+  margin: 8px 0;
+}

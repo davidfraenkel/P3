@@ -1,9 +1,12 @@
 package com.p3.gruppe4.Controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.p3.gruppe4.Models.Handbook.Handbook;
 import com.p3.gruppe4.Models.Handbook.SubTopic;
 import com.p3.gruppe4.Models.Handbook.Topic;
 import org.bson.Document;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,8 +15,12 @@ import java.util.HashSet;
 @RestController
 @CrossOrigin("http://localhost:3000")
 @RequestMapping("/api")
-public class HandbookController {
-    Handbook handbook = new Handbook();
+public class HandbookController extends Controller {
+
+    private Handbook handbook;
+    public HandbookController() {
+        this.handbook = new Handbook(this.createClient());
+    }
 
 //  TOPIC OPERATOINS
     @GetMapping("/getAllTopics")
@@ -21,15 +28,35 @@ public class HandbookController {
         return this.handbook.getAllTopics();
     }
 
-    @GetMapping("/getTopicByName")
+    @GetMapping("/getTopic")
     @ResponseBody
     public Document getTopicByName(@RequestParam(name = "topicId") String topicId){
         return this.handbook.getTopic(topicId);
     }
 
-    @PostMapping("/createTopic")
-    public String createTopic(@RequestBody Topic topic, @RequestParam(name = "file") MultipartFile file){
-        return this.handbook.createTopic(topic, file).toJson();
+    @PostMapping(value= "/createTopic", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public String createTopic(@RequestParam MultipartFile image,
+                              @RequestParam("topic") String topicJson) {
+        // Convert JSON string to TopicRequest object
+        ObjectMapper objectMapper = new ObjectMapper();
+        Topic topic = null;
+        try {
+            topic = objectMapper.readValue(topicJson, Topic.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            // Handle the exception as needed
+            return "Failed to create topic";
+        }
+
+        // Access the properties of the TopicRequest object
+        System.out.println("Name: " + topic.getName());
+        System.out.println("Phone Number: " + topic.getImagePath());
+        System.out.println("File Name: " + image.getOriginalFilename());
+
+        // Your logic to save or process the data
+        this.handbook.createTopic(topic, image).toJson();
+
+        return "Topic created successfully";
     }
 
     @PostMapping("/editTopic")
@@ -37,8 +64,8 @@ public class HandbookController {
         return this.handbook.editTopic(topicId, topic).toJson();
     }
 
-    @PostMapping("/deleteTopic")
-    public String editTopic(@RequestParam(name = "topicId") String topicId){
+    @GetMapping("/deleteTopic")
+    public long deleteTopic(@RequestParam(name = "topicId") String topicId){
         return this.handbook.deleteTopic(topicId);
     }
 
@@ -47,7 +74,7 @@ public class HandbookController {
         return this.handbook.getAllSubTopics(parentId);
     }
 
-    @GetMapping("/getSubTopic")
+    @PostMapping("/getSubTopic")
     public String getSubTopc(@RequestParam(name = "subTopicId") String id){
         return this.handbook.getSubTopic(id).toJson();
     }
@@ -63,7 +90,7 @@ public class HandbookController {
     }
 
     @PostMapping("/deleteSubTopic")
-    public String deleteSubTopic(@RequestParam(name = "subTopicId") String subTopicId){
+    public long deleteSubTopic(@RequestParam(name = "subTopicId") String subTopicId){
         return this.handbook.deleteSubTopic(subTopicId);
     }
 }

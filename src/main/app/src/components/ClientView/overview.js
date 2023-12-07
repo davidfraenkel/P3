@@ -2,7 +2,6 @@ import './styling/overview.css';
 import React from "react";
 import {Link} from "react-router-dom";
 import { useEffect , useState} from "react";
-import Header from "../../Header";
 
 function Topic(props) {
     const topicImage = require('../../assets/overview/' + props.name + '.' + props.imageType)
@@ -23,8 +22,6 @@ export default function Overview() {
         <div>
             <div>
                 <div className="overview-content">
-                    <Header
-                    />
                 </div>
             </div>
             <div className="OverviewContainer">

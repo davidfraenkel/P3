@@ -5,8 +5,9 @@ import static com.mongodb.client.model.Filters.eq;
 
 import com.mongodb.MongoException;
 import com.mongodb.client.*;
+import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.InsertOneResult;
 import org.bson.Document;
-import org.bson.types.ObjectId;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -15,16 +16,17 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 public class Handbook {
-    private String connectionString = "mongodb+srv://pepperonis:ilovepepperonis321@p3gastrome.as1pjv9.mongodb.net/?retryWrites=true&w=majority";
-    public Handbook (){
-        System.out.println("Handbook created");
+
+    private MongoClient mongoClient;
+    public Handbook (MongoClient client){
+        this.mongoClient = client;
     }
 
 //  TOPIC OPERATIONS
     public HashSet<Document> getAllTopics(){
         HashSet<Document> returnSet = new HashSet<>(Collections.emptySet());
-        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+        try {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Topic");
 
             FindIterable<Document> iterableCollection = collection.find();
@@ -42,12 +44,11 @@ public class Handbook {
 
     public Document getTopic(String id){
         Document returnDocument = new Document();
-        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+        try {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Topic");
 
-            returnDocument = collection.find(eq("_id", id))
-                    .first();
+            return collection.find(eq("_id", id)).first();
             // Prints a message if any exceptions occur during the operation
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
@@ -57,10 +58,11 @@ public class Handbook {
 
     public Document createTopic(Topic topic, MultipartFile file) {
         Document returnDocument = new Document();
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+        try  {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
 
             MongoCollection<Document> collection = db.getCollection("Topic");
+            topic.setImagePath(file.getOriginalFilename());
             returnDocument = new Document()
                     .append("_id", topic.getId().toString())
                     .append("name", topic.getName())
@@ -69,8 +71,6 @@ public class Handbook {
 
             SaveFile saveFile = new SaveFile();
             saveFile.store(file);
-
-
             // Prints a message if any exceptions occur during the operation
         } catch (MongoException me) {
                 System.err.println("Unable to insert due to an error: " + me);
@@ -80,8 +80,8 @@ public class Handbook {
 
     public Document editTopic(String topicId, Topic topic){
         Document returnDoc = new Document();
-        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+        try {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Topic");
 
             Document oldDoc = collection.find(eq("_id", topicId))
@@ -99,34 +99,34 @@ public class Handbook {
         return returnDoc;
     }
 
-    public String deleteTopic(String topicId){
-        String returnString = "deletion failed";
-        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+    public long deleteTopic(String topicId){
+        try {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Topic");
 
-            collection.deleteOne(new Document().append("_id",  topicId));
-            returnString = "Topic deleted successfully";
+            DeleteResult result = collection.deleteOne(new Document().append("_id",  topicId));
+            return result.getDeletedCount();
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
         }
-        return returnString;
+        return 0;
     }
 
 
 //  SUBTOPIC OPERATIONS
     public HashSet<Document> getAllSubTopics(String parentId){
         HashSet<Document> returnSet = new HashSet<>(Collections.emptySet());
-        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+        try {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("SubTopic");
 
-            Document query = new Document().append("parentTopicId", parentId);
+            Document query = new Document().append("parentId", parentId);
 
-            MongoCursor<Document> cursor = collection.find(query).iterator();
+            FindIterable<Document> iterableCollection = collection.find(query);
+            Iterator iterator = iterableCollection.iterator();
 
-            while (cursor.hasNext()){
-                returnSet.add(cursor.next());
+            while (iterator.hasNext()) {
+                returnSet.add((Document) iterator.next());
             }
             // Prints a message if any exceptions occur during the operation
         } catch (MongoException me) {
@@ -137,8 +137,8 @@ public class Handbook {
 
     public Document getSubTopic(String id){
         Document returnDocument = new Document();
-        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+        try {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("SubTopic");
 
             returnDocument = collection.find(eq("_id", id))
@@ -153,15 +153,15 @@ public class Handbook {
 
     public Document createSubTopic(SubTopic subTopic, String parentId){
         Document returnDocument = new Document();
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+        try  {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
 
             MongoCollection<Document> collection = db.getCollection("SubTopic");
             returnDocument = new Document()
                     .append("_id", subTopic.getId().toString())
                     .append("name", subTopic.getName())
-                    .append("imagePath", parentId)
-                    .append("parentId", subTopic.getParentId())
+                    .append("imagePath", subTopic.getImagePath())
+                    .append("parentId", parentId)
                     .append("content", subTopic.getContent());
             collection.insertOne(returnDocument);
             // Prints a message if any exceptions occur during the operation
@@ -173,8 +173,8 @@ public class Handbook {
 
     public Document editSubTopic(SubTopic subTopic, String subTopicId){
         Document returnDoc = new Document();
-        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+        try  {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("SubTopic");
 
             Document oldDoc = collection.find(eq("_id", subTopicId))
@@ -193,17 +193,16 @@ public class Handbook {
         return returnDoc;
     }
 
-    public String deleteSubTopic(String subTopicId){
-        String returnString = "deletion failed";
-        try (MongoClient mongoClient = MongoClients.create(this.connectionString)) {
-            MongoDatabase db = mongoClient.getDatabase("Gastrome");
+    public long deleteSubTopic(String subTopicId){
+        try  {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("SubTopic");
 
-            collection.deleteOne(new Document().append("_id",  subTopicId));
-            returnString = "Topic deleted successfully";
+            DeleteResult result = collection.deleteOne(new Document().append("_id",  subTopicId));
+            return result.getDeletedCount();
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
         }
-        return returnString;
+        return 0;
     }
 }

@@ -23,6 +23,11 @@
     height: 436px;
     position: relative;
     background-size: cover;
+    transition: transform 0.1s ease-in-out;
+}
+
+.SubTopicContainer:hover {
+    transform: scale(1.02);
 }
 
 .SubTopicTitle {
@@ -50,6 +55,8 @@
 }
 .subTopicCoverImage {
     margin-bottom: 25px;
+    height: 225px;
+
 }
 .subTopicCoverImage img {
     width: 100%;
