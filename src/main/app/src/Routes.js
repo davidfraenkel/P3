@@ -2,22 +2,17 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from "./components/home";
 import Signup from "./components/signup";
-import Homeview from "./components/ClientView/homeview";
 import Overview from "./components/ClientView/overview";
-import CcSubOverview from "./components/CCView/ccsuboverview"
 import SubOverview from "./components/ClientView/subOverview";
 import Subtopic from "./components/ClientView/subtopic";
 import CcOverview from "./components/CCView/ccoverview";
 import CreateUpdateTopic from "./components/CCView/createUpdateTopic";
 import CreateUpdateSubtopic from "./components/CCView/createUpdateSubtopic";
 import CreateSubTopicContent from "./components/CCView/createSubTopicContent"
+
 import AdminUserPanel from "./components/AdminView/adminUserPanel";
-import UserProfilePanel from "./components/UserProfile/userProfilePanel";
 import BookMeeting from "./components/ClientView/bookMeeting";
-import Meeting from "./components/ClientView/meeting";
-import useUser from "./components/auth/setUser";
-import Login from "./components/login";
-import Header from "./Header"; // Import the Meeting component
+import YouTubeApp from "./components/ClientView/YouTubeApp";
 
 function Router() {
     const {role, setRole} = useUser();
@@ -25,10 +20,9 @@ function Router() {
     const {userId, setUserId} = useUser();
 
     return (
-        <div>
-        <Header name={name} role={role}/>
         <BrowserRouter>
             <Routes>
+
                 <Route path="/login" element={<Login setRole={setRole} setName={setName} setUserId={setUserId}/>}/>
 
                 {/*CLIENT*/}
@@ -42,7 +36,9 @@ function Router() {
                 </Route>
                 <Route path={"/userprofile"} element={<UserProfilePanel userId={userId}/>}>
                 </Route>
+
                 <Route path="/overview/book-meeting" element={<BookMeeting />} />
+                <Route path="/webinar" element={<YouTubeApp />} />
 
                 {/*CONTENT CREATOR*/}
                 <Route path="/ccoverview" element={<CcOverview />}>
@@ -59,16 +55,11 @@ function Router() {
                 <Route path="/homeview" element={<Homeview />}>
                 </Route>
 
-
                 {/* Admin */}
                 <Route path="/admin-panel" element={<AdminUserPanel />} />
 
-                {/* Meeting route */}
-
-                {/*<Route path="/meeting" element={<Meeting payload={payload} />} />*/}
             </Routes>
         </BrowserRouter>
-        </div>
     );
 }
 

@@ -5,6 +5,7 @@ import '../CCView/styling/createUpdateTopic.css';
 
 export default function CreateUpdateTopic(props)  {
     const [name, setName] = useState('');
+    const [image, setImage] = useState('');
     const [imagePath, setImagePath] = useState('');
     const [image, setImage] = useState('');
     const navigate = useNavigate();

@@ -6,6 +6,8 @@ import static com.mongodb.client.model.Filters.jsonSchema;
 
 import com.mongodb.MongoException;
 import com.mongodb.client.*;
+import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.InsertOneResult;
 import org.bson.Document;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,7 +21,6 @@ public class Handbook {
     private MongoClient mongoClient;
     public Handbook (MongoClient client){
         this.mongoClient = client;
-        System.out.println("Handbook created");
     }
 
 //  TOPIC OPERATIONS
@@ -48,8 +49,7 @@ public class Handbook {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Topic");
 
-            returnDocument = collection.find(eq("_id", id))
-                    .first();
+            return collection.find(eq("_id", id)).first();
             // Prints a message if any exceptions occur during the operation
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
@@ -63,15 +63,15 @@ public class Handbook {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
 
             MongoCollection<Document> collection = db.getCollection("Topic");
+            topic.setImagePath(file.getOriginalFilename());
             returnDocument = new Document()
                     .append("_id", topic.getId().toString())
                     .append("name", topic.getName())
-                    .append("imagePath", file.getOriginalFilename());
+                    .append("imagePath", topic.getImagePath());
             collection.insertOne(returnDocument);
 
             SaveFile saveFile = new SaveFile();
             saveFile.store(file);
-
             // Prints a message if any exceptions occur during the operation
         } catch (MongoException me) {
                 System.err.println("Unable to insert due to an error: " + me);
@@ -100,18 +100,17 @@ public class Handbook {
         return returnDoc;
     }
 
-    public String deleteTopic(String topicId){
-        String returnString = "deletion failed";
+    public long deleteTopic(String topicId){
         try {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("Topic");
 
-            collection.deleteOne(new Document().append("_id",  topicId));
-            returnString = "Topic deleted successfully";
+            DeleteResult result = collection.deleteOne(new Document().append("_id",  topicId));
+            return result.getDeletedCount();
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
         }
-        return returnString;
+        return 0;
     }
 
 
@@ -201,17 +200,16 @@ public class Handbook {
         return returnDoc;
     }
 
-    public String deleteSubTopic(String subTopicId){
-        String returnString = "deletion failed";
+    public long deleteSubTopic(String subTopicId){
         try  {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
             MongoCollection<Document> collection = db.getCollection("SubTopic");
 
-            collection.deleteOne(new Document().append("_id",  subTopicId));
-            returnString = "Topic deleted successfully";
+            DeleteResult result = collection.deleteOne(new Document().append("_id",  subTopicId));
+            return result.getDeletedCount();
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
         }
-        return returnString;
+        return 0;
     }
 }

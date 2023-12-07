@@ -34,13 +34,11 @@ public class HandbookController extends Controller {
         return this.handbook.getAllTopics();
     }
 
-    @GetMapping("/getTopicByName")
+    @GetMapping("/getTopic")
     @ResponseBody
     public Document getTopicByName(@RequestParam(name = "topicId") String topicId){
         return this.handbook.getTopic(topicId);
     }
-
-
 
     @PostMapping(value= "/createTopic", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public String createTopic(@RequestParam MultipartFile image,
@@ -72,8 +70,8 @@ public class HandbookController extends Controller {
         return this.handbook.editTopic(topicId, topic).toJson();
     }
 
-    @PostMapping("/deleteTopic")
-    public String editTopic(@RequestParam(name = "topicId") String topicId){
+    @GetMapping("/deleteTopic")
+    public long deleteTopic(@RequestParam(name = "topicId") String topicId){
         return this.handbook.deleteTopic(topicId);
     }
 
@@ -82,7 +80,7 @@ public class HandbookController extends Controller {
         return this.handbook.getAllSubTopics(parentId);
     }
 
-    @GetMapping("/getSubTopic")
+    @PostMapping("/getSubTopic")
     public String getSubTopc(@RequestParam(name = "subTopicId") String id){
         return this.handbook.getSubTopic(id).toJson();
     }
@@ -145,7 +143,7 @@ public class HandbookController extends Controller {
 
 
     @PostMapping("/deleteSubTopic")
-    public String deleteSubTopic(@RequestParam(name = "subTopicId") String subTopicId){
+    public long deleteSubTopic(@RequestParam(name = "subTopicId") String subTopicId){
         return this.handbook.deleteSubTopic(subTopicId);
     }
 }
