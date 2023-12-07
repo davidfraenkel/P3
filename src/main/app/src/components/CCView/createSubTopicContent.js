@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
+import {forEachKey} from "yarn/lib/cli";
 
 const DynamicInputFields = () => {
     const [inputFields, setInputFields] = useState([]);
@@ -7,6 +8,30 @@ const DynamicInputFields = () => {
     const location = useLocation();
     const searchParams= new URLSearchParams(location.search);
     const subtopicId = searchParams.get('subtopicId');
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`http://localhost:3002/api/getSubTopic?subTopicId=${subtopicId}`, {
+                    method: 'GET',
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                //console.log('Success:', JSON.parse(data.content));
+
+                //setInputFields(data);
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+        fetchData();
+    }, []); // Empty dependency array to ensure the effect runs once on mount
 
     const addField = (type) => {
         // Check if a file input already exists
