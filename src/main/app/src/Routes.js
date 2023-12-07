@@ -10,7 +10,7 @@ import CreateUpdateTopic from "./components/CCView/createUpdateTopic";
 import CreateUpdateSubtopic from "./components/CCView/ccCreateUpdateSubtopic";
 import AdminUserPanel from "./components/AdminView/adminUserPanel";
 import BookMeeting from "./components/ClientView/bookMeeting";
-import Meeting from "./components/ClientView/meeting"; // Import the Meeting component
+import YouTubeApp from "./components/ClientView/YouTubeApp";
 
 function Router() {
     let payload = {
@@ -33,6 +33,8 @@ function Router() {
                 <Route path="/overview/sub-overview" element={<SubOverview />} />
                 <Route path="/overview/sub-overview/subtopic" element={<Subtopic />} />
                 <Route path="/overview/book-meeting" element={<BookMeeting />} />
+                <Route path="/webinar" element={<YouTubeApp />} />
+
 
                 {/* CONTENT CREATOR */}
                 <Route path="/ccoverview" element={<CcOverview />} />
@@ -42,8 +44,6 @@ function Router() {
                 {/* Admin */}
                 <Route path="/admin-panel" element={<AdminUserPanel />} />
 
-                {/* Meeting route */}
-                <Route path="/meeting" element={<Meeting payload={payload} />} />
             </Routes>
         </BrowserRouter>
     );
