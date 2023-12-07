@@ -1,16 +1,22 @@
 package com.p3.gruppe4.Controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.p3.gruppe4.Models.Handbook.Handbook;
 import com.p3.gruppe4.Models.Handbook.SubTopic;
 import com.p3.gruppe4.Models.Handbook.Topic;
 import org.bson.Document;
 import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -81,15 +87,65 @@ public class HandbookController extends Controller {
         return this.handbook.getSubTopic(id).toJson();
     }
 
-    @PostMapping("/createSubTopic")
-    public String createSubTopic(@RequestBody SubTopic subTopic, @RequestParam(name = "parentTopicId") String parentId){
-        return this.handbook.createSubTopic(subTopic, parentId).toJson();
+    @PostMapping(value= "/createSubTopic", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public String createSubTopic(@RequestParam MultipartFile image,
+                                 @RequestParam("subTopic") String subTopicJSON){
+        // Convert JSON string to TopicRequest object
+        ObjectMapper objectMapper = new ObjectMapper();
+        SubTopic subTopic = null;
+        try {
+            subTopic = objectMapper.readValue(subTopicJSON, SubTopic.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            // Handle the exception as needed
+            return "Failed to create topic";
+        }
+
+        // Access the properties of the TopicRequest object
+        System.out.println("Name: " + subTopic.getName());
+        System.out.println("Parent ID: " + subTopic.getParentId());
+        System.out.println("File Name: " + image.getOriginalFilename());
+
+        return this.handbook.createSubTopic(subTopic, image).toJson();
     }
 
-    @PostMapping("/editSubTopic")
-    public String editSubTopic(@RequestBody SubTopic subTopic, @RequestParam(name = "subTopicId") String subTopicId){
-        return this.handbook.editSubTopic(subTopic, subTopicId).toJson();
+    @PostMapping(value = "/editSubTopic", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    public String editSubTopic(
+            @RequestParam("jsonData") String jsonData,
+            @RequestParam("fileData") List<MultipartFile> files,
+            @RequestParam("subtopicId") String subtopicId
+    ) {
+        // Parse the JSON data
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Map<String, String>> jsonList;
+        SubTopic subTopic = null;
+        try {
+            System.out.println("SubtopicID: " + subtopicId);
+            jsonList = objectMapper.readValue(jsonData, new TypeReference<List<Map<String, String>>>() {
+            });
+            for (Map<String, String> jsonField : jsonList) {
+                System.out.println("Order: " + jsonField.get("order"));
+                System.out.println("Type: " + jsonField.get("type"));
+                System.out.println("Value: " + jsonField.get("value"));
+            }
+            subTopic = objectMapper.readValue(jsonData, SubTopic.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle JSON parsing exception
+            return "Failed to parse JSON data";
+        }
+
+        // Handle file data
+        if (files != null && !files.isEmpty()) {
+            for (MultipartFile file : files) {
+                System.out.println("File Name: " + file.getOriginalFilename());
+                // Process each file as needed
+            }
+        }
+        return this.handbook.editSubTopic(subTopic, jsonData, subtopicId).toJson();
     }
+
+
 
     @PostMapping("/deleteSubTopic")
     public String deleteSubTopic(@RequestParam(name = "subTopicId") String subTopicId){

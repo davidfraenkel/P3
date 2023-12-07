@@ -1,5 +1,7 @@
 package com.p3.gruppe4.Models.Handbook;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bson.types.ObjectId;
 
 public class SubTopic {
@@ -7,7 +9,8 @@ public class SubTopic {
     private String name, imagePath, parentId, content;
     private ObjectId id;
 
-    public SubTopic(String name, String imagePath, String parentId, String content) {
+    @JsonCreator
+    public SubTopic(@JsonProperty("name") String name, @JsonProperty("imagePath") String imagePath, @JsonProperty("parentId") String parentId, @JsonProperty("content") String content) {
         this.name = name;
         this.imagePath = imagePath;
         this.parentId = parentId;
@@ -34,4 +37,5 @@ public class SubTopic {
     public String getContent() {
         return content;
     }
+
 }

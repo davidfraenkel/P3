@@ -2,6 +2,7 @@ package com.p3.gruppe4.Models.Handbook;
 
 
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.jsonSchema;
 
 import com.mongodb.MongoException;
 import com.mongodb.client.*;
@@ -152,7 +153,7 @@ public class Handbook {
         return returnDocument;
     }
 
-    public Document createSubTopic(SubTopic subTopic, String parentId){
+    public Document createSubTopic(SubTopic subTopic, MultipartFile file){
         Document returnDocument = new Document();
         try  {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
@@ -161,18 +162,20 @@ public class Handbook {
             returnDocument = new Document()
                     .append("_id", subTopic.getId().toString())
                     .append("name", subTopic.getName())
-                    .append("imagePath", subTopic.getParentId())
-                    .append("parentId", parentId)
+                    .append("imagePath", file.getOriginalFilename())
+                    .append("parentId", subTopic.getParentId())
                     .append("content", subTopic.getContent());
             collection.insertOne(returnDocument);
-            // Prints a message if any exceptions occur during the operation
+            // Prints a message if any exceptions occur during the operation'
+            SaveFile saveFile = new SaveFile();
+            saveFile.store(file);
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
         }
         return returnDocument;
     }
 
-    public Document editSubTopic(SubTopic subTopic, String subTopicId){
+    public Document editSubTopic(SubTopic subTopic, String jsonData, String subTopicId){
         Document returnDoc = new Document();
         try  {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
@@ -181,10 +184,11 @@ public class Handbook {
             Document oldDoc = collection.find(eq("_id", subTopicId))
                     .first();
 
+
             returnDoc = new Document("$set", new Document()
                     .append("name", !subTopic.getName().isEmpty() ? subTopic.getName() : oldDoc.getString("name"))
                     .append("imagePath", !subTopic.getImagePath().isEmpty() ? subTopic.getImagePath() : oldDoc.getString("imagePath"))
-                    .append("content", !subTopic.getContent().isEmpty() ? subTopic.getContent() : oldDoc.getString("content"))
+                    .append("content", jsonData)
             );
 
             collection.updateOne(new Document().append("_id",  subTopic), returnDoc);
