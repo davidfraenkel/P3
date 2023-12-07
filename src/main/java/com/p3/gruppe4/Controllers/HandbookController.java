@@ -111,24 +111,21 @@ public class HandbookController extends Controller {
 
     @PostMapping(value = "/editSubTopic", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE })
     public String editSubTopic(
-            @RequestParam("jsonData") String jsonData,
-            @RequestParam("fileData") List<MultipartFile> files,
-            @RequestParam("subtopicId") String subtopicId
+            @RequestParam(value = "jsonData", required = false) String jsonData,
+            @RequestParam(value = "fileData", required = false) List<MultipartFile> files,
+            @RequestParam(value = "subtopicId", required = false) String subtopicId
     ) {
         // Parse the JSON data
         ObjectMapper objectMapper = new ObjectMapper();
         List<Map<String, String>> jsonList;
-        SubTopic subTopic = null;
         try {
             System.out.println("SubtopicID: " + subtopicId);
-            jsonList = objectMapper.readValue(jsonData, new TypeReference<List<Map<String, String>>>() {
-            });
+            jsonList = objectMapper.readValue(jsonData, new TypeReference<List<Map<String, String>>>() {});
             for (Map<String, String> jsonField : jsonList) {
                 System.out.println("Order: " + jsonField.get("order"));
                 System.out.println("Type: " + jsonField.get("type"));
                 System.out.println("Value: " + jsonField.get("value"));
             }
-            subTopic = objectMapper.readValue(jsonData, SubTopic.class);
         } catch (IOException e) {
             e.printStackTrace();
             // Handle JSON parsing exception
@@ -142,7 +139,7 @@ public class HandbookController extends Controller {
                 // Process each file as needed
             }
         }
-        return this.handbook.editSubTopic(subTopic, jsonData, subtopicId).toJson();
+            return this.handbook.editSubTopic(jsonData, subtopicId).toJson();
     }
 
 

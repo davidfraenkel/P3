@@ -1,13 +1,15 @@
 package com.p3.gruppe4.Models.Handbook;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bson.types.ObjectId;
 
 public class SubTopic {
 
-    private String name, imagePath, parentId, content;
+    private String name, imagePath, parentId, content, order;
     private ObjectId id;
+
 
     @JsonCreator
     public SubTopic(@JsonProperty("name") String name, @JsonProperty("imagePath") String imagePath, @JsonProperty("parentId") String parentId, @JsonProperty("content") String content) {
@@ -16,6 +18,7 @@ public class SubTopic {
         this.parentId = parentId;
         this.content = content;
         this.id = new ObjectId();
+        this.order = order;
     }
 
     public ObjectId getId() {

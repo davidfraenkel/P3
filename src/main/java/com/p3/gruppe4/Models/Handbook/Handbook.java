@@ -175,7 +175,7 @@ public class Handbook {
         return returnDocument;
     }
 
-    public Document editSubTopic(SubTopic subTopic, String jsonData, String subTopicId){
+    public Document editSubTopic(String jsonData, String subTopicId){
         Document returnDoc = new Document();
         try  {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
@@ -184,14 +184,17 @@ public class Handbook {
             Document oldDoc = collection.find(eq("_id", subTopicId))
                     .first();
 
+            System.out.println("JSONdata:  "+jsonData);
 
             returnDoc = new Document("$set", new Document()
-                    .append("name", !subTopic.getName().isEmpty() ? subTopic.getName() : oldDoc.getString("name"))
-                    .append("imagePath", !subTopic.getImagePath().isEmpty() ? subTopic.getImagePath() : oldDoc.getString("imagePath"))
+                    .append("name", oldDoc.getString("name"))
+                    .append("imagePath", oldDoc.getString("imagePath"))
                     .append("content", jsonData)
             );
 
-            collection.updateOne(new Document().append("_id",  subTopic), returnDoc);
+            System.out.println(oldDoc);
+
+            collection.updateOne(new Document().append("_id",  subTopicId), returnDoc);
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
         }
