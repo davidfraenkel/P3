@@ -18,6 +18,7 @@ import UserProfilePanel from "./components/UserProfile/userProfilePanel";
 import CcSubOverview from "./components/CCView/ccsuboverview";
 import Homeview from "./components/ClientView/homeview";
 import Login from "./components/login";
+import Header from "./Header";
 
 function Router() {
     const {role, setRole} = useUser();
@@ -25,9 +26,10 @@ function Router() {
     const {userId, setUserId} = useUser();
 
     return (
+        <div>
+        <Header name={name} role={role} />
         <BrowserRouter>
             <Routes>
-
                 <Route path="/login" element={<Login setRole={setRole} setName={setName} setUserId={setUserId}/>}/>
 
                 {/*CLIENT*/}
@@ -65,6 +67,7 @@ function Router() {
 
             </Routes>
         </BrowserRouter>
+        </div>
     );
 }
 

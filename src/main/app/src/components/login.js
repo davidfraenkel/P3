@@ -29,11 +29,12 @@ export default function Login({setRole, setName, setUserId}) {
                 setRole(data.role)
                 setName(data.username)
                 setUserId(data._id)
+
                 switch (data.role) {
-                    case "normalrole":
+                    case "NormalUser":
                         navigate('/overview');
                         break;
-                    case "client":
+                    case "Client":
                         navigate('/overview');
                         break;
                     case "content creator":
