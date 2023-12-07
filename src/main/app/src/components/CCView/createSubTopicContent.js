@@ -1,17 +1,24 @@
 import React, { useState } from 'react';
+import {useLocation, useNavigate} from "react-router-dom";
 
 const DynamicInputFields = () => {
     const [inputFields, setInputFields] = useState([]);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const searchParams= new URLSearchParams(location.search);
+    const subtopicId = searchParams.get('subtopicId');
 
     const addField = (type) => {
         // Check if a file input already exists
-        const fileInputExists = inputFields.some((field) => field.type === 'file');
+        const fileInputs = inputFields.filter((field) => field.type === 'file');
+        const fileInputCount = fileInputs.length;
 
-        // Only add a new file input if it doesn't exist
-        if (!(type === 'file' && fileInputExists)) {
+        // Only add a new file input if there are no existing file inputs or if multiple file inputs are allowed
+        const allowMultipleFiles = true; // Set this to false if you only want one file input
+        if (allowMultipleFiles || fileInputCount === 0) {
             const newField = {
                 type: type,
-                value: type === 'file' ? null : '',
+                value: type === 'file' ? [] : '',
                 id: `${type}-${inputFields.length + 1}`,
             };
             setInputFields([...inputFields, newField]);
@@ -33,11 +40,14 @@ const DynamicInputFields = () => {
             order: field.id.split('-')[1],
             type: field.type,
             value: field.type === 'file' ? null : field.value,
+            fileName: field.type === 'file' && field.value.length > 0 ? field.value[0].name : null,
         }));
+
+        console.log(jsonResult);
 
         // Append JSON data
         formData.append('jsonData', JSON.stringify(jsonResult));
-
+        formData.append('subtopicId', subtopicId);
         // Append file data
         inputFields
             .filter((field) => field.type === 'file' && field.value)
