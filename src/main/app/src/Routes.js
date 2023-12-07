@@ -1,13 +1,45 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import Home from "./components/home"
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from "./components/home";
+import Signup from "./components/signup";
+import Overview from "./components/ClientView/overview";
+import SubOverview from "./components/ClientView/subOverview";
+import Subtopic from "./components/ClientView/subtopic";
+import CcOverview from "./components/CCView/ccoverview";
+import CreateUpdateTopic from "./components/CCView/createUpdateTopic";
+import CreateUpdateSubtopic from "./components/CCView/ccCreateUpdateSubtopic";
+import AdminUserPanel from "./components/AdminView/adminUserPanel";
+import BookMeeting from "./components/ClientView/bookMeeting";
+import YouTubeApp from "./components/ClientView/YouTubeApp";
+
 function Router() {
+
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Home />}>
-                </Route>
+                <Route path="/" element={<Home />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/overview" element={<Overview />} />
+                <Route path="/overview/sub-overview" element={<SubOverview />} />
+                <Route path="/overview/sub-overview/subtopic" element={<Subtopic />} />
+                <Route path="/overview/book-meeting" element={<BookMeeting />} />
+                <Route path="/webinar" element={<YouTubeApp />} />
+
+
+
+                {/* CONTENT CREATOR */}
+                <Route path="/ccoverview" element={<CcOverview />} />
+                <Route path="/ccoverview/create-update-topic" element={<CreateUpdateTopic />} />
+                <Route path="/ccoverview/create-update-subtopic" element={<CreateUpdateSubtopic />} />
+
+                {/* Admin */}
+                <Route path="/admin-panel" element={<AdminUserPanel />} />
+
+
             </Routes>
         </BrowserRouter>
-    )
+    );
+
 }
-export default Router
+
+export default Router;

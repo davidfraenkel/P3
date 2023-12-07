@@ -1,0 +1,63 @@
+.SubOverviewHeaderContainer {
+    text-align: center;
+}
+.SubOverviewHeader {
+    font-weight: bolder;
+    font-size: 30px;
+}
+
+.SubTopicsContainer {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    max-width: 1400px;
+    flex-wrap: wrap;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.SubTopicContainer {
+    border-radius: 20px;
+    justify-content: center;
+    width: 384px;
+    height: 436px;
+    position: relative;
+    background-size: cover;
+}
+
+.SubTopicTitle {
+    color: white;
+    position: absolute;
+    bottom: 3%;
+    left: 5%;
+    z-index: 2;
+    font-weight: bold;
+    font-size: 36px;
+}
+
+.SubTopicDato {
+    color: #6B7280;
+    font-size: 12px;
+}
+
+.SubTopicName {
+    color: #444444;
+}
+
+.SubTopicSummary{
+    color: #444444;
+
+}
+.subTopicCoverImage {
+    margin-bottom: 25px;
+}
+.subTopicCoverImage img {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+.SubTopicDateTag {
+    display: flex;
+    justify-content: space-between;
+}

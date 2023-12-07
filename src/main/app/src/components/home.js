@@ -1,10 +1,11 @@
-import './home.css'
+import './styling/home.css'
 import startBusiness from "../assets/homepage/startBusiness.jpg";
 import businessRelations from "../assets/homepage/businessRelations.jpg";
 import trainStaff from "../assets/homepage/trainStaff.jpg";
 import fineDining from "../assets/homepage/fine_dining.jpg";
 import {forwardRef, useRef} from 'react';
 import { SlArrowDown } from "react-icons/sl";
+import Overview from "./ClientView/overview";
 
 function BackgroundText() {
     return (
@@ -24,17 +25,9 @@ function Background({resultRef}) {
         </div>
 
     )
-};
+}
 
-const LearnHowTo = forwardRef(function LearnHowTo(props,ref) {
-    return (
-        <div ref={ref} className='LearnHowToContainer'>
-            <h1>Learn how to...</h1>
-            <div className='HomepageCardContainer'>
-                { homepageCars.map(item => <HomepageCard key={item.id} name={item.name} image={item.image} />)}
-            </div>
-        </div>
-    )})
+
 /*function LearnHowTo() {
     return (
         <div ref={ref} className='LearnHowToContainer'>
@@ -58,18 +51,6 @@ function ScrollArrow({resultRef}) {
     )
 }
 
-function HomepageCard(card) {
-    return (
-        <div className='HomepageCard'>
-            <div className='HomepageCardImage'>
-                <img src={card.image} alt='Start a business'/>
-            </div>
-            <div className='HomepageCardHeadline'>
-                {card.name}
-            </div>
-        </div>
-    )
-}
 
 function InformationSection() {
     return (
@@ -92,7 +73,7 @@ export default function Home() {
     return (
         <div className='HomeStyling'>
             <Background resultRef={resultRef}/>
-            <LearnHowTo ref={resultRef}/>
+            <Overview />
             <InformationSection />
             <div className='EmptyDiv'></div>
         </div>
@@ -100,7 +81,7 @@ export default function Home() {
 
 }
 
-const homepageCars = [
+const homepageCards = [
     {'id': 1,'name': 'Start a business', 'image': startBusiness},
     {'id': 2,'name': 'Train new Staff', 'image': trainStaff},
     {'id': 3,'name': 'Make business relations', 'image': businessRelations},

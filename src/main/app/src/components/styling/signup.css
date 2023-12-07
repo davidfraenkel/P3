@@ -1,0 +1,97 @@
+/* Container Styles */
+.SignupBackgroundImg{
+    background: url('../../assets/signup/signupCover.jpeg') center/cover no-repeat fixed;
+}
+
+.SignupBackgroundOverlay {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Apply opacity to the background image only */
+.SignupBackgroundOverlay::before {
+    content: "";
+    background: rgba(0, 0, 0, 0.5); /* Transparent black background with 0.5 opacity */
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.SignupContainer {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    max-width: 1000px;
+    padding: 20px;
+    text-align: center;
+    position: absolute;
+    top: 150px;
+    left: 100px; /* Positioned to the left */
+}
+
+/* Header Styles */
+.Title {
+    font-size: 30px;
+    margin: 20px 0;
+    color: #333;
+}
+
+/* Form Styles */
+.SignupWrapNameLast {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0;
+    gap: 20px;
+}
+
+.SignupInput {
+    margin-bottom: 15px;
+}
+
+/* Input Field Styles */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    outline: none; /* Remove the default focus outline */
+}
+
+/* Checkbox Styles */
+.TermsCheckbox {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+/* Checkbox Styles */
+.TermsCheckbox input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Submit Button Styles */
+.SignupSubmit input[type="submit"] {
+    background: rgb(8,26,44);
+    color: #fff;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background 0.3s;
+}
+
+.SignupSubmit input[type="submit"]:hover {
+    background: rgb(31, 74, 126);
+}
+
+/* Text Color for Links */
+a {
+    text-decoration: none;
+}
