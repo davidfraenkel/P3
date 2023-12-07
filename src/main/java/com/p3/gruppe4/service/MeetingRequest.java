@@ -9,6 +9,7 @@ public class MeetingRequest {
     private String message;
     private String date;
     private SelectedTime selectedTime;
+    private String status;
 
     public MeetingRequest(String name, String email, String message, String date, SelectedTime selectedTime) {
         this.id = new ObjectId();
@@ -17,6 +18,7 @@ public class MeetingRequest {
         this.message = message;
         this.date = date;
         this.selectedTime = selectedTime;
+        this.status = "pending";
     }
 
     // Getters and Setters
@@ -62,5 +64,13 @@ public class MeetingRequest {
 
     public void setSelectedTime(SelectedTime selectedTime) {
         this.selectedTime = selectedTime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -56,6 +56,7 @@ public class Meeting {
                     .append("message", request.getMessage())
                     .append("date", request.getDate())
                     .append("selectedTime", request.getSelectedTime().getValue())
+                    .append("status", request.getStatus())
             ;
             collection.insertOne(returnDocument);
 

@@ -1,20 +1,15 @@
-export default function AdminMeetingPanel() {
+// App.js
+
+import React from 'react';
+import MeetingRequest from './meetingRequest';
+
+const AdminMeetingPanel = () => {
     return (
-
         <div>
-            <h1>Admin Meeting Panel</h1>
-
-            <div className="Pending">
-                <div className="MeetingBoxContainer">
-                    
-                </div>
-            </div>
-            <div className="Accepted">
-                <div className="MeetingBoxContainer">
-
-                </div>
-
-            </div>
+            <h1>Your Meeting Requests</h1>
+            <MeetingRequest />
         </div>
-    )
-}
+    );
+};
+
+export default AdminMeetingPanel;
