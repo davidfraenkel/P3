@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
-import {forEachKey} from "yarn/lib/cli";
 
 const DynamicInputFields = () => {
     const [inputFields, setInputFields] = useState([]);
@@ -21,9 +20,9 @@ const DynamicInputFields = () => {
                 }
 
                 const data = await response.json();
-                //console.log('Success:', JSON.parse(data.content));
+                console.log('Success:', JSON.parse(data.content));
+                initializeInputFields(JSON.parse(data.content));
 
-                //setInputFields(data);
 
             } catch (error) {
                 console.error('Error:', error);
@@ -104,6 +103,17 @@ const DynamicInputFields = () => {
             console.error('Error:', error);
             // Add logic to handle errors if needed
         }
+    };
+
+    const initializeInputFields = (contentData) => {
+        const newInputFields = contentData.map((item, index) => {
+            return {
+                id: `input-${index}`,
+                type: item.type,
+                value: item.value,
+            };
+        });
+        setInputFields(newInputFields);
     };
 
     return (
