@@ -19,7 +19,7 @@ public class SaveFile {
             if (file.isEmpty()) {
                 throw new RuntimeException("Failed to store empty file.");
             }
-            Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+            Files.copy(file.getInputStream(), Paths.get("src/main/app/public/images").resolve(file.getOriginalFilename()));
         } catch (IOException e) {
             throw new RuntimeException("Failed to store file.", e);
         }
