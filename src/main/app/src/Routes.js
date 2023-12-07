@@ -10,6 +10,7 @@ import Subtopic from "./components/ClientView/subtopic";
 import CcOverview from "./components/CCView/ccoverview";
 import CreateUpdateTopic from "./components/CCView/createUpdateTopic";
 import CreateUpdateSubtopic from "./components/CCView/createUpdateSubtopic";
+import CreateSubTopicContent from "./components/CCView/createSubTopicContent"
 import AdminUserPanel from "./components/AdminView/adminUserPanel";
 import UserProfilePanel from "./components/UserProfile/userProfilePanel";
 import BookMeeting from "./components/ClientView/bookMeeting";
@@ -22,16 +23,6 @@ function Router() {
     const {role, setRole} = useUser();
     const {name, setName} = useUser();
     const {userId, setUserId} = useUser();
-/*    let payload = {
-        meetingNumber: 84084099070,
-        role: 0,
-        sdkKey: 'wD1nCdGxR6eV7qOFMxD5Ag',
-        sdkSecret: 'oVqL5KNytCv6HmHavD0zB4112f7dqHc7',
-        passWord: 'vQXUR4',
-        userName: 'Testing',
-        userEmail: '',
-        leaveUrl: 'https://localhost:3000',
-    };*/
 
     return (
         <div>
@@ -62,6 +53,7 @@ function Router() {
                 </Route>
                 <Route path="/ccoverview/ccsub-overview/create-update-subtopic" element={<CreateUpdateSubtopic />}>
                 </Route>
+                <Route path="/ccoverview/ccsub-overview/ccsubtopic" element={<CreateSubTopicContent />}></Route>
                 <Route path="/ccoverview/ccsub-overview" element={<CcSubOverview />}>
                 </Route>
                 <Route path="/homeview" element={<Homeview />}>

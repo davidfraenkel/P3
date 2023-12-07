@@ -1,79 +1,92 @@
 import React, { useState } from 'react';
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import InputField from '../smartComponents/inputField';
 import '../CCView/styling/createUpdateSubtopic.css';
 
 export default function CreateUpdateSubtopic(props)  {
-    const [subtopicTitle, setSubtopicTitle] = useState('');
-    const [subtopicDesc, setSubtopicDesc] = useState('');
-    const [file, setFile] = useState(null);
+    const [name, setName] = useState('');
+    const [imagePath, setImagePath] = useState('');
+    const [desc, setDesc] = useState('');
+    const [image, setImage] = useState('');
+    const navigate = useNavigate();
+
     const location = useLocation();
     const searchParams= new URLSearchParams(location.search);
-    const subtopicName = searchParams.get('subtopicName');
+    const parentTopicId = searchParams.get('parentTopicId');
 
     const handleTitleChange = (e) => {
-        setSubtopicTitle(e.target.value);
+        setName(e.target.value);
     };
 
-    const handleDescChange = (e) => {
-        setSubtopicDesc(e.target.value);
-    };
+    const handleDescChange= (e) => {
+        setDesc(e.target.value);
+    }
 
-    const handleFileChange = (e) => {
+    const handleImageChange = (e) => {
         const selectedFile = e.target.files[0];
-        setFile(selectedFile);
+        const fileNameWithoutSpaces = selectedFile.name.replace(/\s/g, '_');
+
+        // Create a new File object with the updated name
+        const updatedFile = new File([selectedFile], fileNameWithoutSpaces, { type: selectedFile.type });
+
+        // Use the updated file
+        setImage(updatedFile);
     };
 
-    const handleDrop = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const selectedFile = e.dataTransfer.files[0];
-        setFile(selectedFile);
+        const formData = new FormData();
+        formData.append('image', image);
+
+        const topicData = {
+            name: name,
+            parentId: parentTopicId,
+            content: desc,
+            imagePath: imagePath,
+        };
+
+        formData.append('subTopic', JSON.stringify(topicData));
+
+        try {
+            const response = await fetch('http://localhost:3002/api/createSubTopic', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (response.ok) {
+                console.log('Subtopic created successfully');
+                navigate(-1);
+            } else {
+                console.error('Failed to create subtopic');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
-    const preventDefault = (e) => {
-        e.preventDefault();
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle subtopic creation/update logic here, including file upload.
-        console.log('Subtopic Title:', subtopicTitle);
-        console.log('Selected File:', file);
-        console.log('Subtopic Description:', subtopicDesc);
-    };
 
     return (
         <div className="FormCreateUpdateSubtopicBackgroundOverlay">
             <div className="FormCreateUpdateSubtopicContainer">
-                <h1 className="FormCreateUpdateSubtopicTitle">{subtopicName ? `Update ${subtopicName}` : 'Create new subtopic'}</h1>
+                <h1 className="FormCreateUpdateSubtopicTitle">Create new subtopic {parentTopicId}</h1>
                 <form onSubmit={handleSubmit} className="FormCreateUpdateSubtopicForm">
                     <div className="FormCreateUpdateSubtopicInputContainer">
                         <InputField
                             type={"text"}
                             name={"topic"}
                             placeholder={"Subtopic Name"}
-                            value={subtopicTitle}
+                            value={name}
                             func={handleTitleChange}
                         />
                     </div>
-                    <div
-                        className="FormCreateUpdateSubtopicDropArea"
-                        onDrop={handleDrop}
-                        onDragOver={preventDefault}
-                        onDragEnter={preventDefault}
-                    >
-                        <label className="FormCreateUpdateSubtopicLabel">Drag and Drop Image Here:</label>
-                        <input type="file" accept="image/*" onChange={handleFileChange} className="FormCreateUpdateSubtopicFileInput" />
-                    </div>
-                    {file && (
-                        <p className="FormCreateUpdateSubtopicFileName">Selected File: {file.name}</p>
-                    )}
+                    <input type="file" accept="image/*" onChange={handleImageChange} />
+
                     <div className="FormCreateUpdateSubtopicInputContainer">
                         <InputField
                             type={"text"}
                             name={"description"}
                             placeholder={"Description"}
-                            value={subtopicDesc}
+                            value={desc}
                             func={handleDescChange}
                         />
                     </div>

@@ -1,50 +1,84 @@
 import '../ClientView/styling/subOverview.css';
 import './styling/ccsuboverview.css';
-import React from "react";
-import { Link } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Link, useLocation} from "react-router-dom";
 import { FiEdit2 } from "react-icons/fi";
 
-const Subtopic = ({ id, name, imageType, date }) => {
-    const subtopicImage = require(`../../assets/overview/subOverview/${name}.${imageType}`);
-
+function Subtopic(props) {
+    const subtopicImage =  require('../../../public/images/' + props.imagePath);
     return (
+        <Link to={`/ccoverview/ccsub-overview/ccsubtopic?subtopicId=${props.id}`}>
         <div className="SubTopicContainer">
             <div className="subTopicCoverImage">
                 <img src={subtopicImage} alt="picture" />
             </div>
             <div>
                 <div className="SubTopicDateTag">
-                    <span className="SubTopicDato">{date.toDateString()}</span>{" "}
+                    <span className="SubTopicDato">{props.date.toDateString()}</span>{" "}
                     <span className="subTag">
-                    <Link to={`/ccoverview/ccsub-overview/create-update-subtopic?subtopicName=${name}`}>
+                    <Link to={`/ccoverview/ccsub-overview/create-update-subtopic?subtopicName=${props.name}`}>
                       <FiEdit2 />
                     </Link>
           </span>
                 </div>
-                <h2 className="SubTopicName">{name}</h2>
+                <h2 className="SubTopicName">{props.name}</h2>
                 <p className="SubTopicSummary">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur cum ea excepturi ipsum iure maiores nesciunt non sit tempore velit. Eum ipsam numquam quia voluptate voluptatem. Aspernatur doloribus minus molestiae.
                 </p>
             </div>
         </div>
+        </Link>
     );
 };
 
 export default function CcSubOverview() {
-    const date = new Date();
+    const date = new Date;
+    let isSubTopicsEmpty = false;
+    const [subTopics, setSubTopis] = useState([]);
+    const location = useLocation();
+    const searchParams= new URLSearchParams(location.search);
+    const parentId = searchParams.get('parentId');
+    const topicName = searchParams.get('name');
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`http://localhost:3002/api/getAllSubTopics?parentTopicId=${parentId}`, {
+                    method: 'GET',
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                console.log('Success:', data);
+                setSubTopis(data);
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+        fetchData();
+    }, []); // Empty dependency array to ensure the effect runs once on mount
+    if(subTopics < 1) {
+        isSubTopicsEmpty = true;
+    }
 
     return (
         <div>
             <div className="SubOverviewContainer">
                 <div className="SubOverviewHeaderContainer">
-                    <h2 className="SubOverviewHeader">Business</h2>
+                    <h2 className="SubOverviewHeader">{topicName}</h2>
                     <p className="">
                         Overview of all the subtopics
                     </p>
                 </div>
                 <div className="SubTopicsContainer">
-                    {subtopics.map((subtopic) => <Subtopic key={subtopic.id} id={subtopic.id} name={subtopic.name} imageType={subtopic.imageType} date={date} />)}
-                    <Link to='create-update-subtopic'>
+                    { isSubTopicsEmpty
+                        ? <p>This topic does not contain any sub topics</p>
+                        : subTopics.map(item => <Subtopic key={item._id} id={item._id} name={item.name} date={date} imagePath={item.imagePath} content={item.content}/>)}
+                    <Link to={`create-update-subtopic?parentTopicId=${parentId}`}>
                         <div className="CreateUpdateSubtopicContainer FormCreateUpdateSubtopicContainer">
                             <div className="CreateUpdateSubtopic">
                             </div>
@@ -55,9 +89,3 @@ export default function CcSubOverview() {
         </div>
     );
 }
-
-const subtopics = [
-    { 'id': 1, 'name': 'Management', imageType: "jpg" },
-    { 'id': 2, 'name': 'Law', imageType: "jpeg" },
-    { 'id': 3, 'name': 'Tips', imageType: "jpeg" },
-];

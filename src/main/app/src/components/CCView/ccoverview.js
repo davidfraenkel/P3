@@ -1,15 +1,16 @@
 import '../ClientView/styling/overview.css';
 import './styling/ccoverview.css';
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { FiEdit2 } from "react-icons/fi";
 
 function Topic(props) {
-    const topicImage = require('../../assets/overview/' + props.name + '.' + props.imageType)
+    const topicImage = require('../../../public/images/' + props.imageType);
     const dataToSend = "Kappa";
     return (
         // Skal have linket til subtopic siden
+        <Link to={`/ccoverview/ccsub-overview?parentId=${props.id}&name=${props.name}`}>
             <div className="TopicContainer" style={{backgroundImage: "url(" + topicImage + ")"}}>
 
                 <div className="TopicTitle">
@@ -20,12 +21,36 @@ function Topic(props) {
                     </p>
                 </div>
             </div>
+        </Link>
     )
 }
 
 
 
 export default function CcOverview() {
+    const [topics, setTopics] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://localhost:3002/api/getAllTopics', {
+                    method: 'GET',
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                console.log('Success:', data);
+                setTopics(data);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+        fetchData();
+    }, []); // Empty dependency array to ensure the effect runs once on mount
     return (
         <div>
             <div className="OverviewContainer">
@@ -36,7 +61,7 @@ export default function CcOverview() {
                     </p>
                 </div>
                 <div className="TopicsContainer">
-                    { topics.map(item => <Topic key={item.id} name={item.name} imageType={item.imageType} />)}
+                    { topics.map(item => <Topic key={item._id} id={item._id} name={item.name} imageType={item.imagePath} />)}
                     <Link to='create-update-topic'>
                         <div className="CreateUpdateTopicContainer FormCreateUpdateTopicContainer">
                             <div className="CreateUpdateTopic">
@@ -48,9 +73,3 @@ export default function CcOverview() {
         </div>
     )
 }
-/* Dummy Data vi skal have dette fra backend folket? */
-const topics = [
-    {'id': 1,'name': 'Economy', imageType: "jpg"},
-    {'id': 2,'name': 'Business', imageType: "jpeg"},
-    {'id': 3,'name': 'Law', imageType: "jpg"},
-]
