@@ -2,10 +2,12 @@ import './styling/signup.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import InputField from './smartComponents/inputField';
+import { useUserContext } from './auth/userContext';
 
 export default function Signup({setRole, setName, setUserId}) {
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
+    const { setUserInfo } = useUserContext();
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -26,21 +28,22 @@ export default function Signup({setRole, setName, setUserId}) {
             .then(response => response.json())
             .then(data => {
                 console.log('Success:', data);
-                data.role.toLocaleLowerCase();
-                setRole(data.role)
-                setName(data.username)
-                setUserId(data._id)
+                setUserInfo({
+                    role: data.role,
+                    name: data.username,
+                    userId: data._id,
+                });
                 switch (data.role) {
                     case "NormalUser":
                         navigate('/overview');
                         break;
-                    case "client":
+                    case "Client":
                         navigate('/overview');
                         break;
-                    case "content creator":
+                    case "Content Creator":
                         navigate("/ccoverview");
                         break;
-                    case "admin":
+                    case "Admin":
                         navigate("/");
                 }
             })

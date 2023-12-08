@@ -2,11 +2,14 @@ import React from 'react';
 import { HiUser } from 'react-icons/hi';
 import Logo from './assets/homepage/logo2.png';
 import './header.css';
+import { useUserContext } from './components/auth/userContext'; // Import the context hook
+
 
 export default function Header({ name, role }) {
-    const isAdmin = role === 'Admin';
-    const isClient = role === 'Client';
-    const isContentCreator = role === 'Content Creator';
+    const { user } = useUserContext();
+    const isAdmin = user.role === 'Admin';
+    const isClient = user.role === 'Client';
+    const isContentCreator = user.role === 'Content Creator';
 
     return (
         <div className="navbar">
@@ -38,11 +41,11 @@ export default function Header({ name, role }) {
                         </>
                     )}
                     <a href="/">Home</a>
-                    {name ? (
+                    {user.name ? (
                         <>
                             <div className="dropdown">
                                 <button className="dropbtn">
-                                    {name} <HiUser />
+                                    {user.name} <HiUser />
                                 </button>
                                 <div className="dropdown-content">
                                     <a href="/settings">Settings</a>
@@ -54,7 +57,7 @@ export default function Header({ name, role }) {
                             </div>
                         </>
                     ) : (
-                        <a href="http://localhost:3000/signup">Sign up</a>
+                        <a href="http://localhost:3000/login">Sign in</a>
                     )}
                 </div>
             </div>

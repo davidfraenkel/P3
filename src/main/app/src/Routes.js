@@ -20,22 +20,24 @@ import Homeview from "./components/ClientView/homeview";
 import Login from "./components/login";
 import Header from "./Header";
 
+import { UserProvider } from "./components/auth/userContext";
+
 function Router() {
     const {role, setRole} = useUser();
     const {name, setName} = useUser();
     const {userId, setUserId} = useUser();
 
     return (
-        <div>
+        <UserProvider>
         <Header name={name} role={role} />
         <BrowserRouter>
             <Routes>
-                <Route path="/login" element={<Login setRole={setRole} setName={setName} setUserId={setUserId}/>}/>
+                <Route path="/login" element={<Login />}/>
 
                 {/*CLIENT*/}
                 <Route path="/" element={<Home />}>
                 </Route>
-                <Route path="/signup" element={<Signup setRole={setRole} setName={setName} setUserId={setUserId}/>}>
+                <Route path="/signup" element={<Signup />}>
                 </Route>
                 <Route path="/overview" element={<Overview />}>
                 </Route>
@@ -67,7 +69,7 @@ function Router() {
 
             </Routes>
         </BrowserRouter>
-        </div>
+        </UserProvider>
     );
 }
 
