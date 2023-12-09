@@ -23,7 +23,6 @@ const DynamicInputFields = () => {
                 console.log('Success:', JSON.parse(data.content));
                 initializeInputFields(JSON.parse(data.content));
 
-
             } catch (error) {
                 console.error('Error:', error);
             }

@@ -6,11 +6,18 @@ import {BsBookmark, BsFillBookmarkFill} from "react-icons/bs"
 
 
 function SubTopicOverview(props) {
+    let subtopicImage;
+    try {
+        subtopicImage = require('../../../public/images/' + props.imagePath);
+    } catch (e) {
+        console.log(e);
+    }
+
     return (
-        <Link to='subtopic'>
+        <Link to={`/overview/sub-overview/subtopic?subtopicId=${props.id}`}>
             <div className="SubTopicContainer">
                 <div className="subTopicCoverImage">
-                    <img src={management} alt="picture"/>
+                    <img src={subtopicImage} alt="picture"/>
                 </div>
                 <div>
                     <div className="SubTopicDateTag">
