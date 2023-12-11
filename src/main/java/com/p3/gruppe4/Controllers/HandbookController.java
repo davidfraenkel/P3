@@ -95,14 +95,8 @@ public class HandbookController extends Controller {
             subTopic = objectMapper.readValue(subTopicJSON, SubTopic.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            // Handle the exception as needed
             return "Failed to create topic";
         }
-
-        // Access the properties of the TopicRequest object
-        System.out.println("Name: " + subTopic.getName());
-        System.out.println("Parent ID: " + subTopic.getParentId());
-        System.out.println("File Name: " + image.getOriginalFilename());
 
         return this.handbook.createSubTopic(subTopic, image).toJson();
     }
@@ -116,21 +110,9 @@ public class HandbookController extends Controller {
         // Parse the JSON data
         ObjectMapper objectMapper = new ObjectMapper();
         List<Map<String, String>> jsonList;
-        try {
-            System.out.println("SubtopicID: " + subtopicId);
-            jsonList = objectMapper.readValue(jsonData, new TypeReference<List<Map<String, String>>>() {});
-            for (Map<String, String> jsonField : jsonList) {
-                System.out.println("Order: " + jsonField.get("order"));
-                System.out.println("Type: " + jsonField.get("type"));
-                System.out.println("Value: " + jsonField.get("value"));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Handle JSON parsing exception
-            return "Failed to parse JSON data";
-        }
 
-            return this.handbook.editSubTopic(jsonData, subtopicId, files).toJson();
+
+        return this.handbook.editSubTopic(jsonData, subtopicId, files).toJson();
     }
 
 
