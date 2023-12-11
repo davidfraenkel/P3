@@ -125,7 +125,6 @@ public class HandbookTest {
         );
 
         Mockito.when(mockCollection.insertOne(sampleDocument1)).thenReturn(insertOneResult);
-        Mockito.doNothing().when(saveFile).store(Mockito.any(MultipartFile.class));
 
         Document result = this.handbook.createTopic(topic1, file);
 
@@ -225,7 +224,6 @@ public class HandbookTest {
         );
 
         Mockito.when(mockCollection.insertOne(sampleDocument1)).thenReturn(insertOneResult);
-        Mockito.doNothing().when(saveFile).store(Mockito.any(MultipartFile.class));
 
         Document result = this.handbook.createTopic(topic1, file);
 
