@@ -114,7 +114,7 @@ public class HandbookTest {
         InsertOneResult insertOneResult = Mockito.mock(InsertOneResult.class);
         SaveFile saveFile = Mockito.mock(SaveFile.class);
 
-        String filename = new Date().getTime()+ ".txt";
+        String filename = "test.txt";
 
         MockMultipartFile file
                 = new MockMultipartFile(
@@ -208,16 +208,18 @@ public class HandbookTest {
     }
 
     @Test
-    void createSubTopic() {
+    void createSubTopic() throws IOException {
         Mockito.when(mockDatabase.getCollection("Topic")).thenReturn(mockCollection);
 
         InsertOneResult insertOneResult = Mockito.mock(InsertOneResult.class);
         SaveFile saveFile = Mockito.mock(SaveFile.class);
 
+        String filename = "test.txt";
+
         MockMultipartFile file
                 = new MockMultipartFile(
                 "file",
-                ".txt",
+                filename,
                 MediaType.TEXT_PLAIN_VALUE,
                 "Hello, World!".getBytes()
         );
@@ -233,7 +235,11 @@ public class HandbookTest {
                 .append("imagePath", file.getOriginalFilename())
                 ;
 
+        File deleteFile = new File("src/main/app/public/images/" + filename);
+
         assertEquals(result, expected);
+
+        FileUtils.forceDelete(deleteFile);
     }
 
     @Test
