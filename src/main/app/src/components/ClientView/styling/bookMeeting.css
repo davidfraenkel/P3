@@ -1,5 +1,5 @@
 /* Container Styles */
-.ContactContainer {
+.BookmeetingContactContainer {
     background: #ffffff;
     border-radius: 20px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -12,7 +12,7 @@
 }
 
 /* Header Styles */
-.Title {
+.BookmeetingContactContainer .Title {
     font-size: 30px;
     margin: 20px 0;
     color: #333;
@@ -20,20 +20,20 @@
 }
 
 /* Form Styles */
-.ContactInput {
+.BookmeetingContactContainer .ContactInput {
     margin-bottom: 15px;
 }
 
 /* Input Field Styles */
-input,
-textarea {
+.BookmeetingContactContainer input,
+.BookmeetingContactContainer textarea {
     width: 100%;
     padding: 10px;
     outline: none; /* Remove the default focus outline */
 }
 
 /* Submit Button Styles */
-.ContactSubmit input[type="submit"] {
+.BookmeetingContactContainer .ContactSubmit input[type="submit"] {
     background: rgb(8, 26, 44);
     color: #fff;
     padding: 12px 24px;
@@ -44,25 +44,25 @@ textarea {
     transition: background 0.3s;
 }
 
-.ContactSubmit input[type="submit"]:hover {
+.BookmeetingContactContainer .ContactSubmit input[type="submit"]:hover {
     background: rgb(31, 74, 126);
 }
 
 /* Text Color for Links */
-a {
+.BookmeetingContactContainer a {
     text-decoration: none;
 }
 
-textarea {
+.BookmeetingContactContainer textarea {
     height: 200px;
     resize: none;
     font-family: 'open sans', sans-serif;
 }
-.dropdownTime {
+.BookmeetingContactContainer .dropdownTime {
     width: 200px;
 }
 
-.CalenderContainer {
+.BookmeetingContactContainer .CalenderContainer {
     display: flex;
     width: 200px;
     position: relative;
@@ -70,7 +70,7 @@ textarea {
     height: 36px;
 }
 
-.calender-time-box {
+.BookmeetingContactContainer .calender-time-box {
     display: flex;
     margin-bottom: 15px;
 }

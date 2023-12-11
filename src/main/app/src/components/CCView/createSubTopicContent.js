@@ -3,6 +3,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 
 const DynamicInputFields = () => {
     const [inputFields, setInputFields] = useState([]);
+    const [showFileInput, setShowFileInput] = useState({});
     const navigate = useNavigate();
     const location = useLocation();
     const searchParams= new URLSearchParams(location.search);
@@ -50,13 +51,33 @@ const DynamicInputFields = () => {
     const handleFormSubmit = async () => {
         const formData = new FormData();
 
-        // Convert inputFields to JSON based on the order of input field creation
-        const jsonResult = inputFields.map((field) => ({
-            order: field.id.split('-')[1],
-            type: field.type,
-            value: field.type === 'file' ? null : field.value,
-            fileName: field.type === 'file' && field.value.length > 0 ? field.value[0].name : null,
-        }));
+        const jsonResult = inputFields.map((field) => {
+            if (field.type === 'file') {
+                let fileName;
+                if (field.value && field.value.length > 0) {
+                    // New file has been uploaded
+                    fileName = field.value[0].name;
+                } else {
+                    // No new file uploaded, use existing file name
+                    fileName = field.existingFileName;
+                }
+
+                return {
+                    order: field.id.split('-')[1],
+                    type: field.type,
+                    value: null, // File inputs do not carry over their value for security reasons
+                    fileName: fileName, // This will be either the new file's name or the existing file's name
+                };
+            } else {
+                // Handling non-file fields
+                return {
+                    order: field.id.split('-')[1],
+                    type: field.type,
+                    value: field.value,
+                };
+            }
+        });
+
 
         // Append JSON data
         formData.append('jsonData', JSON.stringify(jsonResult));
@@ -71,7 +92,7 @@ const DynamicInputFields = () => {
             });
 
         try {
-            const response = await fetch('http://localhost:3002/api/editSubTopic', {
+            const response = await fetch('http://localhost:3002/api/editSubTopicContent', {
                 method: 'POST',
                 body: formData,
             });
@@ -92,13 +113,26 @@ const DynamicInputFields = () => {
 
     const initializeInputFields = (contentData) => {
         const newInputFields = contentData.map((item, index) => {
-            return {
-                id: `input-${index}`,
-                type: item.type,
-                value: item.value,
-            };
+            if (item.type === 'file') {
+                return {
+                    id: `file-${index}`,
+                    type: item.type,
+                    value: null, // for new file uploads
+                    existingFileName: item.fileName, // store just the file name
+                };
+            } else {
+                return {
+                    id: `${item.type}-${index}`,
+                    type: item.type,
+                    value: item.value,
+                };
+            }
         });
         setInputFields(newInputFields);
+    };
+
+    const handleShowFileInput = (id) => {
+        setShowFileInput(prevState => ({ ...prevState, [id]: true }));
     };
 
     return (
@@ -123,10 +157,23 @@ const DynamicInputFields = () => {
                             />
                         )}
                         {field.type === 'file' && (
-                            <input
-                                type="file"
-                                onChange={(e) => handleFieldChange(field.id, e.target.files)}
-                            />
+                            <div>
+                                {field.existingFileName && !showFileInput[field.id] && (
+                                    <div>
+                                        <p>Current file: {field.existingFileName}</p>
+                                        <button type="button" onClick={() => handleShowFileInput(field.id)}>
+                                            Upload New File
+                                        </button>
+                                    </div>
+                                )}
+
+                                {(showFileInput[field.id] || !field.existingFileName) && (
+                                    <input
+                                        type="file"
+                                        onChange={(e) => handleFieldChange(field.id, e.target.files)}
+                                    />
+                                )}
+                            </div>
                         )}
                         {field.type === 'youtube' && (
                             <input

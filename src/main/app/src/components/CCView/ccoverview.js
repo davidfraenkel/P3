@@ -10,7 +10,7 @@ function Topic(props) {
     try {
         topicImage = require('../../../public/images/' + props.imageType);
     } catch (e) {
-        console.log(e);
+        topicImage = require('../../assets/fallback.png');
     }
     return (
         <Link to={`/ccoverview/ccsub-overview?parentId=${props.id}&name=${props.name}`}>
@@ -18,7 +18,7 @@ function Topic(props) {
 
                 <div className="TopicTitle">
                     <p>{props.name}
-                        <Link to={`/ccoverview/create-update-topic?topicName=${props.name}&topicId=${props.id}`}>
+                        <Link to={`/ccoverview/create-update-topic?topicId=${props.id}`}>
                             <FiEdit2 />
                         </Link>
                     </p>

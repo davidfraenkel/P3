@@ -13,11 +13,15 @@ const textDiv = (element) => {
 }
 
 const imageDiv = (element) => {
-    const imageName = element.fileName; // Adjust this based on your element's structure
-    const imageSrc = require('../../../public/images/' + imageName); // Construct the image source dynamically
+    let imageSrc;
+    try {
+        imageSrc = require('../../../public/images/' + element.fileName); // Construct the image source dynamically
+    } catch (e) {
+        imageSrc = require('../../assets/fallback.png');
+    }
     return (
         <div className="image">
-            <img src={imageSrc} alt={imageName} />
+            <img src={imageSrc} alt={element.fileName} />
         </div>
     );
 }
@@ -125,7 +129,7 @@ export default function Subtopic() {
             <div className="SubtopicHeaderContainer">
                 <div className="Breadcrumbs"><Link to='/overview'><GoHome className="GoHome" /></Link> <BsChevronRight /> <Link to='/overview/sub-overview'>Business</Link> <BsChevronRight /><Link to='/overview/sub-overview/subtopic'>Management</Link></div>
                 <h1 className="Title">{subTopicData.name}</h1>
-                <p className="SubtopicSummary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque deserunt expedita laborum optio perspiciatis? Ad beatae eos ipsum iste itaque laboriosam nihil nisi tenetur voluptas. Architecto magni nesciunt ullam veniam.</p>
+                <p className="SubtopicSummary">{subTopicData.summary}</p>
             </div>
             <hr />
                 {subTopicContent.map(object => <CreateContent key={object.order} element={object} />)}

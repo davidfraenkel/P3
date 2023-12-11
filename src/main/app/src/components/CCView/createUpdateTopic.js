@@ -1,17 +1,46 @@
 import React, { useState, useEffect } from 'react';
-import {Link, useLocation, useNavigate} from "react-router-dom";
-import InputField from '../smartComponents/inputField';
+import {useLocation, useNavigate} from "react-router-dom";
 import '../CCView/styling/createUpdateTopic.css';
 
 export default function CreateUpdateTopic(props)  {
+    const [topic, setTopic] = useState('')
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
-    const [imagePath, setImagePath] = useState('');
+
     const navigate = useNavigate();
+    const [fileName, setFileName] = useState('');
+    const fileInputRef = React.createRef();
 
     const location = useLocation();
     const searchParams= new URLSearchParams(location.search);
-    const topicName = searchParams.get('topicName');
+    const topicId = searchParams.get('topicId');
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`http://localhost:3002/api/getTopic?topicId=${topicId}`, {
+                    method: 'GET',
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                console.log('Success:', data);
+                setTopic(data);
+                setName(data.name)
+                setFileName(data.imagePath.split('/').pop());
+
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+        fetchData();
+    }, []); // Empty dependency array to ensure the effect runs once on mount
+
     const handleNameChange = (e) => {
         setName(e.target.value);
     };
@@ -23,25 +52,32 @@ export default function CreateUpdateTopic(props)  {
         const updatedFile = new File([selectedFile], fileNameWithoutSpaces, { type: selectedFile.type });
         // Use the updated file
         setImage(updatedFile);
+        setFileName(selectedFile.name);
+    };
+
+    const triggerFileInput = () => {
+        // Trigger the hidden file input
+        fileInputRef.current.click();
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append('image', image);
+
+        if (image) {
+            formData.append('image', image);
+        }
 
         const topicData = {
             name: name,
-            imagePath: imagePath,
+            imagePath: image ? fileName : topic.imagePath
         };
 
         formData.append('topic', JSON.stringify(topicData));
-        let updateOrCreate;
-        if(topicName) {
-            updateOrCreate = "editTopic";
-           // formData.append('topicId', topicId);
-        } else {
-            updateOrCreate = "createTopic";
+        let updateOrCreate = topicId ? "editTopic" : "createTopic";
+
+        if (topicId) {
+            formData.append('topicId', topicId);
         }
 
         try {
@@ -64,12 +100,19 @@ export default function CreateUpdateTopic(props)  {
     return (
         <div className="FormCreateUpdateTopicBackgroundOverlay">
             <div className="FormCreateUpdateTopicContainer">
-                <h1 className="FormCreateUpdateTopicTitle">{topicName ? `Update ${topicName}` : 'Create new topic'}</h1>
+                <h1 className="FormCreateUpdateTopicTitle">{topic ? `Update ${topic.name}` : 'Create new topic'}</h1>
                 <form onSubmit={handleSubmit} className="FormCreateUpdateTopicForm">
                     <div className="FormCreateUpdateTopicInputContainer">
                         <input type="text" value={name} placeholder="Name of topic" onChange={handleNameChange} />
                     </div>
-                    <input type="file" accept="image/*" onChange={handleImageChange} />
+                    <div className="TopicCoverImageContainer">
+                        <p>
+                        <label htmlFor="TopicCoverImageField">Choose a cover image:</label>
+                        </p>
+                        <button type="button" onClick={triggerFileInput}>Upload Image</button>
+                        <input type="file" accept="image/*" ref={fileInputRef} id="TopicCoverImageField" onChange={handleImageChange} style={{ display: 'none' }} />
+                        {fileName && <span className="FileNameDisplay">{fileName}</span>}
+                    </div>
 
                     <button type="submit" className="FormCreateUpdateTopicSubmitButton">Submit</button>
                 </form>

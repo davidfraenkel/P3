@@ -1,7 +1,6 @@
 import './styling/subOverview.css';
 import React, {useEffect, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
-import management from "../../assets/overview/subOverview/Management.jpg";
 import {BsBookmark, BsFillBookmarkFill} from "react-icons/bs"
 
 
@@ -10,7 +9,7 @@ function SubTopicOverview(props) {
     try {
         subtopicImage = require('../../../public/images/' + props.imagePath);
     } catch (e) {
-        console.log(e);
+        subtopicImage = require('../../assets/fallback.png');
     }
 
     return (
@@ -24,7 +23,7 @@ function SubTopicOverview(props) {
                         <span className="SubTopicDato">{props.date.toDateString()}</span> <span className="subTag"><BsBookmark /></span>
                     </div>
                     <h2 className="SubTopicName">{props.name}</h2>
-                    <p className="SubTopicSummary">{props.content}</p>
+                    <p className="SubTopicSummary">{props.summary}</p>
                 </div>
             </div>
         </Link>
@@ -75,7 +74,7 @@ export default function SubOverview()  {
                 <div className="SubTopicsContainer">
                     { isSubTopicsEmpty
                         ? <p>This topic does not contain any sub topics</p>
-                        : subTopics.map(item => <SubTopicOverview key={item._id} id={item._id} name={item.name} date={date} imagePath={item.imagePath} content={item.content} />)}
+                        : subTopics.map(item => <SubTopicOverview key={item._id} id={item._id} name={item.name} date={date} imagePath={item.imagePath} content={item.content} summary={item.summary}/>)}
                 </div>
             </div>
         </div>

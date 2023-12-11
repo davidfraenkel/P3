@@ -17,7 +17,7 @@ export default function InputField(props) {
             type={props.type}
             name={props.name}
             placeholder={props.placeholder}
-            value={value}
+            value={props.value}
             onChange={handleChange}
         />
     );

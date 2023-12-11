@@ -9,7 +9,7 @@ function Subtopic(props) {
     try {
         subtopicImage = require('../../../public/images/' + props.imagePath);
     } catch (e) {
-        console.log(e);
+        subtopicImage = require('../../assets/fallback.png');
     }
 
 
@@ -25,14 +25,14 @@ function Subtopic(props) {
                 <div className="SubTopicDateTag">
                     <span className="SubTopicDato">{props.date.toDateString()}</span>{" "}
                     <span className="subTag">
-                    <Link to={`/ccoverview/ccsub-overview/create-update-subtopic?subtopicName=${props.name}`}>
+                    <Link to={`/ccoverview/ccsub-overview/create-update-subtopic?subTopicId=${props.id}`}>
                       <FiEdit2 />
                     </Link>
           </span>
                 </div>
                 <h2 className="SubTopicName">{props.name}</h2>
                 <p className="SubTopicSummary">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur cum ea excepturi ipsum iure maiores nesciunt non sit tempore velit. Eum ipsam numquam quia voluptate voluptatem. Aspernatur doloribus minus molestiae.
+                    {props.summary}
                 </p>
             </div>
         </div>
@@ -86,7 +86,7 @@ export default function CcSubOverview() {
                 <div className="SubTopicsContainer">
                     { isSubTopicsEmpty
                         ? <p>This topic does not contain any sub topics</p>
-                        : subTopics.map(item => <Subtopic key={item._id} id={item._id} name={item.name} date={date} imagePath={item.imagePath} content={item.content}/>)}
+                        : subTopics.map(item => <Subtopic key={item._id} id={item._id} name={item.name} date={date} imagePath={item.imagePath} content={item.content} summary={item.summary}/>)}
                     <Link to={`create-update-subtopic?parentTopicId=${parentId}`}>
                         <div className="CreateUpdateSubtopicContainer FormCreateUpdateSubtopicContainer">
                             <div className="CreateUpdateSubtopic">

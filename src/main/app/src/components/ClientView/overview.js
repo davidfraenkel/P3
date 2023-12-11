@@ -7,7 +7,7 @@ function Topic(props) {
     try {
         topicImage = require('../../../public/images/' + props.imageType);
     } catch (e) {
-        console.log(e);
+        topicImage = require('../../assets/fallback.png');
     }
 
     return (

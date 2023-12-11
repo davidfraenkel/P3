@@ -72,7 +72,7 @@ export default function BookMeeting() {
             });
         }
     return (
-        <div className="ContactContainer">
+        <div className="BookmeetingContactContainer">
             <h1 className="Title">Contact Us</h1>
             <form onSubmit={handleSubmit}>
                 <div className="calender-time-box">

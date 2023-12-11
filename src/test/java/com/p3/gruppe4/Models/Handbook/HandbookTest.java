@@ -142,10 +142,20 @@ public class HandbookTest {
     }
 
     @Test
-    void editTopic() {
+    void editTopic() throws IOException {
         Mockito.when(mockDatabase.getCollection("Topic")).thenReturn(mockCollection);
 
         UpdateResult updateResult = Mockito.mock(UpdateResult.class);
+
+        String filename = "test.txt";
+
+        MockMultipartFile file
+                = new MockMultipartFile(
+                "file",
+                filename,
+                MediaType.TEXT_PLAIN_VALUE,
+                "Hello, World!".getBytes()
+        );
 
         Topic expectedTopic = new Topic("name of topic", "image path of topic");
         Document updates = new Document()
@@ -161,8 +171,13 @@ public class HandbookTest {
         Mockito.when(mockCollection.find(Filters.eq("_id", this.sampleDocument1.get("_id"))).first()).thenReturn(sampleDocument1);
         Mockito.when(mockCollection.updateOne(new Document().append("_id",  topic1.getId().toString()), updates)).thenReturn(updateResult);
 
-        Document actualResult = this.handbook.editTopic(this.topic1.getId().toString(), expectedTopic);
+        Document actualResult = this.handbook.editTopic(this.topic1.getId().toString(), expectedTopic,file);
+
+        File deleteFile = new File("src/main/app/public/images/" + filename);
+
         assertEquals(expectedResult, actualResult);
+
+        FileUtils.forceDelete(deleteFile);
     }
 
     @Test

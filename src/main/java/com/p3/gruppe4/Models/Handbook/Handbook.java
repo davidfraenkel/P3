@@ -80,7 +80,7 @@ public class Handbook {
         return returnDocument;
     }
 
-    public Document editTopic(String topicId, Topic topic){
+    public Document editTopic(String topicId, Topic topic, MultipartFile file){
         Document returnDoc = new Document();
         try {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
@@ -93,6 +93,11 @@ public class Handbook {
                     .append("name", topic.getName().isEmpty() ? oldDoc.getString("name") : topic.getName())
                     .append("imagePath", !topic.getImagePath().isEmpty() ? topic.getImagePath() : oldDoc.getString("imagePath"))
             );
+
+            if(file != null) {
+                SaveFile saveFile = new SaveFile();
+                saveFile.store(file);
+            }
 
             collection.updateOne(new Document().append("_id",  topicId), returnDoc);
         } catch (MongoException me) {
@@ -177,7 +182,35 @@ public class Handbook {
         return returnDocument;
     }
 
-    public Document editSubTopic(String jsonData, String subTopicId, List<MultipartFile> files){
+    public Document editSubTopic(SubTopic subTopic, String subTopicId, MultipartFile file) {
+        Document returnDoc = new Document();
+        try {
+            MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
+            MongoCollection<Document> collection = db.getCollection("SubTopic");
+
+            Document oldDoc = collection.find(eq("_id", subTopicId))
+                    .first();
+
+            returnDoc = new Document("$set", new Document()
+                    .append("name", subTopic.getName())
+                    .append("imagePath", subTopic.getImagePath())
+                    .append("content", oldDoc.getString("content"))
+                    .append("summary", subTopic.getSummary())
+            );
+
+            if(file != null) {
+                SaveFile saveFile = new SaveFile();
+                saveFile.store(file);
+            }
+
+            collection.updateOne(new Document().append("_id",  subTopicId), returnDoc);
+        } catch (MongoException me) {
+            System.err.println("Unable to insert due to an error: " + me);
+        }
+        return returnDoc;
+    }
+
+    public Document editSubTopicContent(String jsonData, String subTopicId, List<MultipartFile> files){
         Document returnDoc = new Document();
         try  {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
@@ -186,8 +219,6 @@ public class Handbook {
             Document oldDoc = collection.find(eq("_id", subTopicId))
                     .first();
 
-            System.out.println("JSONdata:  "+jsonData);
-
             returnDoc = new Document("$set", new Document()
                     .append("name", oldDoc.getString("name"))
                     .append("imagePath", oldDoc.getString("imagePath"))
@@ -195,7 +226,6 @@ public class Handbook {
                     .append("summary", oldDoc.getString("summary"))
             );
 
-            System.out.println(oldDoc);
 
             // Handle file data
             if (files != null && !files.isEmpty()) {
