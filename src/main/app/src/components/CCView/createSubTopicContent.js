@@ -1,9 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
+import AlertContext from "../smartComponents/alertContext";
+import "./styling/subtopicContent.css"
 
 const DynamicInputFields = () => {
     const [inputFields, setInputFields] = useState([]);
     const [showFileInput, setShowFileInput] = useState({});
+    const [,setAlert] = useContext(AlertContext);
     const navigate = useNavigate();
     const location = useLocation();
     const searchParams= new URLSearchParams(location.search);
@@ -47,6 +50,11 @@ const DynamicInputFields = () => {
         );
         setInputFields(updatedInputFields);
     };
+
+    const removeField = (id) => {
+        setInputFields(inputFields.filter(field => field.id !== id));
+    };
+
 
     const handleFormSubmit = async () => {
         const formData = new FormData();
@@ -99,15 +107,16 @@ const DynamicInputFields = () => {
 
             if (response.ok) {
                 console.log('Form data sent successfully');
-                // Add logic to handle a successful response from the server if needed
+                setAlert({
+                    text: "Sub topic content created successfully",
+                    type: "success"
+                });
                 navigate("/overview/sub-overview/subtopic?subtopicId="+subtopicId);
             } else {
                 console.error('Failed to send form data');
-                // Add logic to handle a failed response from the server if needed
             }
         } catch (error) {
             console.error('Error:', error);
-            // Add logic to handle errors if needed
         }
     };
 
@@ -136,25 +145,30 @@ const DynamicInputFields = () => {
     };
 
     return (
-        <div>
+        <div className="SubTopicContentContainer">
             <form>
                 {inputFields.map((field) => (
-                    <div key={field.id}>
+                    <div>
+                    <span>{field.type} field:</span>
+                    <div key={field.id} className="SubTopicContentInputContainer">
                         {field.type === 'text' && (
-                            <input
-                                type="text"
-                                value={field.value}
-                                onChange={(e) => handleFieldChange(field.id, e.target.value)}
-                                placeholder={`Enter Text`}
-                            />
+                                <input
+                                    type="text"
+                                    value={field.value}
+                                    onChange={(e) => handleFieldChange(field.id, e.target.value)}
+                                    placeholder={`Enter Text`}
+                                />
+
                         )}
                         {field.type === 'headline' && (
+
                             <input
                                 type="headline"
                                 value={field.value}
                                 onChange={(e) => handleFieldChange(field.id, e.target.value)}
                                 placeholder={`Enter headline`}
                             />
+
                         )}
                         {field.type === 'file' && (
                             <div>
@@ -176,30 +190,36 @@ const DynamicInputFields = () => {
                             </div>
                         )}
                         {field.type === 'youtube' && (
-                            <input
-                                type="text"
-                                value={field.value}
-                                onChange={(e) => handleFieldChange(field.id, e.target.value)}
-                                placeholder={`Enter YouTube Link`}
-                            />
+                                <input
+                                    type="text"
+                                    value={field.value}
+                                    onChange={(e) => handleFieldChange(field.id, e.target.value)}
+                                    placeholder={`Enter YouTube Link`}
+                                />
                         )}
+                        <button type="button" onClick={() => removeField(field.id)}>
+                            Delete
+                        </button>
+                    </div>
                     </div>
                 ))}
-                <button onClick={() => addField('text')} type="button">
-                    Add Text Field
-                </button>
-                <button onClick={() => addField('headline')} type="button">
-                    Add Headline Field
-                </button>
-                <button onClick={() => addField('file')} type="button">
-                    Add File Field
-                </button>
-                <button onClick={() => addField('youtube')} type="button">
-                    Add YouTube Link Field
-                </button>
-                <button type="button" onClick={handleFormSubmit}>
-                    Submit Form
-                </button>
+                <div className="CreateSubTopicContentButtonContainer">
+                    <button onClick={() => addField('headline')} type="button">
+                        Add Headline Field
+                    </button>
+                    <button onClick={() => addField('text')} type="button">
+                        Add Text Field
+                    </button>
+                    <button onClick={() => addField('file')} type="button">
+                        Add File Field
+                    </button>
+                    <button onClick={() => addField('youtube')} type="button">
+                        Add YouTube Link Field
+                    </button>
+                    <button type="button" onClick={handleFormSubmit}>
+                        Submit Form
+                    </button>
+                </div>
             </form>
         </div>
     );

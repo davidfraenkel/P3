@@ -55,6 +55,7 @@
 
 /* Input Field Styles */
 input[type="text"],
+input[type="headline"],
 input[type="email"],
 input[type="tel"],
 input[type="password"] {

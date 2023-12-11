@@ -27,18 +27,6 @@ function Background({resultRef}) {
     )
 }
 
-
-/*function LearnHowTo() {
-    return (
-        <div ref={ref} className='LearnHowToContainer'>
-            <h1>Learn how to...</h1>
-            <div className='HomepageCardContainer'>
-                { homepageCars.map(item => <HomepageCard key={item.id} name={item.name} image={item.image} />)}
-            </div>
-        </div>
-    )
-}*/
-
 function ScrollArrow({resultRef}) {
     const executeScroll = (e) => {
         e.preventDefault();
@@ -80,10 +68,4 @@ export default function Home() {
     )
 
 }
-
-const homepageCards = [
-    {'id': 1,'name': 'Start a business', 'image': startBusiness},
-    {'id': 2,'name': 'Train new Staff', 'image': trainStaff},
-    {'id': 3,'name': 'Make business relations', 'image': businessRelations},
-]
 

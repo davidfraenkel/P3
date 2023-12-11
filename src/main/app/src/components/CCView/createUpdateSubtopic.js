@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import InputField from '../smartComponents/inputField';
 import '../CCView/styling/createUpdateSubtopic.css';
+import AlertContext from "../smartComponents/alertContext";
 
 export default function CreateUpdateSubtopic(props)  {
     const [subTopic, setSubTopic] = useState('');
@@ -10,6 +11,7 @@ export default function CreateUpdateSubtopic(props)  {
     const [desc, setDesc] = useState('');
     const [image, setImage] = useState('');
     const [fileName, setFileName] = useState('');
+    const [,setAlert] = useContext(AlertContext);
     const fileInputRef = React.createRef();
     const navigate = useNavigate();
 
@@ -100,6 +102,17 @@ export default function CreateUpdateSubtopic(props)  {
 
             if (response.ok) {
                 console.log('Subtopic created successfully');
+                if(subTopicId) {
+                    setAlert({
+                        text: "Sub topic updated successfully",
+                        type: "success"
+                    });
+                } else {
+                    setAlert({
+                        text: "Topic created successfully",
+                        type: "success"
+                    });
+                }
                 navigate(-1);
             } else {
                 console.error('Failed to create subtopic');

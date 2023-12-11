@@ -1,0 +1,29 @@
+.AlertStyles {
+    display: inline-block;
+    position: absolute;
+    right: 1%;
+    top: 10%;
+}
+
+.meter {
+    height: 5px;
+    position: relative;
+    background: #f3efe6;
+    overflow: hidden;
+}
+
+.meter span {
+    display: block;
+    height: 100%;
+}
+
+.progress {
+    background-color: #0f5132;
+    animation: progressBar 5s linear forwards;
+    width: 100%;
+}
+
+@keyframes progressBar {
+    from { width: 100%; }
+    to { width: 0; }
+}

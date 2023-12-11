@@ -1,7 +1,5 @@
 /* CreateUpdateTopic.css */
 .FormCreateUpdateTopicBackgroundOverlay {
-    background: linear-gradient(to bottom, #F8F8F8, #EAEAEA);
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;

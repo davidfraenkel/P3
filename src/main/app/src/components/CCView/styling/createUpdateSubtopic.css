@@ -2,8 +2,6 @@
 /* Bruger ingenting her fra apparently*/
 
 .FormCreateUpdateSubtopicBackgroundOverlay {
-    background: linear-gradient(to bottom, #F8F8F8, #EAEAEA);
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,11 +11,10 @@
     background: #fff;
     border-radius: 20px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    max-width: 500px; /* Adjust max-width for your container */
+    max-width: 500px;
+    min-width: 400px;
     padding: 30px;
     text-align: center;
-    margin-bottom: 400px;
-
 }
 
 .FormCreateUpdateSubtopicContainer {

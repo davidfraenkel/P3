@@ -90,6 +90,12 @@
     color: #fff; /* Set dropdown link color */
 }
 
+.dropdown-content p {
+    margin: 0;
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
 .dropdown:hover .dropdown-content {
     display: block;
 }

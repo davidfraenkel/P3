@@ -68,8 +68,8 @@ export default function SubOverview()  {
                 <div className="SubOverviewHeaderContainer">
                     <h2 className="SubOverviewHeader">{topicName}</h2>
                     <p className="">
-                        Overview of all the subtopics
-                    </p>
+                        Overview of all the sub topics.<br />
+                        <b>Click</b> on the desired sub topic you want to learn more about</p>
                 </div>
                 <div className="SubTopicsContainer">
                     { isSubTopicsEmpty

@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
 import '../CCView/styling/createUpdateTopic.css';
+import AlertContext from "../smartComponents/alertContext";
 
 export default function CreateUpdateTopic(props)  {
     const [topic, setTopic] = useState('')
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
-
+    const [,setAlert] = useContext(AlertContext);
     const navigate = useNavigate();
     const [fileName, setFileName] = useState('');
     const fileInputRef = React.createRef();
@@ -88,6 +89,12 @@ export default function CreateUpdateTopic(props)  {
 
             if (response.ok) {
                 console.log('Topic created successfully');
+
+                setAlert({
+                    text: "Topic created successfully",
+                    type: "success"
+                });
+
                 navigate("/ccoverview");
             } else {
                 console.error('Failed to create topic');

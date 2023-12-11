@@ -1,15 +1,18 @@
 import './styling/userProfilePanel.css'
-import React, { useState, useEffect } from 'react';
-import { useUserContext } from '../auth/userContext'; // Import the context hook
+import React, {useState, useEffect, useContext} from 'react';
+import { useUserContext } from '../auth/userContext';
+import AlertContext from "../smartComponents/alertContext"; // Import the context hook
 
 export default function UserProfilePanel() {
     const { user } = useUserContext();
     const { setUserInfo } = useUserContext();
+    const [,setAlert] = useContext(AlertContext);
     const [currentUser, setUser] = useState({
         username: '',
         lastname: '',
         email: '',
         phonenumber: '',
+        role: '',
     });
     const userId = user.userId;
 
@@ -24,6 +27,7 @@ export default function UserProfilePanel() {
                 lastname: data.lastname || '',
                 email: data.email || '',
                 phonenumber: data.phonenumber || '',
+                role: data.role || '',
             });
         };
 
@@ -52,6 +56,11 @@ export default function UserProfilePanel() {
             role: data.role,
             name: data.username,
             userId: data._id,
+        });
+
+        setAlert({
+            text: "User successfully updated",
+            type: "success"
         });
 
     };

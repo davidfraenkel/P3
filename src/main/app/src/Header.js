@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { HiUser } from 'react-icons/hi';
 import './header.css';
 import { useUserContext } from './components/auth/userContext'; // Import the context hook
@@ -6,6 +6,7 @@ import { useUserContext } from './components/auth/userContext'; // Import the co
 
 export default function Header() {
     const { user } = useUserContext();
+    const { logout } = useUserContext();
     const isAdmin = user.role === 'Admin';
     const isClient = user.role === 'Client';
     const isContentCreator = user.role === 'Content Creator';
@@ -28,15 +29,15 @@ export default function Header() {
                     )}
                     {isContentCreator && (
                         <>
-                            <a href="/ccoverview">Handbook</a>
+                            <a href="/ccoverview">Topics</a>
                             <a href="/webinar">Webinar</a>
                         </>
                     )}
                     {isClient && (
                         <>
-                            <a href="/overview">Handbook</a>
+                            <a href="/overview">Topics</a>
                             <a href="/webinar">Webinar</a>
-                            <a href="/meeting">Meeting</a>
+                            <a href="/book-meeting">Meeting</a>
                         </>
                     )}
                     <a href="/">Home</a>
@@ -49,7 +50,7 @@ export default function Header() {
                                 <div className="dropdown-content">
                                     <a href="/userprofile">User</a>
                                     <div className="divider"></div>
-                                    <a href="/logout">Log ud</a>
+                                    <p onClick={logout}>Logout</p>
                                 </div>
                             </div>
                         </>

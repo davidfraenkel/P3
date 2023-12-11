@@ -133,8 +133,6 @@ export default function Subtopic() {
             </div>
             <hr />
                 {subTopicContent.map(object => <CreateContent key={object.order} element={object} />)}
-            <hr />
-            <Footer/>
         </div>
     )
 }

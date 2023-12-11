@@ -1,7 +1,6 @@
 .App {
-  text-align: center;
-}
 
+}
 
 .App-logo {
   height: 40vmin;
@@ -36,4 +35,18 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.GoBackArrow {
+  width: 1400px;
+  text-align: left;
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.GoBackArrow .GoBackArrowIcon {
+  vertical-align: bottom;
+  margin-right: 5px;
 }
