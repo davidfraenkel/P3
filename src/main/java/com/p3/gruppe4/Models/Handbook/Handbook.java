@@ -153,7 +153,7 @@ public class Handbook {
         return returnDocument;
     }
 
-    public Document createSubTopic(SubTopic subTopic, String parentId, MultipartFile file){
+    public Document createSubTopic(SubTopic subTopic, MultipartFile file){
         Document returnDocument = new Document();
         try  {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
