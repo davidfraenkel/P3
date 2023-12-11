@@ -36,9 +36,16 @@ export default function CreateUpdateTopic(props)  {
         };
 
         formData.append('topic', JSON.stringify(topicData));
+        let updateOrCreate;
+        if(topicName) {
+            updateOrCreate = "editTopic";
+           // formData.append('topicId', topicId);
+        } else {
+            updateOrCreate = "createTopic";
+        }
 
         try {
-            const response = await fetch('http://localhost:3002/api/createTopic', {
+            const response = await fetch(`http://localhost:3002/api/${updateOrCreate}`, {
                 method: 'POST',
                 body: formData,
             });

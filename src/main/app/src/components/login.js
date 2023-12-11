@@ -87,7 +87,7 @@ export default function Login() {
                             <input type="submit" value="log in" />
                         </div>
                     </form>
-                    Already have an account? <a href="/signup">Sign up</a>
+                    Don't have an account? <a href="/signup">Sign up</a>
                 </div>
                 <div className="SignupBackground"></div>
             </div>

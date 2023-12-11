@@ -49,7 +49,7 @@ export default function Header({ name, role }) {
                                 </button>
                                 <div className="dropdown-content">
                                     <a href="/settings">Settings</a>
-                                    <a href="/user">User</a>
+                                    <a href="/userprofile">User</a>
                                     <a href="/something">Something</a>
                                     <div className="divider"></div>
                                     <a href="/logout">Log ud</a>

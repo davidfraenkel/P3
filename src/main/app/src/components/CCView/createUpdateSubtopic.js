@@ -68,7 +68,7 @@ export default function CreateUpdateSubtopic(props)  {
     return (
         <div className="FormCreateUpdateSubtopicBackgroundOverlay">
             <div className="FormCreateUpdateSubtopicContainer">
-                <h1 className="FormCreateUpdateSubtopicTitle">Create new subtopic {parentTopicId}</h1>
+                <h1 className="FormCreateUpdateSubtopicTitle">Create new subtopic</h1>
                 <form onSubmit={handleSubmit} className="FormCreateUpdateSubtopicForm">
                     <div className="FormCreateUpdateSubtopicInputContainer">
                         <InputField

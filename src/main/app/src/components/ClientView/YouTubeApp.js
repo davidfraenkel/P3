@@ -1,7 +1,6 @@
 import React from 'react';
 import YouTubeStream from './YouTubeStream';
 import YouTubeChat from './YouTubeChat';
-import Header from "../../Header";
 
 const YouTubeApp = () => {
     const channelID = "UCMN1zTJH_O6Tq2e_o9HovVQ"; // Replace with your channel ID
@@ -10,7 +9,6 @@ const YouTubeApp = () => {
 
     return (
         <div>
-            <Header/>
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: '20px' }}>
                 <YouTubeStream channel={channelID} />
                 <YouTubeChat videoId={videoID} domain={domain} />

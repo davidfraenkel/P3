@@ -79,6 +79,7 @@ const DynamicInputFields = () => {
             if (response.ok) {
                 console.log('Form data sent successfully');
                 // Add logic to handle a successful response from the server if needed
+                navigate("/overview/sub-overview/subtopic?subtopicId="+subtopicId);
             } else {
                 console.error('Failed to send form data');
                 // Add logic to handle a failed response from the server if needed

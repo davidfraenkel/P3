@@ -59,8 +59,22 @@ public class HandbookController extends Controller {
     }
 
     @PostMapping("/editTopic")
-    public String editTopic(@RequestBody Topic topic, @RequestParam(name = "topicId") String topicId){
-        return this.handbook.editTopic(topicId, topic).toJson();
+    public String editTopic(@RequestParam MultipartFile image,
+                            @RequestParam("topic") String topicJson,
+                            @RequestParam(name = "topicId") String topicId){
+        // Convert JSON string to TopicRequest object
+        ObjectMapper objectMapper = new ObjectMapper();
+        Topic topic = null;
+        try {
+            topic = objectMapper.readValue(topicJson, Topic.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "Failed to create topic";
+        }
+        // Your logic to save or process the data
+        this.handbook.createTopic(topic, image).toJson();
+
+        return "Topic updated successfully";
     }
 
     @GetMapping("/deleteTopic")

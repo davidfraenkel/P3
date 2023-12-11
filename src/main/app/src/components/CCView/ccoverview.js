@@ -12,15 +12,13 @@ function Topic(props) {
     } catch (e) {
         console.log(e);
     }
-    const dataToSend = "Kappa";
     return (
-        // Skal have linket til subtopic siden
         <Link to={`/ccoverview/ccsub-overview?parentId=${props.id}&name=${props.name}`}>
             <div className="TopicContainer" style={{backgroundImage: "url(" + topicImage + ")"}}>
 
                 <div className="TopicTitle">
                     <p>{props.name}
-                        <Link to={`/ccoverview/create-update-topic?topicName=${dataToSend}`}>
+                        <Link to={`/ccoverview/create-update-topic?topicName=${props.name}&topicId=${props.id}`}>
                             <FiEdit2 />
                         </Link>
                     </p>

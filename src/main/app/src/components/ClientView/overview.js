@@ -3,7 +3,12 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Topic(props) {
-    const topicImage = require('../../../public/images/' + props.imageType);
+    let topicImage;
+    try {
+        topicImage = require('../../../public/images/' + props.imageType);
+    } catch (e) {
+        console.log(e);
+    }
 
     return (
         <Link to={`/overview/sub-overview?parentId=${props.id}&name=${props.name}`}>
