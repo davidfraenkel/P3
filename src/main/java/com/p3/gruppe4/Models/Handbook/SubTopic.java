@@ -7,25 +7,25 @@ import org.bson.types.ObjectId;
 
 public class SubTopic {
 
-    private String name, imagePath, parentId, content, summery;
+    private String name, imagePath, parentId, content, summary;
     private ObjectId id;
 
 
     @JsonCreator
-    public SubTopic(@JsonProperty("name") String name, @JsonProperty("imagePath") String imagePath, @JsonProperty("parentId") String parentId, @JsonProperty("content") String content, @JsonProperty("summery") String summery) {
+    public SubTopic(@JsonProperty("name") String name, @JsonProperty("imagePath") String imagePath, @JsonProperty("parentId") String parentId, @JsonProperty("content") String content, @JsonProperty("summary") String summary) {
         this.name = name;
         this.imagePath = imagePath;
         this.parentId = parentId;
         this.content = content;
         this.id = new ObjectId();
-        this.summery = summery;
+        this.summary = summary;
     }
 
-    public String getSummery() {
-        return summery;
+    public String getSummary() {
+        return summary;
     }
-    public void setSummery(String summery) {
-        this.summery = summery;
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
     public ObjectId getId() {
         return this.id;

@@ -164,7 +164,8 @@ public class Handbook {
                     .append("name", subTopic.getName())
                     .append("imagePath", file.getOriginalFilename())
                     .append("parentId", subTopic.getParentId())
-                    .append("content", subTopic.getContent());
+                    .append("content", subTopic.getContent())
+                    .append("summary", subTopic.getSummary());
             collection.insertOne(returnDocument);
             // Prints a message if any exceptions occur during the operation'
             SaveFile saveFile = new SaveFile();
@@ -190,6 +191,7 @@ public class Handbook {
                     .append("name", oldDoc.getString("name"))
                     .append("imagePath", oldDoc.getString("imagePath"))
                     .append("content", jsonData)
+                    .append("summary", oldDoc.getString("summary"))
             );
 
             System.out.println(oldDoc);
