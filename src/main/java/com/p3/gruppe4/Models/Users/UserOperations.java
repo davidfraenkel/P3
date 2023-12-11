@@ -60,13 +60,19 @@ public class UserOperations {
                 returnUser = new Document()
                         .append("_id", id)
                         .append("username", user.getUsername())
-                        .append("role", user.getRole() == null ? "NormalUser" : user.getRole())
                         .append("email", user.getEmail())
                         .append("phonenumber", user.getPhonenumber())
                         .append("lastname", user.getLastname());
 
-                if (user.getPassword() != null) {
+                // Retain the existing role
+                returnUser.append("role", userToEdit.get("role"));
+
+                // Only update the password if a new one is provided
+                if (user.getPassword() != null && !user.getPassword().isEmpty()) {
                     returnUser.append("password", hashPassword(user.getPassword()));
+                } else {
+                    // Retain the existing password
+                    returnUser.append("password", userToEdit.get("password"));
                 }
 
                 collection.replaceOne(userToEdit, returnUser);
