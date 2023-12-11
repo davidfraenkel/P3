@@ -38,14 +38,14 @@ export default function CreateUpdateSubtopic(props)  {
         const formData = new FormData();
         formData.append('image', image);
 
-        const topicData = {
+        const subTopicData = {
             name: name,
             parentId: parentTopicId,
             content: desc,
             imagePath: imagePath,
         };
 
-        formData.append('subTopic', JSON.stringify(topicData));
+        formData.append('subTopic', JSON.stringify(subTopicData));
 
         try {
             const response = await fetch('http://localhost:3002/api/createSubTopic', {

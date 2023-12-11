@@ -19,10 +19,8 @@ export default function CreateUpdateTopic(props)  {
     const handleImageChange = (e) => {
         const selectedFile = e.target.files[0];
         const fileNameWithoutSpaces = selectedFile.name.replace(/\s/g, '_');
-
         // Create a new File object with the updated name
         const updatedFile = new File([selectedFile], fileNameWithoutSpaces, { type: selectedFile.type });
-
         // Use the updated file
         setImage(updatedFile);
     };
@@ -62,7 +60,7 @@ export default function CreateUpdateTopic(props)  {
                 <h1 className="FormCreateUpdateTopicTitle">{topicName ? `Update ${topicName}` : 'Create new topic'}</h1>
                 <form onSubmit={handleSubmit} className="FormCreateUpdateTopicForm">
                     <div className="FormCreateUpdateTopicInputContainer">
-                        <input type="text" value={name} onChange={handleNameChange} />
+                        <input type="text" value={name} placeholder="Name of topic" onChange={handleNameChange} />
                     </div>
                     <input type="file" accept="image/*" onChange={handleImageChange} />
 

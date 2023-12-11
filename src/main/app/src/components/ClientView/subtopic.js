@@ -22,6 +22,12 @@ const imageDiv = (element) => {
     );
 }
 
+const headline = (element) => {
+    return (
+        <h2>{element.value}</h2>
+    )
+}
+
 const youtubeDiv = (element) => {
     const videoId = element.value.split("v=")[1];
     return <YouTubeVideo videoId={videoId} />;
@@ -104,6 +110,8 @@ export default function Subtopic() {
            switch (element.type) {
                 case "text":
                     return textDiv(element);
+               case "headline":
+                    return headline(element);
                 case "file":
                     return imageDiv(element);
                 case "youtube":

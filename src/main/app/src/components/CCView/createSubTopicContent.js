@@ -32,20 +32,12 @@ const DynamicInputFields = () => {
     }, []); // Empty dependency array to ensure the effect runs once on mount
 
     const addField = (type) => {
-        // Check if a file input already exists
-        const fileInputs = inputFields.filter((field) => field.type === 'file');
-        const fileInputCount = fileInputs.length;
-
-        // Only add a new file input if there are no existing file inputs or if multiple file inputs are allowed
-        const allowMultipleFiles = true; // Set this to false if you only want one file input
-        if (allowMultipleFiles || fileInputCount === 0) {
             const newField = {
                 type: type,
                 value: type === 'file' ? [] : '',
                 id: `${type}-${inputFields.length + 1}`,
             };
             setInputFields([...inputFields, newField]);
-        }
     };
 
     const handleFieldChange = (id, value) => {
@@ -66,8 +58,6 @@ const DynamicInputFields = () => {
             fileName: field.type === 'file' && field.value.length > 0 ? field.value[0].name : null,
         }));
 
-        console.log(jsonResult);
-
         // Append JSON data
         formData.append('jsonData', JSON.stringify(jsonResult));
         formData.append('subtopicId', subtopicId);
@@ -79,11 +69,6 @@ const DynamicInputFields = () => {
                     formData.append(`fileData`, file);
                 });
             });
-
-        console.log('FormData entries:');
-        for (let pair of formData.entries()) {
-            console.log(pair[0] + ', ' + pair[1]);
-        }
 
         try {
             const response = await fetch('http://localhost:3002/api/editSubTopic', {
@@ -128,6 +113,14 @@ const DynamicInputFields = () => {
                                 placeholder={`Enter Text`}
                             />
                         )}
+                        {field.type === 'headline' && (
+                            <input
+                                type="headline"
+                                value={field.value}
+                                onChange={(e) => handleFieldChange(field.id, e.target.value)}
+                                placeholder={`Enter headline`}
+                            />
+                        )}
                         {field.type === 'file' && (
                             <input
                                 type="file"
@@ -146,6 +139,9 @@ const DynamicInputFields = () => {
                 ))}
                 <button onClick={() => addField('text')} type="button">
                     Add Text Field
+                </button>
+                <button onClick={() => addField('headline')} type="button">
+                    Add Headline Field
                 </button>
                 <button onClick={() => addField('file')} type="button">
                     Add File Field
