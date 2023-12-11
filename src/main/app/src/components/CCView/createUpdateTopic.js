@@ -90,10 +90,17 @@ export default function CreateUpdateTopic(props)  {
             if (response.ok) {
                 console.log('Topic created successfully');
 
-                setAlert({
-                    text: "Topic created successfully",
-                    type: "success"
-                });
+                if(topicId) {
+                    setAlert({
+                        text: "Topic updated successfully",
+                        type: "success"
+                    });
+                } else {
+                    setAlert({
+                        text: "Topic created successfully",
+                        type: "success"
+                    });
+                }
 
                 navigate("/ccoverview");
             } else {
