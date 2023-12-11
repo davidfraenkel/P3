@@ -1,17 +1,30 @@
 import './styling/userProfilePanel.css'
 import React, { useState, useEffect } from 'react';
+import { useUserContext } from '../auth/userContext'; // Import the context hook
 
-// Assuming user object has an 'id' field
-export default function UserProfilePanel({userId}) {
-    const [user, setUser] = useState({});
+export default function UserProfilePanel() {
+    const { user } = useUserContext();
+    const { setUserInfo } = useUserContext();
+    const [currentUser, setUser] = useState({
+        username: '',
+        lastname: '',
+        email: '',
+        phonenumber: '',
+    });
+    const userId = user.userId;
 
     useEffect(() => {
         // Fetch user data when the component is mounted
         const fetchUserData = async () => {
             const response = await fetch(`http://localhost:3002/api/getUser?id=${userId}`);
             const data = await response.json();
-
-            setUser(data);
+            console.log(data);
+            setUser({
+                username: data.username || '',
+                lastname: data.lastname || '',
+                email: data.email || '',
+                phonenumber: data.phonenumber || '',
+            });
         };
 
         fetchUserData();
@@ -20,24 +33,27 @@ export default function UserProfilePanel({userId}) {
     const handleSaveEdit = async (event) => {
         event.preventDefault();
 
-
-
         const response = await fetch(`http://localhost:3002/api/editUser?id=${userId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                username: user.username,
-                lastname: user.lastname,
-                email: user.email,
-                phonenumber: user.phonenumber,
-                // Add other user fields as needed
+                username: currentUser.username,
+                lastname: currentUser.lastname,
+                email: currentUser.email,
+                phonenumber: currentUser.phonenumber,
             })
         });
 
         const data = await response.json();
         console.log('Success:', data);
+        setUserInfo({
+            role: data.role,
+            name: data.username,
+            userId: data._id,
+        });
+
     };
 
 
@@ -55,31 +71,31 @@ export default function UserProfilePanel({userId}) {
                             <dt>
                                 <h4>First Name</h4>
                             </dt>
-                            <input className="inputField" type="text" value={user.username} onChange={e => setUser({...user, username: e.target.value})} />
+                            <input className="inputField" type="text" value={currentUser.username} onChange={e => setUser({...currentUser, username: e.target.value})} />
                         </div>
                         <div className="LastName">
                             <dt>
                                 <h4>Last Name</h4>
                             </dt>
-                            <input className="inputField" type="text" value={user.lastname} onChange={e => setUser({...user, lastname: e.target.value})} />
+                            <input className="inputField" type="text" value={currentUser.lastname} onChange={e => setUser({...currentUser, lastname: e.target.value})} />
                         </div>
                         <div className="Email">
                             <dt>
                                 <h4>Email</h4>
                             </dt>
-                            <input className="inputField" type="email" value={user.email} onChange={e => setUser({...user, email: e.target.value})} />
+                            <input className="inputField" type="email" value={currentUser.email} onChange={e => setUser({...currentUser, email: e.target.value})} />
                         </div>
                         <div className="PhoneNumber">
                             <dt>
                                 <h4>Phone number</h4>
                             </dt>
-                            <input className="inputField" type="tel" value={user.phonenumber} onChange={e => setUser({...user, phonenumber: e.target.value})} />
+                            <input className="inputField" type="tel" value={currentUser.phonenumber} onChange={e => setUser({...currentUser, phonenumber: e.target.value})} />
                         </div>
                         <div className="Role">
                             <dt>
                                 <h4>Role</h4>
                             </dt>
-                            <input className="inputField" type="text" value={user.role} disabled />
+                            <input className="inputField" type="text" value={currentUser.role} disabled />
                         </div>
                         <div className="SubmitEdit">
                             <input className="submit" type="submit" value="Save Edit" />

@@ -23,52 +23,50 @@ import Header from "./Header";
 import { UserProvider } from "./components/auth/userContext";
 
 function Router() {
-    const {role, setRole} = useUser();
-    const {name, setName} = useUser();
-    const {userId, setUserId} = useUser();
+
 
     return (
         <UserProvider>
-        <Header name={name} role={role} />
-        <BrowserRouter>
-            <Routes>
-                <Route path="/login" element={<Login />}/>
+            <Header/>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/login" element={<Login />}/>
 
-                {/*CLIENT*/}
-                <Route path="/" element={<Home />}>
-                </Route>
-                <Route path="/signup" element={<Signup />}>
-                </Route>
-                <Route path="/overview" element={<Overview />}>
-                </Route>
-                <Route path="/overview/sub-overview/subtopic" element={<Subtopic />}>
-                </Route>
-                <Route path={"/userprofile"} element={<UserProfilePanel userId={userId}/>}>
-                </Route>
+                    {/*CLIENT*/}
+                    <Route path="/" element={<Home />}>
+                    </Route>
+                    <Route path="/signup" element={<Signup />}>
+                    </Route>
+                    <Route path="/overview" element={<Overview />}>
+                    </Route>
+                    <Route path="/overview/sub-overview/subtopic" element={<Subtopic />}>
+                    </Route>
+                    <Route path={"/userprofile"} element={<UserProfilePanel/>}>
+                    </Route>
 
-                <Route path="/overview/book-meeting" element={<BookMeeting />} />
-                <Route path="/webinar" element={<YouTubeApp />} />
+                    <Route path="/overview/book-meeting" element={<BookMeeting />} />
+                    <Route path="/webinar" element={<YouTubeApp />} />
 
-                {/*CONTENT CREATOR*/}
-                <Route path="/ccoverview" element={<CcOverview />}>
-                </Route>
-                <Route path="/ccoverview/create-update-topic" element={<CreateUpdateTopic />}>
-                </Route>
-                <Route path="/overview/sub-overview" element={<SubOverview />}>
-                </Route>
-                <Route path="/ccoverview/ccsub-overview/create-update-subtopic" element={<CreateUpdateSubtopic />}>
-                </Route>
-                <Route path="/ccoverview/ccsub-overview/ccsubtopic" element={<CreateSubTopicContent />}></Route>
-                <Route path="/ccoverview/ccsub-overview" element={<CcSubOverview />}>
-                </Route>
-                <Route path="/homeview" element={<Homeview />}>
-                </Route>
+                    {/*CONTENT CREATOR*/}
+                    <Route path="/ccoverview" element={<CcOverview />}>
+                    </Route>
+                    <Route path="/ccoverview/create-update-topic" element={<CreateUpdateTopic />}>
+                    </Route>
+                    <Route path="/overview/sub-overview" element={<SubOverview />}>
+                    </Route>
+                    <Route path="/ccoverview/ccsub-overview/create-update-subtopic" element={<CreateUpdateSubtopic />}>
+                    </Route>
+                    <Route path="/ccoverview/ccsub-overview/ccsubtopic" element={<CreateSubTopicContent />}></Route>
+                    <Route path="/ccoverview/ccsub-overview" element={<CcSubOverview />}>
+                    </Route>
+                    <Route path="/homeview" element={<Homeview />}>
+                    </Route>
 
-                {/* Admin */}
-                <Route path="/admin-panel" element={<AdminUserPanel />} />
+                    {/* Admin */}
+                    <Route path="/admin-panel" element={<AdminUserPanel />} />
 
-            </Routes>
-        </BrowserRouter>
+                </Routes>
+            </BrowserRouter>
         </UserProvider>
     );
 }

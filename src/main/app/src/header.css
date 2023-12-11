@@ -62,6 +62,11 @@
     z-index: 30;
 }
 
+.navbar .dropdown .dropbtn p {
+    margin: 0;
+    font-size: 16px;
+}
+
 .dropbtn {
     background: none;
     border: none;
