@@ -3,10 +3,15 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Topic(props) {
-    const topicImage = require('../../../public/images/' + props.imageType);
+    let topicImage;
+    try {
+        topicImage = require('../../../public/images/' + props.imageType);
+    } catch (e) {
+        console.log(e);
+    }
 
     return (
-        <Link to='sub-overview'>
+        <Link to={`/overview/sub-overview?parentId=${props.id}&name=${props.name}`}>
             <div className="TopicContainer" style={{backgroundImage: `url(${topicImage})`}}>
                 <div className="TopicTitle">
                     <p>{props.name}</p>
@@ -55,7 +60,7 @@ export default function Overview() {
                     </p>
                 </div>
                 <div className="TopicsContainer">
-                    { topics.map(item => <Topic key={item._id} name={item.name} imageType={item.imagePath} />)}
+                    { topics.map(item => <Topic key={item._id} id={item._id} name={item.name} imageType={item.imagePath} />)}
                 </div>
             </div>
         </div>

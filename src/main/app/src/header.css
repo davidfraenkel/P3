@@ -59,6 +59,7 @@
 /* Dropdown */
 .dropdown {
     position: relative;
+    z-index: 30;
 }
 
 .dropbtn {

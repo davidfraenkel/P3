@@ -58,6 +58,14 @@ export default function BookMeeting() {
             .then(response => response.json())
             .then(data => {
                 console.log('Success:', data);
+                alert('Your message has been sent!')
+                setContactInfo({
+                    name: '',
+                    email: '',
+                    message: '',
+                    date: null,
+                    selectedTime: '',
+                })
             })
             .catch((error) => {
                 console.error('Error:', error);

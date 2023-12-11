@@ -1,11 +1,14 @@
 import './styling/signup.css';
-import { useState } from 'react';
+// Login.js
+import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useUserContext } from './auth/userContext';
 import InputField from './smartComponents/inputField';
-import { useNavigate } from 'react-router-dom'
 
-export default function Login({setRole, setName}) {
+export default function Login() {
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
+    const { setUserInfo } = useUserContext();
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -23,31 +26,38 @@ export default function Login({setRole, setName}) {
             },
             body: JSON.stringify(inputs),
         })
-            .then(response => response.json())
-            .then(data => {
-                data.role.toLocaleLowerCase();
-                setRole((data.role))
-                setName((data.username))
+            .then((response) => response.json())
+            .then((data) => {
+                // Update user information using the context
+                setUserInfo({
+                    role: data.role,
+                    name: data.username,
+                    userId: data._id,
+                });
+
+                // Navigate based on the user's role
                 switch (data.role) {
-                    case "normalrole":
+                    case 'NormalUser':
+                    case 'Client':
                         navigate('/overview');
                         break;
-                    case "client":
-                        navigate('/overview');
+                    case 'Content Creator':
+                        navigate('/ccoverview');
                         break;
-                    case "content creator":
-                        navigate("/ccoverview");
+                    case 'admin':
+                        navigate('/');
                         break;
-                    case "admin":
-                        navigate("/");
+                    default:
+                        // Handle other roles or cases if needed
+                        break;
                 }
+
                 console.log('Success:', data);
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
     };
-
 
     return (
         <div className="SignupBackgroundImg">
@@ -77,6 +87,7 @@ export default function Login({setRole, setName}) {
                             <input type="submit" value="log in" />
                         </div>
                     </form>
+                    Don't have an account? <a href="/signup">Sign up</a>
                 </div>
                 <div className="SignupBackground"></div>
             </div>

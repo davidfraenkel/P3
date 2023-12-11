@@ -1,0 +1,22 @@
+.ccsubtopic-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ccsubtopic-container .form-field {
+    margin-bottom: 10px;
+}
+
+.ccsubtopic-container .button-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px; /* Adjust the gap as needed */
+    width: 100%;
+    max-width: 600px; /* Adjust the maximum width as needed */
+    margin-top: 10px;
+}
+
+.ccsubtopic-container .button {
+    width: 100%;
+}

@@ -10,8 +10,14 @@ export default function useUser() {
         return JSON.parse(tokenString);
     };
 
+    const getUserId = () => {
+        const tokenString = sessionStorage.getItem('userId');
+        return JSON.parse(tokenString);
+    }
+
     const [role, setRole] = useState(getRole());
     const [name, setName] = useState(getUserName());
+    const [userId, setUserId] = useState(getUserId());
 
     const saveRole = (userRole) => {
         sessionStorage.setItem('role', JSON.stringify(userRole));
@@ -23,10 +29,17 @@ export default function useUser() {
         setName(userName.name);
     };
 
+    const saveUserId = (userId) => {
+        sessionStorage.setItem('userId', JSON.stringify(userId));
+        setUserId(userId.userId);
+    }
+
     return {
         setRole: saveRole,
         role,
         setName: saveName,
         name,
+        setUserId: saveUserId,
+        userId,
     };
 }

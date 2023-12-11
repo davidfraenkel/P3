@@ -2,6 +2,7 @@ package com.p3.gruppe4.Models.Handbook;
 
 
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.jsonSchema;
 
 import com.mongodb.MongoException;
 import com.mongodb.client.*;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 
 public class Handbook {
 
@@ -160,9 +162,10 @@ public class Handbook {
             returnDocument = new Document()
                     .append("_id", subTopic.getId().toString())
                     .append("name", subTopic.getName())
-                    .append("imagePath", subTopic.getImagePath())
-                    .append("parentId", parentId)
-                    .append("content", subTopic.getContent());
+                    .append("imagePath", file.getOriginalFilename())
+                    .append("parentId", subTopic.getParentId())
+                    .append("content", subTopic.getContent())
+                    .append("summary", subTopic.getSummary());
             collection.insertOne(returnDocument);
 
             SaveFile saveFile = new SaveFile();
@@ -174,7 +177,7 @@ public class Handbook {
         return returnDocument;
     }
 
-    public Document editSubTopic(SubTopic subTopic, String subTopicId){
+    public Document editSubTopic(String jsonData, String subTopicId, List<MultipartFile> files){
         Document returnDoc = new Document();
         try  {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
@@ -183,13 +186,28 @@ public class Handbook {
             Document oldDoc = collection.find(eq("_id", subTopicId))
                     .first();
 
+            System.out.println("JSONdata:  "+jsonData);
+
             returnDoc = new Document("$set", new Document()
-                    .append("name", !subTopic.getName().isEmpty() ? subTopic.getName() : oldDoc.getString("name"))
-                    .append("imagePath", !subTopic.getImagePath().isEmpty() ? subTopic.getImagePath() : oldDoc.getString("imagePath"))
-                    .append("content", !subTopic.getContent().isEmpty() ? subTopic.getContent() : oldDoc.getString("content"))
+                    .append("name", oldDoc.getString("name"))
+                    .append("imagePath", oldDoc.getString("imagePath"))
+                    .append("content", jsonData)
+                    .append("summary", oldDoc.getString("summary"))
             );
 
-            collection.updateOne(new Document().append("_id",  subTopic), returnDoc);
+            System.out.println(oldDoc);
+
+            // Handle file data
+            if (files != null && !files.isEmpty()) {
+                for (MultipartFile file : files) {
+                    System.out.println("File Name: " + file.getOriginalFilename());
+                    // Process each file as needed
+                    SaveFile saveFile = new SaveFile();
+                    saveFile.store(file);
+                }
+            }
+
+            collection.updateOne(new Document().append("_id",  subTopicId), returnDoc);
         } catch (MongoException me) {
             System.err.println("Unable to insert due to an error: " + me);
         }

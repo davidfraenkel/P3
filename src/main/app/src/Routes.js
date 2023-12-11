@@ -2,55 +2,52 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from "./components/home";
 import Signup from "./components/signup";
-import Homeview from "./components/ClientView/homeview";
 import Overview from "./components/ClientView/overview";
-import CcSubOverview from "./components/CCView/ccsuboverview"
 import SubOverview from "./components/ClientView/subOverview";
 import Subtopic from "./components/ClientView/subtopic";
 import CcOverview from "./components/CCView/ccoverview";
 import CreateUpdateTopic from "./components/CCView/createUpdateTopic";
 import CreateUpdateSubtopic from "./components/CCView/createUpdateSubtopic";
+import CreateSubTopicContent from "./components/CCView/createSubTopicContent"
+
 import AdminUserPanel from "./components/AdminView/adminUserPanel";
-import UserProfilePanel from "./components/UserProfile/userProfilePanel";
 import BookMeeting from "./components/ClientView/bookMeeting";
-import Meeting from "./components/ClientView/meeting";
+import YouTubeApp from "./components/ClientView/YouTubeApp";
 import useUser from "./components/auth/setUser";
+import UserProfilePanel from "./components/UserProfile/userProfilePanel";
+import CcSubOverview from "./components/CCView/ccsuboverview";
+import Homeview from "./components/ClientView/homeview";
 import Login from "./components/login";
-import Header from "./Header"; // Import the Meeting component
+import Header from "./Header";
+
+import { UserProvider } from "./components/auth/userContext";
 
 function Router() {
     const {role, setRole} = useUser();
     const {name, setName} = useUser();
-/*    let payload = {
-        meetingNumber: 84084099070,
-        role: 0,
-        sdkKey: 'wD1nCdGxR6eV7qOFMxD5Ag',
-        sdkSecret: 'oVqL5KNytCv6HmHavD0zB4112f7dqHc7',
-        passWord: 'vQXUR4',
-        userName: 'Testing',
-        userEmail: '',
-        leaveUrl: 'https://localhost:3000',
-    };*/
+    const {userId, setUserId} = useUser();
 
     return (
-        <div>
-        <Header name={name} role={role}/>
+        <UserProvider>
+        <Header name={name} role={role} />
         <BrowserRouter>
             <Routes>
-                <Route path="/login" element={<Login setRole={setRole} setName={setName}/>}/>
+                <Route path="/login" element={<Login />}/>
 
                 {/*CLIENT*/}
                 <Route path="/" element={<Home />}>
                 </Route>
-                <Route path="/signup" element={<Signup setRole={setRole} setName={setName}/>}>
+                <Route path="/signup" element={<Signup />}>
                 </Route>
                 <Route path="/overview" element={<Overview />}>
                 </Route>
                 <Route path="/overview/sub-overview/subtopic" element={<Subtopic />}>
                 </Route>
-                <Route path={"/userprofile"} element={<UserProfilePanel />}>
+                <Route path={"/userprofile"} element={<UserProfilePanel userId={userId}/>}>
                 </Route>
+
                 <Route path="/overview/book-meeting" element={<BookMeeting />} />
+                <Route path="/webinar" element={<YouTubeApp />} />
 
                 {/*CONTENT CREATOR*/}
                 <Route path="/ccoverview" element={<CcOverview />}>
@@ -61,21 +58,18 @@ function Router() {
                 </Route>
                 <Route path="/ccoverview/ccsub-overview/create-update-subtopic" element={<CreateUpdateSubtopic />}>
                 </Route>
+                <Route path="/ccoverview/ccsub-overview/ccsubtopic" element={<CreateSubTopicContent />}></Route>
                 <Route path="/ccoverview/ccsub-overview" element={<CcSubOverview />}>
                 </Route>
                 <Route path="/homeview" element={<Homeview />}>
                 </Route>
 
-
                 {/* Admin */}
                 <Route path="/admin-panel" element={<AdminUserPanel />} />
 
-                {/* Meeting route */}
-
-                {/*<Route path="/meeting" element={<Meeting payload={payload} />} />*/}
             </Routes>
         </BrowserRouter>
-        </div>
+        </UserProvider>
     );
 }
 

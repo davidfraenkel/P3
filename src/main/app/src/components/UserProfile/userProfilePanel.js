@@ -2,8 +2,7 @@ import './styling/userProfilePanel.css'
 import React, { useState, useEffect } from 'react';
 
 // Assuming user object has an 'id' field
-const userId = '65576090797f5a24a6e0bc1f';
-export default function UserProfilePanel() {
+export default function UserProfilePanel({userId}) {
     const [user, setUser] = useState({});
 
     useEffect(() => {

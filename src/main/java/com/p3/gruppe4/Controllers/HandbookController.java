@@ -1,16 +1,22 @@
 package com.p3.gruppe4.Controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.p3.gruppe4.Models.Handbook.Handbook;
 import com.p3.gruppe4.Models.Handbook.SubTopic;
 import com.p3.gruppe4.Models.Handbook.Topic;
 import org.bson.Document;
 import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -44,21 +50,31 @@ public class HandbookController extends Controller {
             topic = objectMapper.readValue(topicJson, Topic.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            // Handle the exception as needed
             return "Failed to create topic";
         }
+        // Your logic to save or process the data
+        this.handbook.createTopic(topic, image).toJson();
 
-        // Access the properties of the TopicRequest object
-        System.out.println("Name: " + topic.getName());
-        System.out.println("Phone Number: " + topic.getImagePath());
-        System.out.println("File Name: " + image.getOriginalFilename());
-
-        return this.handbook.createTopic(topic, image).toJson();
+        return "Topic created successfully";
     }
 
     @PostMapping("/editTopic")
-    public String editTopic(@RequestBody Topic topic, @RequestParam(name = "topicId") String topicId){
-        return this.handbook.editTopic(topicId, topic).toJson();
+    public String editTopic(@RequestParam MultipartFile image,
+                            @RequestParam("topic") String topicJson,
+                            @RequestParam(name = "topicId") String topicId){
+        // Convert JSON string to TopicRequest object
+        ObjectMapper objectMapper = new ObjectMapper();
+        Topic topic = null;
+        try {
+            topic = objectMapper.readValue(topicJson, Topic.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "Failed to create topic";
+        }
+        // Your logic to save or process the data
+        this.handbook.createTopic(topic, image).toJson();
+
+        return "Topic updated successfully";
     }
 
     @GetMapping("/deleteTopic")
@@ -71,32 +87,42 @@ public class HandbookController extends Controller {
         return this.handbook.getAllSubTopics(parentId);
     }
 
-    @PostMapping("/getSubTopic")
-    public String getSubTopc(@RequestParam(name = "subTopicId") String id){
+    @GetMapping("/getSubTopic")
+    public String getSubTopic(@RequestParam(name = "subTopicId") String id){
         return this.handbook.getSubTopic(id).toJson();
     }
 
     @PostMapping(value= "/createSubTopic", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public String createSubTopic(@RequestParam("subTopic") String subTopicJson,
-                                 @RequestParam(name = "parentTopicId") String parentId,
-                                 @RequestParam MultipartFile image){
+    public String createSubTopic(@RequestParam MultipartFile image,
+                                 @RequestParam("subTopic") String subTopicJSON){
+        // Convert JSON string to TopicRequest object
         ObjectMapper objectMapper = new ObjectMapper();
         SubTopic subTopic = null;
         try {
-            subTopic = objectMapper.readValue(subTopicJson, SubTopic.class);
+            subTopic = objectMapper.readValue(subTopicJSON, SubTopic.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            // Handle the exception as needed
             return "Failed to create topic";
         }
 
-        return this.handbook.createSubTopic(subTopic, parentId, image).toJson();
+        return this.handbook.createSubTopic(subTopic, image).toJson();
     }
 
-    @PostMapping("/editSubTopic")
-    public String editSubTopic(@RequestBody SubTopic subTopic, @RequestParam(name = "subTopicId") String subTopicId){
-        return this.handbook.editSubTopic(subTopic, subTopicId).toJson();
+    @PostMapping(value = "/editSubTopic", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    public String editSubTopic(
+            @RequestParam(value = "jsonData", required = false) String jsonData,
+            @RequestParam(value = "fileData", required = false) List<MultipartFile> files,
+            @RequestParam(value = "subtopicId", required = false) String subtopicId
+    ) {
+        // Parse the JSON data
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Map<String, String>> jsonList;
+
+
+        return this.handbook.editSubTopic(jsonData, subtopicId, files).toJson();
     }
+
+
 
     @PostMapping("/deleteSubTopic")
     public long deleteSubTopic(@RequestParam(name = "subTopicId") String subTopicId){
