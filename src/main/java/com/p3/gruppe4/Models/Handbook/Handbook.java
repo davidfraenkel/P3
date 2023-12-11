@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 
 public class Handbook {
 
@@ -174,7 +175,7 @@ public class Handbook {
         return returnDocument;
     }
 
-    public Document editSubTopic(String jsonData, String subTopicId){
+    public Document editSubTopic(String jsonData, String subTopicId, List<MultipartFile> files){
         Document returnDoc = new Document();
         try  {
             MongoDatabase db = this.mongoClient.getDatabase("Gastrome");
@@ -192,6 +193,16 @@ public class Handbook {
             );
 
             System.out.println(oldDoc);
+
+            // Handle file data
+            if (files != null && !files.isEmpty()) {
+                for (MultipartFile file : files) {
+                    System.out.println("File Name: " + file.getOriginalFilename());
+                    // Process each file as needed
+                    SaveFile saveFile = new SaveFile();
+                    saveFile.store(file);
+                }
+            }
 
             collection.updateOne(new Document().append("_id",  subTopicId), returnDoc);
         } catch (MongoException me) {

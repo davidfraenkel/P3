@@ -80,8 +80,8 @@ public class HandbookController extends Controller {
         return this.handbook.getAllSubTopics(parentId);
     }
 
-    @PostMapping("/getSubTopic")
-    public String getSubTopc(@RequestParam(name = "subTopicId") String id){
+    @GetMapping("/getSubTopic")
+    public String getSubTopic(@RequestParam(name = "subTopicId") String id){
         return this.handbook.getSubTopic(id).toJson();
     }
 
@@ -130,14 +130,7 @@ public class HandbookController extends Controller {
             return "Failed to parse JSON data";
         }
 
-        // Handle file data
-        if (files != null && !files.isEmpty()) {
-            for (MultipartFile file : files) {
-                System.out.println("File Name: " + file.getOriginalFilename());
-                // Process each file as needed
-            }
-        }
-            return this.handbook.editSubTopic(jsonData, subtopicId).toJson();
+            return this.handbook.editSubTopic(jsonData, subtopicId, files).toJson();
     }
 
 
