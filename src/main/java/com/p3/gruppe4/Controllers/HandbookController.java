@@ -50,15 +50,8 @@ public class HandbookController extends Controller {
             topic = objectMapper.readValue(topicJson, Topic.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            // Handle the exception as needed
             return "Failed to create topic";
         }
-
-        // Access the properties of the TopicRequest object
-        System.out.println("Name: " + topic.getName());
-        System.out.println("Phone Number: " + topic.getImagePath());
-        System.out.println("File Name: " + image.getOriginalFilename());
-
         // Your logic to save or process the data
         this.handbook.createTopic(topic, image).toJson();
 
