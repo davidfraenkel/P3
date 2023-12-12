@@ -25,6 +25,7 @@ import { AlertProvider } from "./components/smartComponents/alertContext";
 import Alert from "./components/smartComponents/alert";
 import {PreviousPageWrapper} from "./components/smartComponents/previousPage";
 import Footer from "./Footer";
+import AdminMeetingPanel from "./components/AdminView/AdminMeetingPanel";
 
 function Router() {
 
@@ -70,6 +71,7 @@ function Router() {
 
                             {/* Admin */}
                             <Route path="/admin-panel" element={<AdminUserPanel />} />
+                            <Route path="/admin-panel/meeting" element={<AdminMeetingPanel />} />
                         </Routes>
                             </div>
                     </AlertProvider>

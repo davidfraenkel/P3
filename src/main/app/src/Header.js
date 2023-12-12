@@ -22,7 +22,7 @@ export default function Header() {
                 <div className="navbar-links" id="basic-navbar-nav">
                     {isAdmin && (
                         <>
-                            <a href="/meeting">Meeting</a>
+                            <a href="/admin-panel/meeting">Meeting</a>
                             <a href="/webinar">Webinar</a>
                             <a href="/admin-panel">Manage roles</a>
                         </>

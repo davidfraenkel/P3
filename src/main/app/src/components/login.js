@@ -44,8 +44,8 @@ export default function Login() {
                     case 'Content Creator':
                         navigate('/ccoverview');
                         break;
-                    case 'admin':
-                        navigate('/');
+                    case 'Admin':
+                        navigate('/admin-panel');
                         break;
                     default:
                         // Handle other roles or cases if needed
