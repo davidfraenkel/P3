@@ -4,7 +4,7 @@ import YouTubeChat from './YouTubeChat';
 
 const YouTubeApp = () => {
     const channelID = "UCMN1zTJH_O6Tq2e_o9HovVQ"; // Replace with your channel ID
-    const videoID = "0ijfMNAB20M"; // Replace with your video ID
+    const videoID = "DQDKuNZLBv8"; // Replace with your video ID
     const domain = window.location.hostname;
 
     return (

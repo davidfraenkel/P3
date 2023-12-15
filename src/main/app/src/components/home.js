@@ -10,18 +10,23 @@ import Overview from "./ClientView/overview";
 function BackgroundText() {
     return (
         <div className='HomeScreenBackgroundContainer'>
-            <h1>Welcome to Gastromé</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, excepturi fuga illum inventore laudantium libero maiores maxime minima minus nostrum officia pariatur porro possimus quisquam recusandae rerum saepe vel voluptate.</p>
+            <h1>Masterclass</h1>
+            <h2 style={{marginTop: '-30px'}}>by Gastromé</h2>
+            <p>Dive into the world of gastronomy with our expert-led masterclass.
+                Designed for new restaurant owners, this course offers insights from the seasoned team at [Michelin Star Restaurant Name].
+                Learn everything from exquisite menu creation to efficient business management, all crafted to elevate your restaurant to new heights.
+                Join us for an inspiring journey into culinary and operational mastery</p>
         </div>
     )
 }
+
 function Background({resultRef}) {
     return (
         <div className='HomeScreenBackgroundOverlay'>
-                <BackgroundText />
+            <BackgroundText/>
             <div className='HomeScreenBackground'>
             </div>
-                <ScrollArrow resultRef={resultRef}/>
+            <ScrollArrow resultRef={resultRef}/>
         </div>
 
     )
@@ -46,10 +51,19 @@ function InformationSection() {
             <div className='InformationContainer'>
                 <div className='InformationSectionText'>
                     <h2>Learn from a established restaurant</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi cupiditate, distinctio doloribus eius et eveniet illo labore minima molestias, necessitatibus nesciunt nisi odit pariatur porro quaerat quas repudiandae soluta voluptatibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias architecto corporis delectus, dolore, doloremque eius fugiat harum ipsam iste iure mollitia obcaecati optio pariatur quasi repudiandae sapiente tempore veniam voluptate. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur dolore doloremque ducimus fuga incidunt iure, laboriosam odio optio pariatur, placeat, possimus quaerat quas repellendus similique voluptate. Eligendi laboriosam nemo ullam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur dicta dolorum ducimus eum facere iste iure nam natus nihil officia porro quae, qui quod similique sit sunt ullam voluptate voluptates!</p>
+                    <p>This masterclass isn't just about learning; it's about transforming your vision into reality.
+                        Whether you're dreaming of opening a cozy bistro or a high-end gastronomic destination, our
+                        curated content, interactive sessions,
+                        and personalized feedback will equip you with the tools you need to succeed.</p>
+                    <h2>What you will learn</h2>
+                    <p>Our masterclass bridges the gap between aspiration and reality, offering a blend of traditional
+                        expertise and modern innovation. With exclusive insights from Gastromé's celebrated chefs and
+                        industry experts, you'll learn not just the hows but also the whys of restaurant management.
+                        Embrace the journey of culinary excellence with us and turn your passion into a thriving
+                        gastronomic venture.</p>
                 </div>
                 <div className='InformationSectionImage'>
-                    <img src={fineDining} alt='Fine dining' />
+                    <img src={fineDining} alt='Fine dining' style={{ maxWidth: '100%', maxHeight: '480px'}}/>
                 </div>
             </div>
         </div>

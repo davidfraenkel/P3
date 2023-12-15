@@ -7,7 +7,7 @@ const YouTubeStream = ({ channel }) => {
             height="600"
             src={`https://youtube.com/embed/live_stream?channel=${channel}`}
             frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
             allowFullScreen
         ></iframe>
     );
