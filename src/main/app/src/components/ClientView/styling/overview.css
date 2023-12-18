@@ -19,7 +19,7 @@
 .TopicContainer {
     border-radius: 20px;
     width: 384px;
-    height: 436px;
+    height: 350px;
     position: relative;
     background-size: cover;
     transition: transform 0.1s ease-in-out;
