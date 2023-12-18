@@ -1,6 +1,5 @@
 package com.p3.gruppe4;
 
-import com.p3.gruppe4.Models.Users.Admin;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
