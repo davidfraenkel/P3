@@ -1,0 +1,50 @@
+/* MeetingRequest.css */
+
+.meeting-request {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #333;
+}
+
+p {
+    margin: 10px 0;
+}
+/* Add this CSS to your stylesheet or component */
+
+.ButtonAccept,
+.ButtonDecline {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid #4caf50; /* Green for ButtonAccept */
+    border-radius: 5px;
+    color: #fff;
+    background-color: #4caf50; /* Green for ButtonAccept */
+    margin: 5px;
+    transition: background-color 0.3s;
+}
+
+.ButtonDecline {
+    border: 2px solid #f44336; /* Red for ButtonDecline */
+    background-color: #f44336; /* Red for ButtonDecline */
+}
+
+.ButtonAccept:hover,
+.ButtonDecline:hover {
+    background-color: #45a049; /* Darker green for ButtonAccept hover */
+}
+
+.ButtonDecline:hover {
+    background-color: #f22f22; /* Darker red for ButtonDecline hover */
+}
+

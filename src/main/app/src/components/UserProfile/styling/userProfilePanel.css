@@ -1,0 +1,55 @@
+.UserProfilePanelHeader p {
+    color: rgb(107 114 128);
+}
+
+.UserProfilePanelBox {
+    margin-top: 2rem;
+    border: 1px solid rgb(229 231 235);
+    border-radius: 10px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 2.5rem;
+    padding-top: 2.5rem;
+}
+
+.UserProfilePanelContainer {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
+
+.UserProfilePanelContent {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.FirstName, .LastName, .Email, .Role, .Password, .PasswordConfirm, .PhoneNumber{
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    border-top: #ced2d5 solid 1px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.UserProfilePanelContent dt {
+    width: 20%;
+}
+
+.SubmitEdit {
+    margin-left: auto;
+    margin-right: auto;
+    width: 20%;
+}
+.submit {
+    font-size: 20px;
+    background: rgb(8,26,44);
+    color: white;
+    border-radius: 5px;
+}
+
+.inputField {
+    border: none;
+    font-size: 16px;
+}

@@ -1,0 +1,31 @@
+.CreateUpdateSubtopicContainer {
+    width: 384px;
+    height: 436px;
+    position: relative;
+    border-radius: 20px;
+
+}
+
+.CreateUpdateSubtopic {
+    --b: 4px; /* the thickness */
+    width: 40px; /* the size */
+    aspect-ratio: 1;
+    border: 10px solid #4CAF50; /* the outer space */
+    background: conic-gradient(from 90deg at var(--b) var(--b),#4CAF50 90deg,#fff 0)
+    calc(100% + var(--b)/2) calc(100% + var(--b)/2)/
+    calc(50%  + var(--b))   calc(50%  + var(--b));
+    display: inline-block;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.update{
+    color: white;
+    stroke: white;
+    stroke-width: 2px;
+    font-size: 25px
+}
+

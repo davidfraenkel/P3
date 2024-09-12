@@ -1,0 +1,14 @@
+# Stage 1: Build the React frontend
+FROM node:latest as react-build
+WORKDIR /app
+
+COPY src/main/app/package.json src/main/app/package-lock.json ./
+RUN npm install
+COPY src/main/app/ ./
+RUN npm run build
+
+# Serve the application with Nginx
+FROM nginx:alpine
+COPY --from=react-build /app/build /usr/share/nginx/html
+COPY default.conf /etc/nginx/conf.d/default.conf
+EXPOSE 8080
